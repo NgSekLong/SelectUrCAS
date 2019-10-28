@@ -1,0 +1,14 @@
+language: java
+sudo: false
+branches:
+  only:
+  - master
+jdk:
+- oraclejdk11
+cache:
+  directories:
+    - '$HOME/.gradle/caches'
+before_install:
+- chmod -R 777 ./gradlew
+script:
+- ./gradlew clean assemble --parallel -q -DskipJavadocs=true
