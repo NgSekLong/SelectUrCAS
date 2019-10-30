@@ -1,0 +1,4 @@
+version: '3.7'
+services:
+  redis2:
+    image: "redis:alpine"
