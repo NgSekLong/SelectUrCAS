@@ -4,7 +4,7 @@ services:
     volumes: 
       - type: bind
         source: ./authentication/json-whitelist/config/cas.properties
-        target: /cas-overlay/etc/cas/config/json-whitelist-authentication-cas.properties
+        target: /etc/cas/config/json-whitelist-authentication-cas.properties
       - type: bind
         source: ./authentication/json-whitelist/resources/sample.json
-        target: /cas-overlay/etc/cas/resources/json-whitelist-authentication-sample.json
+        target: /etc/cas/resources/json-whitelist-authentication-sample.json

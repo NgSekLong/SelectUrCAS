@@ -1,72 +1,146 @@
-# Central Authentication Service (CAS) [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/Jasig/cas/blob/master/LICENSE)
+CAS Overlay Template [![Build Status](https://travis-ci.org/apereo/cas-overlay-template.svg?branch=master)](https://travis-ci.org/apereo/cas-overlay-template)
+=======================
 
-## Introduction
+Generic CAS WAR overlay to exercise the latest versions of CAS. This overlay could be freely used as a starting template for local CAS war overlays.
 
-This repository hosts the [Docker](https://www.docker.com/) build configuration necessary to build a [CAS](https://github.com/apereo/cas) image. See the `Dockerfile` for more info.
+# Versions
 
-## Versions
+- CAS `6.2.x`
+- JDK `11`
 
-A docker image for CAS server. Images are tagged to match CAS server releases.
+# Overview
 
-## Requirements
-
-* Docker version `1.9.x` ~ `18.x`
-
-## Configuration
-
-### Image
-
-* The image will be available on the host via ports `8080` and `8443`
-* You must check the `Dockerfile` to ensure the right branch from the [CAS overlay project](https://github.com/apereo/cas-overlay-template) is pulled/cloned.
-* Check the [CAS overlay project](https://github.com/apereo/cas-overlay-template) itself to figure out the targetted CAS release.
-
-### SSL
-
-* Update the `thekeystore` file with the server certificate and chain if you need access the CAS server via HTTPS. 
-* The password for the keystore is `changeit`.
-* The build will automatically copy the keystore file to the image. The embedded container packaged in the overlay is pre-configured to use that keystore for HTTPS requests.
+To build the project, use:
 
 ```bash
-keytool -genkeypair -alias cas -keyalg RSA -keypass changeit \
-        -storepass changeit -keystore ./thekeystore \
-        -dname "CN=cas.example.org,OU=Example,OU=Org,C=AU" \
-        -ext SAN="dns:example.org,dns:localhost,ip:127.0.0.1"
+# Use --refresh-dependencies to force-update SNAPSHOT versions
+./gradlew[.bat] clean build
 ```
 
-...and add `cas.example.org` to your hosts file:
+To see what commands are available to the build script, run:
 
 ```bash
-# echo '127.0.0.1 cas.example.org' >> /etc/hosts
+./gradlew[.bat] tasks
 ```
 
-Be sure to adjust the above values to match your CAS domain.
-
-### CAS Configuration
-
-The build will also auto-copy configuration files under the `etc/cas` directory to the corresponding locations inside the image.
-
-## Build [![](https://badge.imagelayers.io/apereo/cas:latest.svg)](https://imagelayers.io/?images=apereo/cas:latest 'apereo cas')
-
-**NOTE:** On windows, you may want to run `bash` first so you can execute shell scripts.
+To launch into the CAS command-line shell:
 
 ```bash
-./build.sh $CasVersion
+./gradlew[.bat] downloadShell runShell
 ```
 
-The image will be built as `apereo/cas:v$CasVersion`.
-
-## Run
+To fetch and overlay a CAS resource or view, use:
 
 ```bash
-./run.sh $CasVersion
+./gradlew[.bat] getResource -PresourceName=[resource-name]
 ```
 
-## Release
-
-* New images shall be released at the time of a new CAS server release.
-* Image versions are reflected in the `build|run.sh` files and need to be updated per CAS/Image release.
-* Images are published to [https://hub.docker.com/r/apereo/cas/](https://hub.docker.com/r/apereo/cas/)
+To list all available CAS views and templates:
 
 ```bash
-./push.sh $CasVersion
+./gradlew[.bat] listTemplateViews
+```
+
+To unzip and explode the CAS web application file and the internal resources jar:
+
+```bash
+./gradlew[.bat] explodeWar
+```
+
+# Configuration
+
+- The `etc` directory contains the configuration files and directories that need to be copied to `/etc/cas/config`.
+
+```bash
+./gradlew[.bat] copyCasConfiguration
+```
+
+- The specifics of the build are controlled using the `gradle.properties` file.
+
+## Adding Modules
+
+CAS modules may be specified under the `dependencies` block of the [Gradle build script](build.gradle):
+
+```gradle
+dependencies {
+    compile "org.apereo.cas:cas-server-some-module:${project.casVersion}"
+    ...
+}
+```
+
+To collect the list of all project modules and dependencies:
+
+```bash
+./gradlew[.bat] allDependencies
+```
+
+### Clear Gradle Cache
+
+If you need to, on Linux/Unix systems, you can delete all the existing artifacts (artifacts and metadata) Gradle has downloaded using:
+
+```bash
+# Only do this when absolutely necessary
+rm -rf $HOME/.gradle/caches/
+```
+
+Same strategy applies to Windows too, provided you switch `$HOME` to its equivalent in the above command.
+
+# Deployment
+
+- Create a keystore file `thekeystore` under `/etc/cas`. Use the password `changeit` for both the keystore and the key/certificate entries. This can either be done using the JDK's `keytool` utility or via the following command:
+
+```bash
+./gradlew[.bat] createKeystore
+```
+
+- Ensure the keystore is loaded up with keys and certificates of the server.
+
+On a successful deployment via the following methods, CAS will be available at:
+
+* `https://cas.server.name:8443/cas`
+
+## Executable WAR
+
+Run the CAS web application as an executable WAR:
+
+```bash
+./gradlew[.bat] run
+```
+
+Debug the CAS web application as an executable WAR:
+
+```bash
+./gradlew[.bat] debug
+```
+
+Run the CAS web application as a *standalone* executable WAR:
+
+```bash
+./gradlew[.bat] clean executable
+```
+
+## External
+
+Deploy the binary web application file `cas.war` after a successful build to a servlet container of choice.
+
+## Docker
+
+The following strategies outline how to build and deploy CAS Docker images.
+
+### Jib
+
+The overlay embraces the [Jib Gradle Plugin](https://github.com/GoogleContainerTools/jib) to provide easy-to-use out-of-the-box tooling for building CAS docker images. Jib is an open-source Java containerizer from Google that lets Java developers build containers using the tools they know. It is a container image builder that handles all the steps of packaging your application into a container image. It does not require you to write a Dockerfile or have Docker installed, and it is directly integrated into the overlay.
+
+```bash
+./gradlew build jibDockerBuild
+```
+
+### Dockerfile
+
+You can also use the native Docker tooling and the provided `Dockerfile` to build and run CAS.
+
+```bash
+chmod +x *.sh
+./docker-build.sh
+./docker-run.sh
 ```

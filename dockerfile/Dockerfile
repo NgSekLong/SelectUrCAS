@@ -1,50 +1,40 @@
-FROM centos:centos7
+FROM adoptopenjdk/openjdk11:alpine-slim AS overlay
 
-MAINTAINER Apereo Foundation
-
-ENV PATH=$PATH:$JRE_HOME/bin
-ARG cas_version
-
-RUN yum -y install wget tar unzip git \
-    && yum -y clean all
-
-# Download Azul Java, verify the hash, and install \
-RUN set -x; \
-    java_version=11.0.3; \
-    zulu_version=11.31.11-ca; \
-    java_hash=20218b15ae5ef1318aed1a3d5dde3219; \
-    cd / \
-    && wget http://cdn.azul.com/zulu/bin/zulu$zulu_version-jdk$java_version-linux_x64.tar.gz \
-    && echo "$java_hash  zulu$zulu_version-jdk$java_version-linux_x64.tar.gz" | md5sum -c - \
-    && tar -zxvf zulu$zulu_version-jdk$java_version-linux_x64.tar.gz -C /opt \
-    && rm zulu$zulu_version-jdk$java_version-linux_x64.tar.gz \
-    && ln -s /opt/zulu$zulu_version-jdk$java_version-linux_x64/ /opt/java-home;
-
-# Download the CAS overlay project \
-RUN cd / \
-    && git clone --depth 1 --single-branch -b $cas_version https://github.com/apereo/cas-overlay-template.git cas-overlay \
-    && mkdir -p /etc/cas \
-    && mkdir -p cas-overlay/bin;
-
-COPY thekeystore /etc/cas/
-COPY bin/*.* cas-overlay/
-COPY etc/cas/config/*.* /cas-overlay/etc/cas/config/
-COPY etc/cas/services/*.* /cas-overlay/etc/cas/services/
-
-RUN chmod 750 cas-overlay/gradlew \
-    && chmod 750 cas-overlay/*.sh \
-    && chmod 750 /opt/java-home/bin/java;
-
-EXPOSE 8080 8443
-
-WORKDIR /cas-overlay
-
-ENV JAVA_HOME /opt/java-home
-ENV PATH $PATH:$JAVA_HOME/bin:.
+RUN mkdir -p cas-overlay
+COPY ./src cas-overlay/src/
+COPY ./gradle/ cas-overlay/gradle/
+COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties /cas-overlay/
 
 RUN mkdir -p ~/.gradle \
     && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties \
-    && ./gradlew clean build --parallel \
-    && rm -rf /root/.gradle
+    && echo "org.gradle.configureondemand=true" >> ~/.gradle/gradle.properties \
+    && cd cas-overlay \
+    && chmod 750 ./gradlew \
+    && ./gradlew --version;
 
-CMD ["/cas-overlay/run-cas.sh"]
+RUN cd cas-overlay \
+    && ./gradlew clean build --parallel;
+
+FROM adoptopenjdk/openjdk11:alpine-jre AS cas
+
+LABEL "Organization"="Apereo"
+LABEL "Description"="Apereo CAS"
+
+RUN cd / \
+    && mkdir -p /etc/cas/config \
+    && mkdir -p /etc/cas/services \
+    && mkdir -p /etc/cas/saml \
+    && mkdir -p cas-overlay;
+
+COPY etc/cas/ /etc/cas/
+COPY etc/cas/config/ /etc/cas/config/
+COPY etc/cas/services/ /etc/cas/services/
+COPY etc/cas/saml/ /etc/cas/saml/
+COPY --from=overlay cas-overlay/build/libs/cas.war cas-overlay/
+
+EXPOSE 8080 8443
+
+ENV PATH $PATH:$JAVA_HOME/bin:.
+
+WORKDIR cas-overlay
+ENTRYPOINT ["java", "-server", "-noverify", "-Xmx2048M", "-jar", "cas.war"]

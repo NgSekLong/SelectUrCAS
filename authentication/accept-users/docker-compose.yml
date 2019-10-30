@@ -4,4 +4,4 @@ services:
     volumes: 
       - type: bind
         source: ./authentication/accept-users/config/cas.properties
-        target: /cas-overlay/etc/cas/config/accept-users-authentication-cas.properties
+        target: /etc/cas/config/accept-users-authentication-cas.properties
