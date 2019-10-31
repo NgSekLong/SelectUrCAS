@@ -18,7 +18,7 @@ mv docker/cas/services/*.* /etc/cas/services 2>/dev/null
 
 # Remove and Merge all the properties into cas.properties
 rm -f /etc/cas/config/cas.properties
-cat /etc/cas/config/*.properties > ./etc/cas/config/cas.properties
+cat /etc/cas/config/*.properties > /etc/cas/config/cas.properties
 
 #echo -e "\nListing CAS configuration under /etc/cas..."
 #ls -R /etc/cas

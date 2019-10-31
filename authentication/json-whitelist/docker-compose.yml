@@ -3,8 +3,11 @@ services:
   cas:
     volumes: 
       - type: bind
-        source: ./authentication/json-whitelist/config/cas.properties
+        source: ./authentication/json-whitelist/cas.properties
         target: /etc/cas/config/json-whitelist-authentication-cas.properties
       - type: bind
-        source: ./authentication/json-whitelist/resources/sample.json
+        source: ./authentication/json-whitelist/sample.json
         target: /etc/cas/resources/json-whitelist-authentication-sample.json
+      - type: bind
+        source: ./authentication/json-whitelist/build.gradle
+        target: /cas-overlay/build-gradle-dependencies/json-whitelist-authentication-build.gradle

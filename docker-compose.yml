@@ -5,5 +5,3 @@ services:
       context: ./dockerfile/.
     ports:
       - "8443:8443"
-  #redis:
-  #  image: "redis:alpine"

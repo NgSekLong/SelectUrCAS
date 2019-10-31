@@ -1,5 +1,0 @@
-description = "Apereo Cenrtal Authentication Service"
-
-allprojects {
-    apply plugin: 'java'
-}

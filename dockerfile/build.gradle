@@ -42,10 +42,10 @@ apply plugin: "idea"
 apply from: rootProject.file("gradle/springboot.gradle")
 apply from: rootProject.file("gradle/dockerjib.gradle")
 
-dependencies {
-    // Other CAS dependencies/modules may be listed here...
-    // compile "org.apereo.cas:cas-server-support-json-service-registry:${casServerVersion}"
-}
+// dependencies {
+//     // Other CAS dependencies/modules may be listed here...
+//     // compile "org.apereo.cas:cas-server-support-json-service-registry:${casServerVersion}"
+// }
 
 tasks.findByName("jibDockerBuild")
     .dependsOn(copyWebAppIntoJib, copyConfigIntoJib)
