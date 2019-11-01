@@ -1,0 +1,2 @@
+compile "org.apereo.cas:cas-server-support-jdbc:${project.'cas.version'}"
+compile "org.apereo.cas:cas-server-support-jdbc-drivers:${project.'cas.version'}"

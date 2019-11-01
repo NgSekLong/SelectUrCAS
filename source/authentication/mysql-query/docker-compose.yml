@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  cas:
+    volumes: 
+      - type: bind
+        source: ${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/cas.properties
+        #target: /etc/cas/config/json-whitelist-authentication-cas.properties
+        target: /etc/cas/config/${AUTHENTICATION_MYSQL_QUERY}cas.properties
+      - type: bind
+        source: ${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${AUTHENTICATION_MYSQL_QUERY}build.gradle
+  mysql_query_authentication:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: mysql_query_authentication
+      MYSQL_ROOT_PASSWORD: mysql
+    volumes: 
+      - ${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/init.sql:/docker-entrypoint-initdb.d/init.sql
+    hostname: mysql_query_authentication
