@@ -30,9 +30,9 @@ RUN mkdir -p ~/.gradle \
     && echo "org.gradle.configureondemand=true" >> ~/.gradle/gradle.properties \
     && cd cas-overlay \
     && chmod 750 ./gradlew \
-    && ./gradlew --version;
+    && ./gradlew --version \
+    && ./gradlew clean;
 
-RUN ./gradlew clean
 
 
 LABEL "Organization"="Apereo"
@@ -57,4 +57,4 @@ ENV PATH $PATH:$JAVA_HOME/bin:.
 
 WORKDIR cas-overlay
 #ENTRYPOINT ["java", "-server", "-noverify", "-Xmx2048M", "-jar", "cas.war"]
-ENTRYPOINT "/cas-overlay/run_cas.sh"
+ENTRYPOINT "/cas-overlay/run-cas.sh"
