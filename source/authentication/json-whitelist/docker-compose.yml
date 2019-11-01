@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  cas:
+    volumes: 
+      - type: bind
+        source: ${AUTHENTICATION_JSON_WHITELIST:-.}/cas.properties
+        target: /etc/cas/config/json-whitelist-authentication-cas.properties
+      - type: bind
+        source: ${AUTHENTICATION_JSON_WHITELIST:-.}/sample.json
+        target: /etc/cas/resources/json-whitelist-authentication-sample.json
+      - type: bind
+        source: ${AUTHENTICATION_JSON_WHITELIST:-.}/build.gradle
+        target: /cas-overlay/build-gradle-dependencies/json-whitelist-authentication-build.gradle
