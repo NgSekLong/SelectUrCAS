@@ -23,7 +23,7 @@ COPY ./gradle/ cas-overlay/gradle/
 COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties /cas-overlay/
 
 # Add a base build gradle
-COPY ./build.gradle /cas-overlay/build-base.gradle
+COPY ./build.gradle /cas-overlay/build.default.gradle
 
 RUN mkdir -p ~/.gradle \
     && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties \
