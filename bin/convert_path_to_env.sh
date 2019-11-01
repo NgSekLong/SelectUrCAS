@@ -6,9 +6,11 @@ SCRIPTPATH=$(dirname "$SCRIPT")
 cd ${SCRIPTPATH}/../source
 
 env_file=../.env
+env_default_file=../.env.default
 
 # Truncate env_file
 : > $env_file
+cp $env_default_file $env_file
 
 for dir in `find . -type d`
 do
