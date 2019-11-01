@@ -12,6 +12,7 @@ env_default_file=../.env.default
 : > $env_file
 cp $env_default_file $env_file
 
+echo "########Avaliable variable###########"
 for dir in `find . -type d`
 do
 
@@ -22,16 +23,21 @@ fi
 constant=$dir
 constant=${constant//\.\//}
 constant=${constant//\//_}
-constant=${constant//-/_}
+
+constant_name=${constant//_/-}-
+echo $constant_name
 constant=$(echo $constant | tr a-z A-Z)
-echo $constant
+constant=${constant//-/_}
+constant_path="$constant"_PATH
+
 # Write to .env
-echo $constant=./source/$dir >> $env_file
+echo $constant=$constant_name >> $env_file
+echo $constant_path=./source/$dir >> $env_file
 
-#STR1="This is a string"
-#echo ${STR1// /,}
-
-echo $dir
-echo $constant
+echo 
+echo "\${$constant_path:-.} => ./source/$dir"
+echo "\${$constant} => $constant_name"
 
 done
+
+echo "########End of Avaliable variable###########"
