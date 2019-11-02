@@ -103,3 +103,4 @@ wrapper {
     distributionType = Wrapper.DistributionType.BIN
     gradleVersion = "${project.gradleVersion}"
 }
+

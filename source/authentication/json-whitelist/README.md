@@ -4,5 +4,5 @@ Documentation: https://apereo.github.io/cas/6.1.x/installation/Whitelist-Authent
 
 Login using:
 
-- Username: madlad
+- Username: json-whitelist
 - Password: Mellon

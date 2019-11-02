@@ -3,11 +3,13 @@ services:
   cas:
     volumes: 
       - type: bind
-        source: ${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/cas.properties
-        target: /etc/cas/config/properties/${AUTHENTICATION_JSON_WHITELIST}cas.properties
+        source: ${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/cas.yml
+        target: /etc/cas/config/properties/${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/cas.yml
       - type: bind
         source: ${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/sample.json
-        target: /etc/cas/resources/json-whitelist-authentication-sample.json
+        target: ${RESOURCE_PATH:-.}/${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/sample.json
       - type: bind
         source: ${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/build.gradle
-        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${AUTHENTICATION_JSON_WHITELIST}build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/build.gradle
+    environment:
+     - AUTHENTICATION_JSON_WHITELIST_PATH=${AUTHENTICATION_JSON_WHITELIST_PATH}
