@@ -9,6 +9,7 @@ Also, if the configutation is under a paid wall, I am not going to pay for it as
 
 WIP list:
 
+- CAS client - phpCAS
 - Configuration Storage - Standalone - Directory
 - Configuration Storage - Standalone - File
 - Configuration Storage - Spring Cloud - Native
@@ -91,8 +92,25 @@ WIP list:
 - Surrogate Authentication - JDBC
 - Surrogate Authentication - REST
 - Surrogate Authentication - Notification
-- Surrogate Authentication - Risk-based Authentication
-- Surrogate Authentication - Passwordless Authentication
+- Risk-based Authentication
+- Passwordless Authentication
+- Passwordless Authentication - Account Stores
+- Passwordless Authentication - Token Management
+- Email Notification
+- SMS Messaging
+- SMS Messaging - Groovy
+- SMS Messaging - REST
+- GeoTracking - Google Map
+- GeoTracking - Maxmind GeoTracking
+- Cassandra Authentication
+- Digest Authentication
+- Radius Authentication
+- File (Whitelist) Authentication
+- Groovy Authentication
+- JSON (Whitelist) Authentication
+- Reject Users (Blacklist) Authentication
+- Database Authentication - Query
+- Database Authentication - Search
 
 
 

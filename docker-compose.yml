@@ -2,6 +2,7 @@ version: '3.7'
 services:
   cas:
     build: 
-      context: ./dockerfile/.
+      context: ./source/cas-overlay/.
     ports:
       - "8443:8443"
+      - "8080:8080"
