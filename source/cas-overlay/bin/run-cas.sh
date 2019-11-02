@@ -3,8 +3,11 @@
 
 # Build cas.properties
 rm -f /etc/cas/config/cas.properties
-find /etc/cas/config -type f -name '*.properties' -exec cat {} + > /etc/cas/config/cas.properties
-#cat /etc/cas/config/*.properties > /etc/cas/config/cas.properties
+find /etc/cas/config/properties -type f -name '*.properties' -exec cat {} + > /etc/cas/config/cas.properties
+
+# Build cas.yml
+rm -f /etc/cas/config/cas.yml
+find /etc/cas/config/properties -type f -name '*.yml' -exec cat {} + > /etc/cas/config/cas.yml
 
 # Reconstruct build.gradle
 cp build.default.gradle build.gradle

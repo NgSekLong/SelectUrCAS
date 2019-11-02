@@ -24,7 +24,7 @@ constant=$dir
 constant=${constant//\.\//}
 constant=${constant//\//_}
 
-constant_name=${constant//_/-}-
+constant_name=${constant//_/-}
 echo $constant_name
 constant=$(echo $constant | tr a-z A-Z)
 constant=${constant//-/_}

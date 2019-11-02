@@ -4,8 +4,7 @@ services:
     volumes: 
       - type: bind
         source: ${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/cas.properties
-        #target: /etc/cas/config/json-whitelist-authentication-cas.properties
-        target: /etc/cas/config/${AUTHENTICATION_JSON_WHITELIST}cas.properties
+        target: /etc/cas/config/properties/${AUTHENTICATION_JSON_WHITELIST}cas.properties
       - type: bind
         source: ${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/sample.json
         target: /etc/cas/resources/json-whitelist-authentication-sample.json
