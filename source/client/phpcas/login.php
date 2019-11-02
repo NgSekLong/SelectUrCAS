@@ -5,7 +5,7 @@
 // Will fix later la I think
 
 $haveTicket = isset($_GET['ticket']);
-$host = $haveTicket ? "cas" : "127.0.0.1" ;
+$host = $haveTicket ? "cas" : "cas.example.org" ;
 
 include_once("CAS.php");
 phpCAS::client(CAS_VERSION_3_0,$host,8443,"/cas/");

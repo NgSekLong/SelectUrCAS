@@ -1,7 +1,7 @@
 <?php
 
 include_once("CAS.php");
-phpCAS::client(CAS_VERSION_3_0,"127.0.0.1",8443,"/cas/");
+phpCAS::client(CAS_VERSION_3_0,"cas.example.org",8443,"/cas/");
 
 // This setting (i.e. setNoCasServerValidation) is only for testing, not for production 
 phpCAS::setNoCasServerValidation();
