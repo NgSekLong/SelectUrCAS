@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  cas:
+    volumes: 
+      - type: bind
+        source: ${SERVICE_REGISTRY_JSON_PATH:-.}/cas.yml
+        target: /etc/cas/config/properties/${SERVICE_REGISTRY_JSON_PATH:-.}/cas.yml
+      - type: bind
+        source: ${SERVICE_REGISTRY_JSON_PATH:-.}/sample.json
+        target: ${SERVICES_PATH:-.}/${SERVICE_REGISTRY_JSON}-sample.json
+      - type: bind
+        source: ${SERVICE_REGISTRY_JSON_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${SERVICE_REGISTRY_JSON_PATH:-.}/build.gradle
+    environment:
+     - SERVICE_REGISTRY_JSON_PATH=${SERVICE_REGISTRY_JSON_PATH}

@@ -1,0 +1,7 @@
+{
+  "@class" : "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId" : "https?://*",
+  "name" : "Allow All http(s) traffic",
+  "id" : 103935657744186,
+  "evaluationOrder" : 10
+}

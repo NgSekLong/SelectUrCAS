@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  phpcas:
+    build: ${CLIENT_PHPCAS_PATH:-.}/.
+    ports:
+      - "80:80"
+    volumes:
+      - type: bind
+        source: ${CLIENT_PHPCAS_PATH:-.}/index.php
+        target: /var/www/html/index.php
+      - type: bind
+        source: ${CLIENT_PHPCAS_PATH:-.}/login.php
+        target: /var/www/html/login.php
+      - type: bind
+        source: ${CLIENT_PHPCAS_PATH:-.}/logout.php
+        target: /var/www/html/logout.php
