@@ -10,7 +10,6 @@ services:
         target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${AUTHENTICATION_ATTRIBUTE_MYSQL_PATH:-.}/build.gradle
     environment:
      - AUTHENTICATION_ATTRIBUTE_MYSQL=${AUTHENTICATION_ATTRIBUTE_MYSQL}
-     - AUTHENTICATION_ATTRIBUTE_MYSQL_PORT=${AUTHENTICATION_ATTRIBUTE_MYSQL_PORT}
   authentication_attribute_mysql:
     image: mysql:8
     command: --default-authentication-plugin=mysql_native_password

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>One Page Wonder - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
+        rel="stylesheet">
+
+
+    <!-- Select 2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+    <style>
+        body {
+            /*Credit: https://leaverou.github.io/css3patterns/#blueprint-grid*/
+            background-color:#269;
+            background-image: linear-gradient(white 2px, transparent 2px),
+            linear-gradient(90deg, white 2px, transparent 2px),
+            linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px);
+            background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+            background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px;
+        }
+        .container {
+            background:  white;
+            opacity:0.9;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container mt-3 pt-3 mb-5 pb-5" style="display:none;">
+        <div class="row">
+            <div class="col">
+                <h1>Select Ur CAS - <code>docker</code> command generator</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="w-100">
+                    Select your Authentication method (can select multiple): 
+
+                    <select id="authentication" class="all-docker-compose-select2" name="state" multiple>
+                        <option selected value="source/authentication/mysql-query/docker-compose.yml">MySQL Query</option>
+                        <option value="source/authentication/json-whitelist/docker-compose.yml">Json Whitelist</option>
+                        <option value="source/authentication/accept-users/docker-compose.yml">Accept Users</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label class="w-100">
+                    Select your Authentication attributes (can select multiple): 
+                    <select id="authentication-attribute" class="all-docker-compose-select2" name="state" multiple>
+                        <option selected  value="source/authentication-attribute/mysql/docker-compose.yml">MySQL </option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label class="w-100">
+                    Select CAS Client to connect to:
+                    <select id="phpcas" class="all-docker-compose-select2" name="state" multiple>
+                        <option selected value="source/client/phpcas/docker-compose.yml">PhpCAS</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label class="w-100">
+                    Select your Service Registry: 
+                    <select id="service-registry" class="all-docker-compose-select2" name="state" multiple>
+                        <option selected value="source/service-registry/json/docker-compose.yml">JSON</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h1> Generate <code>docker</code> command:</h1>
+                <div class="border border-primary p-2">
+
+                    <code id="output" > sudo docker-compose -f docker-compose.yml -f source/authentication-attribute/mysql/docker-compose.yml -f source/client/phpcas/docker-compose.yml  -f source/service-registry/json/docker-compose.yml -f source/authentication/mysql-query/docker-compose.yml  up </code>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <!-- Select 2 JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+
+    <script>
+        // In your Javascript (external .js resource or <script> tag)
+        $(document).ready(function () {
+
+
+            $('.all-docker-compose-select2').each(function(){
+                let id = $(this).prop('id');
+                let values = localStorage.getItem(id);
+                if(values){
+                     values = JSON.parse(values);
+                    $(this).val(values);
+                }
+            });
+
+            let generateCommand = function(){
+                let command = `sudo <b>docker-compose</b> -f <span class='text-primary'>docker-compose.yml</span> `;
+
+                let allSelectedContainers = $.map($('.all-docker-compose-select2'), (element) => {
+                    return $(element).val();
+                });
+
+                allSelectedContainers.forEach((container) => {
+                    command += ` -f <span class='text-primary'>${container}</span>`;
+                });
+
+                command += ` up `; 
+
+                return command;
+            }
+            $('.all-docker-compose-select2').select2({ 
+                width: '100%',
+                closeOnSelect: false,
+            });
+            $(".container").show();
+            $("#output").html(generateCommand());
+
+            $('.all-docker-compose-select2').change(function(){
+                let key = $(this).prop('id');
+                let value = JSON.stringify($(this).val());
+                localStorage.setItem(key, value);
+                console.log('update local storage', $(this).val());
+                $("#output").html(generateCommand());
+            })
+
+        });
+
+        
+    </script>
+</body>
+
+</html>
