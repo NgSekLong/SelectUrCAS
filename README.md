@@ -1,10 +1,8 @@
 # Select Ur CAS
 
-## Introduction
-
 *This project assume you already know about CAS https://github.com/apereo/cas*
 
-----------------------------------------------------------
+## Introduction
 
 A common question for starter of CAS usually is something like this: "How can I use `XXXXX` authentication, with an `XXXXX` technology cluster, and with `XXXXX` technology enabled?" 
 
