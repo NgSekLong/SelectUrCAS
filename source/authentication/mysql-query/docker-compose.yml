@@ -17,5 +17,11 @@ services:
       MYSQL_DATABASE: ${AUTHENTICATION_MYSQL_QUERY}
       MYSQL_ROOT_PASSWORD: mysql
     volumes: 
-      - ${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/init.sql:/docker-entrypoint-initdb.d/${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/init.sql
+      - type: bind
+        source:  ${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/init.sql
+        target: /docker-entrypoint-initdb.d/${AUTHENTICATION_MYSQL_QUERY}-init.sql
     hostname: ${AUTHENTICATION_MYSQL_QUERY}
+    networks:
+      default:
+        aliases:
+          - ${AUTHENTICATION_MYSQL_QUERY}
