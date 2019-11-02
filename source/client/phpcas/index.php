@@ -10,8 +10,10 @@ phpCAS::setNoCasServerValidation();
 
 if (phpCAS::isAuthenticated())
     {
-    echo "User: <pre>" . phpCAS::getUser() . "</pre>";
-    echo "Attributes: <pre>" . phpCAS::getAttributes() . "</pre>";
+    echo "<h3>User:</h3> <pre>" . phpCAS::getUser() . "</pre>";
+    echo "<h3>Attributes:</h3> <pre>";
+    print_r(phpCAS::getAttributes());
+    echo "</pre>";
     echo "<a href='./logout.php'>Logout</a>";
     }else{
     echo "<a href='./login.php'>Login</a>";

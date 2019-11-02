@@ -9,10 +9,8 @@ CREATE TABLE USERATTRS (
 );
 
 INSERT INTO USERATTRS (uid,  attrname, attrvalue)
-VALUES ('cooldude', 'firstname', 'Cool');
-
-INSERT INTO USERATTRS (uid, attrname, attrvalue)
-VALUES ('cooldude', 'lastname', 'Dude');
-
-INSERT INTO USERATTRS (uid, attrname, attrvalue)
-VALUES ('cooldude', 'phone', '+13476452319');
+VALUES 
+  ('casuser', 'attributeRetriveFrom', 'MySQL'),
+  ('casuser', 'firstname', 'Cool'),
+  ('casuser', 'lastname', 'Dude'),
+  ('casuser', 'phone', '+13476452319');

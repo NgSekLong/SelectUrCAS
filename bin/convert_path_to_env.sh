@@ -16,27 +16,28 @@ echo "########Avaliable variable###########"
 for dir in `find . -type d`
 do
 
-if [ "$dir" == "." ]; then
-    continue
-fi
+    if [ "$dir" == "." ]; then
+        continue
+    fi
 
-constant=$dir
-constant=${constant//\.\//}
-constant=${constant//\//_}
+    constant=$dir
+    constant=${constant//\.\//}
+    constant=${constant//\//_}
 
-constant_name=${constant//_/-}
-echo $constant_name
-constant=$(echo $constant | tr a-z A-Z)
-constant=${constant//-/_}
-constant_path="$constant"_PATH
+    constant_name=${constant//_/-}
+    echo $constant_name
+    constant=$(echo $constant | tr a-z A-Z)
 
-# Write to .env
-echo $constant=$constant_name >> $env_file
-echo $constant_path=./source/$dir >> $env_file
+    constant=${constant//-/_}
+    constant_path="$constant"_PATH
 
-echo 
-echo "\${$constant_path:-.} => ./source/$dir"
-echo "\${$constant} => $constant_name"
+    # Write to .env
+    echo $constant=$constant_name >> $env_file
+    echo $constant_path=./source/$dir >> $env_file
+
+    echo 
+    echo "\${$constant_path:-.} => ./source/$dir"
+    echo "\${$constant} => $constant_name"
 
 done
 
