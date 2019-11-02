@@ -4,7 +4,7 @@ services:
     volumes: 
       - type: bind
         source: ${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/cas.yml
-        target: /etc/cas/config/properties/${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/cas.yml
+        target: ${CONFIG_PROPERTIES_PATH:-.}/${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/cas.yml
       - type: bind
         source: ${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/build.gradle
         target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/build.gradle

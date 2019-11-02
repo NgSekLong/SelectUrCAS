@@ -8,3 +8,10 @@ services:
       - "8080:8080"
     environment:
      - RESOURCE_PATH=${RESOURCE_PATH}
+     - SERVICES_PATH=${SERVICES_PATH}
+     - CONFIG_PATH=${CONFIG_PATH}
+     - CONFIG_PROPERTIES_PATH=${CONFIG_PROPERTIES_PATH}
+    networks:
+      default:
+        aliases:
+          - 127.0.0.1

@@ -4,7 +4,7 @@ services:
     volumes: 
       - type: bind
         source: ${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/cas.yml
-        target: /etc/cas/config/properties/${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/cas.yml
+        target: ${CONFIG_PROPERTIES_PATH:-.}/${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/cas.yml
       - type: bind
         source: ${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/sample.json
         target: ${RESOURCE_PATH:-.}/${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/sample.json
