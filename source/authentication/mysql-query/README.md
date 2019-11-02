@@ -4,5 +4,5 @@ Documentation: https://apereo.github.io/cas/6.1.x/installation/Database-Authenti
 
 Login using:
 
-- Username: cooldude
+- Username: mysql-query
 - Password: Mellon

@@ -3,14 +3,14 @@ services:
   cas:
     volumes: 
       - type: bind
-        source: ${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/cas.yml
-        target: /etc/cas/config/properties/${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/cas.yml
+        source: ${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/cas.properties
+        target: /etc/cas/config/properties/${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/cas.properties
       - type: bind
         source: ${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/build.gradle
         target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/build.gradle
     environment:
      - AUTHENTICATION_MYSQL_QUERY=${AUTHENTICATION_MYSQL_QUERY}
-  authentication_mysql_query:
+  mysql_query_authentication:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     environment:

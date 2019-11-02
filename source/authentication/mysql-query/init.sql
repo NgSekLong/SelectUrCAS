@@ -18,13 +18,6 @@ CREATE TABLE USERS (
 );
 
 INSERT INTO USERS (uid, psw)
-VALUES ('cooldude', 'Mellon');
-
-INSERT INTO USERATTRS (uid,  attrname, attrvalue)
-VALUES ('cooldude', 'firstname', 'Cool');
-
-INSERT INTO USERATTRS (uid, attrname, attrvalue)
-VALUES ('cooldude', 'lastname', 'Dude');
-
-INSERT INTO USERATTRS (uid, attrname, attrvalue)
-VALUES ('cooldude', 'phone', '+13476452319');
+VALUES 
+  ('casuser', 'Mellon'),
+  ('mysql-query', 'Mellon');

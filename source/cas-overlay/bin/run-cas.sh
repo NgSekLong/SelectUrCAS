@@ -1,13 +1,14 @@
 #!/bin/sh
 
-
 # Build cas.properties
 rm -f /etc/cas/config/cas.properties
-find /etc/cas/config/properties -type f -name '*.properties' -exec cat {} + > /etc/cas/config/cas.properties
+touch /etc/cas/config/cas.properties
+find /etc/cas/config/properties -type f -name '*.properties' -exec cat {} + >> /etc/cas/config/cas.properties
 
 # Build cas.yml
 rm -f /etc/cas/config/cas.yml
-find /etc/cas/config/properties -type f -name '*.yml' -exec cat {} + > /etc/cas/config/cas.yml
+touch /etc/cas/config/cas.yml
+find /etc/cas/config/properties -type f -name '*.yml' -exec cat {} + >> /etc/cas/config/cas.yml
 
 # Reconstruct build.gradle
 cp build.default.gradle build.gradle
@@ -27,4 +28,3 @@ sleep $i && curl -s -k 'https://127.0.0.1:8443/cas/login' > /dev/null &
 done
 
 exec java -server -noverify -Xmx2048M -jar cas.war
-
