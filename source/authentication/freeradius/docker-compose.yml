@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  authentication_freeradius:
+    image: freeradius/freeradius-server
+    volumes: 
+      - type: bind
+        source: ${AUTHENTICATION_FREERADIUS_PATH:-.}/authorize
+        target: /etc/raddb/mods-config/files/authorize
+    environment:
+     - AUTHENTICATION_FREERADIUS_PATH=${AUTHENTICATION_FREERADIUS_PATH}
+    hostname: ${AUTHENTICATION_FREERADIUS}
+    networks:
+      default:
+        aliases:
+          - ${AUTHENTICATION_FREERADIUS}     

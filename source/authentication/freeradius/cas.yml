@@ -1,0 +1,29 @@
+cas.authn.radius:
+  # server.nasPortId: -1
+  # server.nasRealPort: -1
+  # server.protocol: EAP_MSCHAPv2
+  # server.retries: 3
+  # server.nasPortType: -1
+  # server.nasPort: -1
+  # server.nasIpAddress: 
+  # server.nasIpv6Address: 
+  # server.nasIdentifier: -1
+
+  # client.authenticationPort: 1812
+  # client.sharedSecret: N0Sh@ar3d$ecReT
+  # client.socketTimeout: 0
+  client.inetAddress: ${AUTHENTICATION_FREERADIUS}
+  # client.accountingPort: 1813
+
+  # failoverOnException: false
+  # failoverOnAuthenticationFailure: false
+
+  # passwordEncoder.type: NONE|DEFAULT|STANDARD|BCRYPT
+  # passwordEncoder.characterEncoding: 
+  # passwordEncoder.encodingAlgorithm: 
+  # passwordEncoder.secret: 
+  # passwordEncoder.strength: 16
+
+  # principalTransformation.suffix: 
+  # principalTransformation.caseConversion: NONE|UPPERCASE|LOWERCASE
+  # principalTransformation.prefix: 
