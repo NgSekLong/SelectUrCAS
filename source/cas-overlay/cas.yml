@@ -1,0 +1,6 @@
+# Default host name
+cas.server.name: https://cas.example.org:8443
+cas.server.prefix: ${cas.server.name}/cas
+
+# Remove default user
+cas.authn.accept.users:

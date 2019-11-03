@@ -1,7 +1,0 @@
-version: '3.7'
-services:
-  cas:
-    volumes: 
-      - type: bind
-        source: ./authentication/accept-users/cas.properties
-        target: ${CONFIG_PROPERTIES_PATH:-.}/accept-users-authentication-cas.properties

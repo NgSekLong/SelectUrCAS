@@ -11,6 +11,10 @@ services:
      - SERVICES_PATH=${SERVICES_PATH}
      - CONFIG_PATH=${CONFIG_PATH}
      - CONFIG_PROPERTIES_PATH=${CONFIG_PROPERTIES_PATH}
+    volumes:
+      - type: bind
+        source: ${CAS_OVERLAY_PATH:-.}/cas.yml
+        target: ${CONFIG_PROPERTIES_PATH:-.}/${CAS_OVERLAY_PATH:-.}/cas.yml
     networks:
       default:
         aliases:
