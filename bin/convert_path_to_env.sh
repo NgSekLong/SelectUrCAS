@@ -1,4 +1,14 @@
 #!/bin/bash 
+
+###########################################
+# Convert path to env
+#
+# Steps to use
+# - This script is intended to be used by want to modified / add their own CAS components
+# - if you just want to use it, probably safe to ignore this file :)
+# 
+
+
 # Absolute path to this script, e.g. /home/user/bin/foo.sh
 SCRIPT=$(readlink -f "$0")
 # Absolute path this script is in, thus /home/user/bin
@@ -7,6 +17,7 @@ cd ${SCRIPTPATH}/../source
 
 env_file=../.env
 env_default_file=../.env.default
+jsonp_file=../env.jsonp
 
 # Truncate env_file
 : > $env_file
@@ -57,3 +68,6 @@ do
 done
 
 echo "########End of Avaliable variable###########"
+
+# Print env into jsonp
+(echo "callback({"; cat $env_file | sed 's/\"/\\\"/g' | sed -n 's|\(.*\)=\(.*\)|"\1":"\2"|p' | grep -v '^$' | paste -s -d"," -; echo "})")> $jsonp_file

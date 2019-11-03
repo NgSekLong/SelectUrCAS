@@ -48,7 +48,7 @@
                         label="Where you want your service stored?" multiple persistent-hint chips>
                     </v-select>
 
-                    <v-switch v-model="isHaveSudo" :label="`Include sudo? : ${isHaveSudo.toString()}`"></v-switch>
+                    <v-switch v-model="isHaveSudo" :label="`Include sudo to command ?`"></v-switch>
                     <v-card class="mx-auto">
                         <v-card-text>
 
@@ -90,7 +90,11 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        
+        
 
+    <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.1.3/fetch-jsonp.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
     <script>
@@ -131,79 +135,75 @@
                     return allParam;
                 },
             },
-            created() {
+            async created() {
+                let response = await fetchJsonp('env.jsonp', {
+                    jsonpCallbackFunction: 'callback'
+                });
 
-                // This was suppose to be loaded through fetch API, 
-                // but it is not working on chrome so now I just use manual copy and paste.....
-                // fetch('.env')
-                //     .then(response => response.text())
-                //     .then(text => console.log(text))
-                let enviornmentVarables = `
-BUILD_GRADLE_DEPENDENCIES_PATH=/cas-overlay/build-gradle-dependencies
-RESOURCE_PATH=/etc/cas/resources
-SERVICES_PATH=/etc/cas/services
-CONFIG_PATH=/etc/cas/config
-CONFIG_PROPERTIES_PATH=/etc/cas/config/properties
-CONFIGURATION_STORAGE_GIT=configuration-storage-git
-CONFIGURATION_STORAGE_GIT_PATH=./source/configuration-storage/git
-CONFIGURATION_STORAGE_GIT_TYPE=configuration-storage
-CAS_OVERLAY=cas-overlay
-CAS_OVERLAY_PATH=./source/cas-overlay
-CAS_OVERLAY_TYPE=./cas-overlay
-CLIENT_PHPCAS=client-phpcas
-CLIENT_PHPCAS_PATH=./source/client/phpcas
-CLIENT_PHPCAS_TYPE=client
-SERVICE_REGISTRY_JSON=service-registry-json
-SERVICE_REGISTRY_JSON_PATH=./source/service-registry/json
-SERVICE_REGISTRY_JSON_TYPE=service-registry
-AUTHENTICATION_MYSQL_QUERY=authentication-mysql-query
-AUTHENTICATION_MYSQL_QUERY_PATH=./source/authentication/mysql-query
-AUTHENTICATION_MYSQL_QUERY_TYPE=authentication
-AUTHENTICATION_JSON_WHITELIST=authentication-json-whitelist
-AUTHENTICATION_JSON_WHITELIST_PATH=./source/authentication/json-whitelist
-AUTHENTICATION_JSON_WHITELIST_TYPE=authentication
-AUTHENTICATION_ACCEPT_USERS=authentication-accept-users
-AUTHENTICATION_ACCEPT_USERS_PATH=./source/authentication/accept-users
-AUTHENTICATION_ACCEPT_USERS_TYPE=authentication
-AUTHENTICATION_ATTRIBUTE_MYSQL=authentication-attribute-mysql
-AUTHENTICATION_ATTRIBUTE_MYSQL_PATH=./source/authentication-attribute/mysql
-AUTHENTICATION_ATTRIBUTE_MYSQL_TYPE=authentication-attribute
+                let enviornmentVarables = await response.json();
 
-                `
-                enviornmentVarables = enviornmentVarables.split("\n")
+                var converter = new showdown.Converter(),
+                text      = '# hello, markdown!',
+                html      = converter.makeHtml(text);
+                console.log('html', html);
+                
+                let allValueOptions = {};
                 let kebabToProper = this.kebabToProper;
-                let allValueOptions = enviornmentVarables.reduce(function (filtered, element) {
-                    if (Array.isArray(filtered)) {
-                        filtered = {};
-                    }
-                    if (element.includes("=")) {
-                        let [key, value] = element.split("=");
-                        if (key.includes("_TYPE")) {
-                            let parentKey = key.split("_TYPE")[0];
-                            if (!(parentKey in filtered)) {
-                                filtered[parentKey] = {};
-                            }
-                            filtered[parentKey]['type'] = value;
-                        } else if (key.includes("_PATH")) {
-                            let parentKey = key.split("_PATH")[0];
-                            if (!(parentKey in filtered)) {
-                                filtered[parentKey] = {};
-                            }
-                            filtered[parentKey]['value'] = value;
-
+                Object.keys(enviornmentVarables).forEach(async function(key) {
+                    let value = enviornmentVarables[key];
+                    if (key.includes("_TYPE")) {
+                        let parentKey = key.split("_TYPE")[0];
+                        if (!(parentKey in allValueOptions)) {
+                            allValueOptions[parentKey] = {};
                         }
-                        else {
-                            if (!(key in filtered)) {
-                                filtered[key] = {};
-                            }
-                            filtered[key]['text'] = kebabToProper(value);
+                        allValueOptions[parentKey]['type'] = value;
+                    } else if (key.includes("_PATH")) {
+                        let parentKey = key.split("_PATH")[0];
+                        if (!(parentKey in allValueOptions)) {
+                            allValueOptions[parentKey] = {};
                         }
-
-
+                        allValueOptions[parentKey]['value'] = value;
                     }
-                    return filtered;
-                }, []);
+                    else {
+                        if (!(key in allValueOptions)) {
+                            allValueOptions[key] = {};
+                        }
+                        allValueOptions[key]['text'] = kebabToProper(value);
+                    }
+                });
 
+                // let allValueOptions = enviornmentVarables.reduce(function (filtered, element) {
+                //     if (Array.isArray(filtered)) {
+                //         filtered = {};
+                //     }
+                //     if (element.includes("=")) {
+                //         let [key, value] = element.split("=");
+                //         if (key.includes("_TYPE")) {
+                //             let parentKey = key.split("_TYPE")[0];
+                //             if (!(parentKey in filtered)) {
+                //                 filtered[parentKey] = {};
+                //             }
+                //             filtered[parentKey]['type'] = value;
+                //         } else if (key.includes("_PATH")) {
+                //             let parentKey = key.split("_PATH")[0];
+                //             if (!(parentKey in filtered)) {
+                //                 filtered[parentKey] = {};
+                //             }
+                //             filtered[parentKey]['value'] = value;
+
+                //         }
+                //         else {
+                //             if (!(key in filtered)) {
+                //                 filtered[key] = {};
+                //             }
+                //             filtered[key]['text'] = kebabToProper(value);
+                //         }
+
+
+                //     }
+                //     return filtered;
+                // }, []);
+                console.log('allValueOptions', allValueOptions);
 
                 this.authenticationValuesOptions = Object.values(allValueOptions).filter(function (option) {
                     return option.type == "authentication"
