@@ -21,7 +21,15 @@
 
         .container {
             background: white;
-            opacity: 0.85;
+            opacity: 0.95;
+        }
+        .v-chip {
+            opacity: 1;
+        }
+
+        .iframe {
+            width: 100%;
+            height: 12em;
         }
     </style>
 </head>
@@ -67,13 +75,14 @@
                             </span>
                             <input id="docker-command-copy" type="hidden" />
                         </v-card-text>
+                        <v-divider class="mx-4"></v-divider>
                         <v-card-actions>
                             <v-btn text color="deep-purple accent-4" @click="copyDockerComposeCode">
                                 Copy
                             </v-btn>
 
 
-                            <v-snackbar v-model="snackbar" :timeout="timeout">
+                            <v-snackbar v-model="snackbar" :timeout="timeout" :multi-line="true">
                                 {{ snackbarText }}
                                 <v-btn color="blue" text @click="snackbar = false">
                                     Close
@@ -81,17 +90,29 @@
                             </v-snackbar>
                         </v-card-actions>
                     </v-card>
-
+                    <h2 class="mt-5">Documentation About components selected:</h2>
+                    <v-card>
+                        <v-row>
+                            
+                            <template v-for="dockerComposeParam in dockerComposeParams">
+                                <v-col :key="dockerComposeParam" cols="12" sm="6" md="4" >
+                                    <v-card class="mr-3 ml-3">
+                                            <iframe frameBorder="0" class="iframe" 
+                                                :src="dockerComposeParam + '/README.md'"></iframe>
+                                    </v-card>
+                                </v-col>
+                            </template>
+                        </v-row>
+                    </v-card>
                 </v-container>
-
             </v-content>
         </v-app>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-        
-        
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.1.3/fetch-jsonp.min.js"></script>
@@ -120,7 +141,7 @@
                     // Snack back
                     snackbar: false,
                     snackbarText: '',
-                    timeout: 2000,
+                    timeout: 4000,
                 };
             },
             computed: {
@@ -142,14 +163,16 @@
 
                 let enviornmentVarables = await response.json();
 
+
+
                 var converter = new showdown.Converter(),
-                text      = '# hello, markdown!',
-                html      = converter.makeHtml(text);
+                    text = '# hello, markdown!',
+                    html = converter.makeHtml(text);
                 console.log('html', html);
-                
+
                 let allValueOptions = {};
                 let kebabToProper = this.kebabToProper;
-                Object.keys(enviornmentVarables).forEach(async function(key) {
+                Object.keys(enviornmentVarables).forEach(async function (key) {
                     let value = enviornmentVarables[key];
                     if (key.includes("_TYPE")) {
                         let parentKey = key.split("_TYPE")[0];
