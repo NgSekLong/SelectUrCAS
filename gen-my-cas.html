@@ -57,6 +57,7 @@
                     </v-select>
 
                     <v-switch v-model="isHaveSudo" :label="`Include sudo to command ?`"></v-switch>
+                    <v-switch v-model="isDockerUp" :label="`Is docker up?`"></v-switch>
                     <v-card class="mx-auto">
                         <v-card-text>
 
@@ -69,7 +70,7 @@
                                     <span class="blue--text"> -f </span>
                                     <span class="purple--text"> {{dockerComposeParam}}/docker-compose.yml </span>
                                 </div>
-                                <span class="blue--text"> up </span>
+                                <span class="blue--text"> {{ isDockerUp ? 'up' : 'down'}} </span>
 
 
                             </span>
@@ -114,7 +115,6 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.1.3/fetch-jsonp.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
@@ -137,6 +137,7 @@
 
                     // page related
                     isHaveSudo: true,
+                    isDockerUp: true,
 
                     // Snack back
                     snackbar: false,
@@ -163,12 +164,6 @@
 
                 let enviornmentVarables = await response.json();
 
-
-
-                var converter = new showdown.Converter(),
-                    text = '# hello, markdown!',
-                    html = converter.makeHtml(text);
-                console.log('html', html);
 
                 let allValueOptions = {};
                 let kebabToProper = this.kebabToProper;
