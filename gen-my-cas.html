@@ -1,172 +1,303 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <title>Select Ur CAS</title>
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <!-- Custom fonts for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
-        rel="stylesheet">
-
-
-    <!-- Select 2 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
     <style>
-        body {
+        #app {
             /*Credit: https://leaverou.github.io/css3patterns/#blueprint-grid*/
-            background-color:#269;
+            background-color: #269;
             background-image: linear-gradient(white 2px, transparent 2px),
-            linear-gradient(90deg, white 2px, transparent 2px),
-            linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px);
+                linear-gradient(90deg, white 2px, transparent 2px),
+                linear-gradient(rgba(255, 255, 255, .3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .3) 1px, transparent 1px);
             background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
-            background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px;
+            background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
         }
+
         .container {
-            background:  white;
-            opacity:0.9;
+            background: white;
+            opacity: 0.85;
         }
     </style>
-
 </head>
 
 <body>
-    <div class="container mt-3 pt-3 mb-5 pb-5" style="display:none;">
-        <div class="row">
-            <div class="col">
-                <h1>Select Ur CAS - <code>docker</code> command generator</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <label class="w-100">
-                    Select your Authentication method (can select multiple): 
-
-                    <select id="authentication" class="all-docker-compose-select2" name="state" multiple>
-                        <option selected value="source/authentication/mysql-query/docker-compose.yml">MySQL Query</option>
-                        <option value="source/authentication/json-whitelist/docker-compose.yml">Json Whitelist</option>
-                        <option value="source/authentication/accept-users/docker-compose.yml">Accept Users</option>
-                    </select>
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <label class="w-100">
-                    Select your Authentication attributes (can select multiple): 
-                    <select id="authentication-attribute" class="all-docker-compose-select2" name="state" multiple>
-                        <option selected  value="source/authentication-attribute/mysql/docker-compose.yml">MySQL </option>
-                    </select>
-                </label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label class="w-100">
-                    Select CAS Client to connect to:
-                    <select id="phpcas" class="all-docker-compose-select2" name="state" multiple>
-                        <option selected value="source/client/phpcas/docker-compose.yml">PhpCAS</option>
-                    </select>
-                </label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label class="w-100">
-                    Select your Service Registry: 
-                    <select id="service-registry" class="all-docker-compose-select2" name="state" multiple>
-                        <option selected value="source/service-registry/json/docker-compose.yml">JSON</option>
-                    </select>
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h1> Generate <code>docker</code> command:</h1>
-                <div class="border border-primary p-2">
-
-                    <code id="output" > sudo docker-compose -f docker-compose.yml -f source/authentication-attribute/mysql/docker-compose.yml -f source/client/phpcas/docker-compose.yml  -f source/service-registry/json/docker-compose.yml -f source/authentication/mysql-query/docker-compose.yml  up </code>
-                </div>
-
-            </div>
-        </div>
+    <div id="app">
+        <v-app>
+            <v-content>
+                <v-container class="mt-5">
+                    <h1>Select Ur CAS</h1>
 
 
+                    <v-select v-model="authenticationValues" :items="authenticationValuesOptions"
+                        label="Where you want your authentication credential stored?" multiple persistent-hint chips>
+                    </v-select>
+                    <v-select v-model="authenticationAttributesValues" :items="authenticationAttributesValuesOptions"
+                        label="Where you want your authentication attribute stored?" multiple persistent-hint chips>
+                    </v-select>
+                    <v-select v-model="clientValues" :items="clientValuesOptions"
+                        label="What client is to be used to authenticate your system against" multiple persistent-hint
+                        chips>
+                    </v-select>
+                    <v-select v-model="serviceRegistryValues" :items="serviceRegistryValuesOptions"
+                        label="Where you want your service stored?" multiple persistent-hint chips>
+                    </v-select>
+
+                    <v-switch v-model="isHaveSudo" :label="`Include sudo? : ${isHaveSudo.toString()}`"></v-switch>
+                    <v-card class="mx-auto">
+                        <v-card-text>
+
+                            <span id="docker-command">
+                                <span class="blue--text">
+                                    {{ isHaveSudo ? 'sudo' : ''}} docker-compose -f
+                                    <span class="purple--text"> docker-compose.yml </span>
+                                </span>
+                                <div v-for="dockerComposeParam in dockerComposeParams">
+                                    <span class="blue--text"> -f </span>
+                                    <span class="purple--text"> {{dockerComposeParam}}/docker-compose.yml </span>
+                                </div>
+                                <span class="blue--text"> up </span>
 
 
+                            </span>
+                            <input id="docker-command-copy" type="hidden" />
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-btn text color="deep-purple accent-4" @click="copyDockerComposeCode">
+                                Copy
+                            </v-btn>
+
+
+                            <v-snackbar v-model="snackbar" :timeout="timeout">
+                                {{ snackbarText }}
+                                <v-btn color="blue" text @click="snackbar = false">
+                                    Close
+                                </v-btn>
+                            </v-snackbar>
+                        </v-card-actions>
+                    </v-card>
+
+                </v-container>
+
+            </v-content>
+        </v-app>
     </div>
-    <!-- Bootstrap core JavaScript -->
-    <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
 
-    <!-- Select 2 JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
     <script>
-        // In your Javascript (external .js resource or <script> tag)
-        $(document).ready(function () {
+        new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+            data() {
+                return {
+                    authenticationValues: [],
+                    authenticationAttributesValues: [],
+                    clientValues: [],
+                    serviceRegistryValues: [],
 
 
-            $('.all-docker-compose-select2').each(function(){
-                let id = $(this).prop('id');
-                let values = localStorage.getItem(id);
-                if(values){
-                     values = JSON.parse(values);
-                    $(this).val(values);
+                    authenticationValuesOptions: [],
+                    authenticationAttributesValuesOptions: [],
+                    clientValuesOptions: [],
+                    serviceRegistryValuesOptions: [],
+
+                    // page related
+                    isHaveSudo: true,
+
+                    // Snack back
+                    snackbar: false,
+                    snackbarText: '',
+                    timeout: 2000,
+                };
+            },
+            computed: {
+                // Compuse docker compose param
+                dockerComposeParams() {
+                    let allParam = [
+                        ...this.authenticationValues,
+                        ...this.authenticationAttributesValues,
+                        ...this.clientValues,
+                        ...this.serviceRegistryValues,
+                    ];
+                    return allParam;
+                },
+            },
+            created() {
+
+                // This was suppose to be loaded through fetch API, 
+                // but it is not working on chrome so now I just use manual copy and paste.....
+                // fetch('.env')
+                //     .then(response => response.text())
+                //     .then(text => console.log(text))
+                let enviornmentVarables = `
+BUILD_GRADLE_DEPENDENCIES_PATH=/cas-overlay/build-gradle-dependencies
+RESOURCE_PATH=/etc/cas/resources
+SERVICES_PATH=/etc/cas/services
+CONFIG_PATH=/etc/cas/config
+CONFIG_PROPERTIES_PATH=/etc/cas/config/properties
+CONFIGURATION_STORAGE_GIT=configuration-storage-git
+CONFIGURATION_STORAGE_GIT_PATH=./source/configuration-storage/git
+CONFIGURATION_STORAGE_GIT_TYPE=configuration-storage
+CAS_OVERLAY=cas-overlay
+CAS_OVERLAY_PATH=./source/cas-overlay
+CAS_OVERLAY_TYPE=./cas-overlay
+CLIENT_PHPCAS=client-phpcas
+CLIENT_PHPCAS_PATH=./source/client/phpcas
+CLIENT_PHPCAS_TYPE=client
+SERVICE_REGISTRY_JSON=service-registry-json
+SERVICE_REGISTRY_JSON_PATH=./source/service-registry/json
+SERVICE_REGISTRY_JSON_TYPE=service-registry
+AUTHENTICATION_MYSQL_QUERY=authentication-mysql-query
+AUTHENTICATION_MYSQL_QUERY_PATH=./source/authentication/mysql-query
+AUTHENTICATION_MYSQL_QUERY_TYPE=authentication
+AUTHENTICATION_JSON_WHITELIST=authentication-json-whitelist
+AUTHENTICATION_JSON_WHITELIST_PATH=./source/authentication/json-whitelist
+AUTHENTICATION_JSON_WHITELIST_TYPE=authentication
+AUTHENTICATION_ACCEPT_USERS=authentication-accept-users
+AUTHENTICATION_ACCEPT_USERS_PATH=./source/authentication/accept-users
+AUTHENTICATION_ACCEPT_USERS_TYPE=authentication
+AUTHENTICATION_ATTRIBUTE_MYSQL=authentication-attribute-mysql
+AUTHENTICATION_ATTRIBUTE_MYSQL_PATH=./source/authentication-attribute/mysql
+AUTHENTICATION_ATTRIBUTE_MYSQL_TYPE=authentication-attribute
+
+                `
+                enviornmentVarables = enviornmentVarables.split("\n")
+                let kebabToProper = this.kebabToProper;
+                let allValueOptions = enviornmentVarables.reduce(function (filtered, element) {
+                    if (Array.isArray(filtered)) {
+                        filtered = {};
+                    }
+                    if (element.includes("=")) {
+                        let [key, value] = element.split("=");
+                        if (key.includes("_TYPE")) {
+                            let parentKey = key.split("_TYPE")[0];
+                            if (!(parentKey in filtered)) {
+                                filtered[parentKey] = {};
+                            }
+                            filtered[parentKey]['type'] = value;
+                        } else if (key.includes("_PATH")) {
+                            let parentKey = key.split("_PATH")[0];
+                            if (!(parentKey in filtered)) {
+                                filtered[parentKey] = {};
+                            }
+                            filtered[parentKey]['value'] = value;
+
+                        }
+                        else {
+                            if (!(key in filtered)) {
+                                filtered[key] = {};
+                            }
+                            filtered[key]['text'] = kebabToProper(value);
+                        }
+
+
+                    }
+                    return filtered;
+                }, []);
+
+
+                this.authenticationValuesOptions = Object.values(allValueOptions).filter(function (option) {
+                    return option.type == "authentication"
+                });
+                this.authenticationAttributesValuesOptions = Object.values(allValueOptions).filter(function (option) {
+                    return option.type == "authentication-attribute"
+                });
+                this.clientValuesOptions = Object.values(allValueOptions).filter(function (option) {
+                    return option.type == "client"
+                });
+                this.serviceRegistryValuesOptions = Object.values(allValueOptions).filter(function (option) {
+                    return option.type == "service-registry"
+                });
+            },
+            mounted() {
+                if (localStorage.isHaveSudo) {
+                    this.isHaveSudo = JSON.parse(localStorage.isHaveSudo);
                 }
-            });
+                if (localStorage.authenticationValues) {
+                    this.authenticationValues = JSON.parse(localStorage.authenticationValues);
+                }
 
-            let generateCommand = function(){
-                let command = `sudo <b>docker-compose</b> -f <span class='text-primary'>docker-compose.yml</span> `;
+                if (localStorage.authenticationAttributesValues) {
+                    this.authenticationAttributesValues = JSON.parse(localStorage.authenticationAttributesValues);
+                }
 
-                let allSelectedContainers = $.map($('.all-docker-compose-select2'), (element) => {
-                    return $(element).val();
-                });
+                if (localStorage.clientValues) {
+                    this.clientValues = JSON.parse(localStorage.clientValues);
+                }
 
-                allSelectedContainers.forEach((container) => {
-                    command += ` -f <span class='text-primary'>${container}</span>`;
-                });
+                if (localStorage.serviceRegistryValues) {
+                    this.serviceRegistryValues = JSON.parse(localStorage.serviceRegistryValues);
+                }
 
-                command += ` up `; 
+            },
+            watch: {
+                isHaveSudo(newIsHaveSudo) {
+                    localStorage.isHaveSudo = newIsHaveSudo;
+                },
+                authenticationValues(newAuthenticationValues) {
+                    localStorage.authenticationValues = JSON.stringify(newAuthenticationValues);
+                },
+                authenticationAttributesValues(newAuthenticationAttributesValues) {
+                    localStorage.authenticationAttributesValues = JSON.stringify(newAuthenticationAttributesValues);
+                },
+                clientValues(newClientValues) {
+                    localStorage.clientValues = JSON.stringify(newClientValues);
+                },
+                serviceRegistryValues(newServiceRegistryValues) {
+                    localStorage.serviceRegistryValues = JSON.stringify(newServiceRegistryValues);
+                },
+            },
+            methods: {
+                getDockerCommandText() {
+                    // Need to keep this for refresh :D
+                    console.log(this.dockerComposeParams);
 
-                return command;
-            }
-            $('.all-docker-compose-select2').select2({ 
-                width: '100%',
-                closeOnSelect: false,
-            });
-            $(".container").show();
-            $("#output").html(generateCommand());
+                    let returnText = $("#docker-command").text().trim();
+                    returnText = returnText.replace(/(\r\n|\n|\r)/gm, "");
+                    returnText = returnText.replace(/\s+/g, " ");
+                    console.log('returnText', returnText);
+                    return returnText;
+                },
+                copyDockerComposeCode() {
+                    let toBeCopyText = this.getDockerCommandText();
+                    $("#docker-command-copy").val(toBeCopyText);
+                    let testingCodeToCopy = document.querySelector('#docker-command-copy')
+                    testingCodeToCopy.setAttribute('type', 'text')
+                    testingCodeToCopy.select()
 
-            $('.all-docker-compose-select2').change(function(){
-                let key = $(this).prop('id');
-                let value = JSON.stringify($(this).val());
-                localStorage.setItem(key, value);
-                console.log('update local storage', $(this).val());
-                $("#output").html(generateCommand());
-            })
+                    try {
+                        var successful = document.execCommand('copy');
+                        this.snackbarText = '[' + toBeCopyText + '] was copied'
+                        //alert('Testing code was copied ' + msg);
+                    } catch (err) {
+                        this.snackbarText = 'Oops, unable to copy';
+                    }
+                    this.snackbar = true;
 
-        });
+                    /* unselect the range */
+                    testingCodeToCopy.setAttribute('type', 'hidden')
+                    window.getSelection().removeAllRanges()
+                },
+                kebabToProper(str) {
+                    str += '';
+                    str = str.split('-');
+                    for (var i = 0; i < str.length; i++) {
+                        str[i] = str[i].slice(0, 1).toUpperCase() + str[i].slice(1, str[i].length);
+                    }
+                    return str.join(' ');
+                },
 
-        
+            },
+        })
     </script>
 </body>
 
