@@ -5,9 +5,11 @@ services:
       - type: bind
         source: ${AUTHENTICATION_ATTRIBUTE_MYSQL_PATH:-.}/cas.yml
         target: ${CONFIG_PROPERTIES_PATH:-.}/${AUTHENTICATION_ATTRIBUTE_MYSQL_PATH:-.}/cas.yml
+        read_only: true
       - type: bind
         source: ${AUTHENTICATION_ATTRIBUTE_MYSQL_PATH:-.}/build.gradle
         target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${AUTHENTICATION_ATTRIBUTE_MYSQL_PATH:-.}/build.gradle
+        read_only: true
     environment:
      - AUTHENTICATION_ATTRIBUTE_MYSQL=${AUTHENTICATION_ATTRIBUTE_MYSQL}
   authentication_attribute_mysql:
@@ -22,6 +24,7 @@ services:
       - type: bind
         source:  ${AUTHENTICATION_ATTRIBUTE_MYSQL_PATH:-.}/init.sql
         target: /docker-entrypoint-initdb.d/${AUTHENTICATION_ATTRIBUTE_MYSQL}-init.sql
+        read_only: true
     hostname: ${AUTHENTICATION_ATTRIBUTE_MYSQL}
     networks:
       default:

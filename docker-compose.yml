@@ -15,6 +15,7 @@ services:
       - type: bind
         source: ${CAS_OVERLAY_PATH:-.}/cas.yml
         target: ${CONFIG_PROPERTIES_PATH:-.}/${CAS_OVERLAY_PATH:-.}/cas.yml
+        read_only: true
     networks:
       default:
         aliases:

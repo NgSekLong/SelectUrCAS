@@ -6,6 +6,7 @@ services:
       - type: bind
         source: ${AUTHENTICATION_FREERADIUS_PATH:-.}/authorize
         target: /etc/raddb/mods-config/files/authorize
+        read_only: true
     environment:
      - AUTHENTICATION_FREERADIUS_PATH=${AUTHENTICATION_FREERADIUS_PATH}
     hostname: ${AUTHENTICATION_FREERADIUS}

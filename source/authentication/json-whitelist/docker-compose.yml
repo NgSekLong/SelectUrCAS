@@ -5,11 +5,14 @@ services:
       - type: bind
         source: ${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/cas.yml
         target: ${CONFIG_PROPERTIES_PATH:-.}/${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/cas.yml
+        read_only: true
       - type: bind
         source: ${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/sample.json
         target: ${RESOURCE_PATH:-.}/${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/sample.json
+        read_only: true
       - type: bind
         source: ${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/build.gradle
         target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/build.gradle
+        read_only: true
     environment:
      - AUTHENTICATION_JSON_WHITELIST_PATH=${AUTHENTICATION_JSON_WHITELIST_PATH}
