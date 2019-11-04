@@ -1,0 +1,9 @@
+
+cas.authn.ldap:
+  - ldapUrl: ldap://${AUTHENTICATION_OPENLDAP}/ou=admin%2Cdc=example%2Cdc=org
+    bindDn: ou=admin,dc=example,dc=org
+    bindCredential: admin
+    type: DIRECT
+    baseDn: dc=example,dc=org
+    dnFormat: ou=%s,dc=example,dc=org
+    searchFilter: ou={user}

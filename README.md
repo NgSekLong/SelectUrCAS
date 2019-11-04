@@ -21,7 +21,7 @@ Need to install the following
 
 ## Setup
 
-1. Open `gen-my-cas.html` using a modern browser
+1. Open `gen-my-cas.html` using a Chrome browser (Firefox is tested not work)
 2. Select the CAS components that you want to include in your stack (e.g. *MySQL Authentication* + *JSON Service Registry* + ...)
 3. Copy the docker command generated
 4. Add `127.0.0.1 cas.example.org` into your host file
