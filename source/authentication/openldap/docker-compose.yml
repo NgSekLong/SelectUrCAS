@@ -53,12 +53,19 @@ services:
       - /etc/ldap/slapd.d
       - /container/service/slapd/assets/certs/
       - type: bind
-        source: ${AUTHENTICATION_OPENLDAP_PATH:-.}/init.ldif
-        target: /container/service/slapd/assets/config/bootstrap/ldif/init.ldif
+        source: ${AUTHENTICATION_OPENLDAP_PATH:-.}/add-casuser-user.ldif
+        target: /container/service/slapd/assets/config/bootstrap/ldif/custom/add-casuser-user.ldif
         read_only: true
-    ports:
-      - "389:389"
-      - "636:636"
+      - type: bind
+        source: ${AUTHENTICATION_OPENLDAP_PATH:-.}/add-openldap-user.ldif
+        target: /container/service/slapd/assets/config/bootstrap/ldif/custom/add-openldap-user.ldif
+        read_only: true
+    expose:
+      - 389
+      - 636
+    # ports:
+    #   - "389:389"
+    #   - "636:636"
     #domainname: "example.org" # important: same as hostname
     #hostname: "example.org"
     hostname: ${AUTHENTICATION_OPENLDAP}
@@ -66,6 +73,7 @@ services:
       default:
         aliases:
           - ${AUTHENTICATION_OPENLDAP}
+  # Enabled this if you want to add / delete to your LDAP
   phpldapadmin:
     command: "--loglevel debug"
     image: osixia/phpldapadmin:latest
