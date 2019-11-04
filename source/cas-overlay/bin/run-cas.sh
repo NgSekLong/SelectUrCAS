@@ -1,20 +1,20 @@
 #!/bin/sh
 
-#####
-# Build cas.properties
-#
-rm -f /etc/cas/config/cas.properties
-# Add merge properties with new line in between
-find ${CONFIG_PROPERTIES_PATH} -type f -name '*.properties' \
-    -exec sh -c 'for file in "{}" ; do cat "$file" >> /etc/cas/config/cas.properties ; echo  >> /etc/cas/config/cas.properties ;  done' \;
+# #####
+# # Build cas.properties
+# #
+# rm -f /etc/cas/config/cas.properties
+# # Add merge properties with new line in between
+# find ${CONFIG_PROPERTIES_PATH} -type f -name '*.properties' \
+#     -exec sh -c 'for file in "{}" ; do cat "$file" >> /etc/cas/config/cas.properties ; echo  >> /etc/cas/config/cas.properties ;  done' \;
 
-#####
-# Build cas.yml
-#
-rm -f /etc/cas/config/cas.yml
-# Add merge yml with new line in between
-find ${CONFIG_PROPERTIES_PATH} -type f -name '*.yml' \
-    -exec sh -c 'for file in "{}" ; do cat "$file" >> /etc/cas/config/cas.yml ; echo  >> /etc/cas/config/cas.yml ;  done' \;
+# #####
+# # Build cas.yml
+# #
+# rm -f /etc/cas/config/cas.yml
+# # Add merge yml with new line in between
+# find ${CONFIG_PROPERTIES_PATH} -type f -name '*.yml' \
+#     -exec sh -c 'for file in "{}" ; do cat "$file" >> /etc/cas/config/cas.yml ; echo  >> /etc/cas/config/cas.yml ;  done' \;
 
 #####
 # Build build.gradle

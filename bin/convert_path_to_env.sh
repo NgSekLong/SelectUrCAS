@@ -23,6 +23,9 @@ jsonp_file=../env.jsonp
 : > $env_file
 cp $env_default_file $env_file
 
+#Set active profile
+spring_active_profile=standalone
+
 echo "########Avaliable variable###########"
 for dir in `find . -type d`
 do
@@ -65,8 +68,11 @@ do
     echo "\${$constant_path:-.} => $path"
     echo "\${$constant} => $constant_name"
 
+    # Set active profiles:
+    spring_active_profile=$spring_active_profile,$constant_name
 done
-
+echo "\${SPRING_PROFILES_ACTIVE} => $spring_active_profile"
+echo SPRING_PROFILES_ACTIVE=$spring_active_profile >> $env_file
 echo "########End of Avaliable variable###########"
 
 # Print env into jsonp

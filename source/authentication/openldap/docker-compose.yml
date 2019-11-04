@@ -4,7 +4,7 @@ services:
     volumes: 
       - type: bind
         source: ${AUTHENTICATION_OPENLDAP_PATH:-.}/cas.yml
-        target: ${CONFIG_PROPERTIES_PATH:-.}/${AUTHENTICATION_OPENLDAP_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${AUTHENTICATION_OPENLDAP}.yml
         read_only: true
       - type: bind
         source: ${AUTHENTICATION_OPENLDAP_PATH:-.}/build.gradle
