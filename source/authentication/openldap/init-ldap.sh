@@ -1,0 +1,1 @@
+ldapsearch -x  -b dc=example,dc=org -D "cn=admin,dc=example,dc=org" -w admin
