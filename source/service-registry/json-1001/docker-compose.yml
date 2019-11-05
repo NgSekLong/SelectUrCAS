@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  cas:
+    volumes: 
+      - type: bind
+        source: ${SERVICE_REGISTRY_JSON_1001_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${SERVICE_REGISTRY_JSON_1001}.yml
+        read_only: true
+      - type: bind
+        source: ${SERVICE_REGISTRY_JSON_1001_PATH:-.}/service.json
+        target: ${SERVICES_PATH:-.}/${SERVICE_REGISTRY_JSON_1001_NAME}.json
+        read_only: true
+      - type: bind
+        source: ${SERVICE_REGISTRY_JSON_1001_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${SERVICE_REGISTRY_JSON_1001_PATH:-.}/build.gradle
+        read_only: true
+    environment:
+      SERVICE_REGISTRY_JSON_1001_PATH: ${SERVICE_REGISTRY_JSON_1001_PATH}

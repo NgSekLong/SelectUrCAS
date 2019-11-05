@@ -48,24 +48,28 @@ do
     constant=$(echo $constant | tr a-z A-Z)
     type=`echo $dir | sed 's/\.\/\(.*\)\/.*/\1/'`
     path="./source/${dir:2}"
+    name=`basename "$dir"`
 
 
     # Set Constant name
     constant=${constant//-/_}
     constant_path="$constant"_PATH
     constant_type="$constant"_TYPE
+    constant_name="$constant"_NAME
 
     # Write to .env
     echo $constant=$constant_name >> $env_file
 
     echo $constant_path=$path >> $env_file
     echo $constant_type=$type >> $env_file
+    echo $constant_name=$name >> $env_file
 
 
     # Output for better copy and paste
     echo 
-    echo "\${$constant_type:-.} => $type"
     echo "\${$constant_path:-.} => $path"
+    echo "\${$constant_type:-.} => $type"
+    echo "\${$constant_name:-.} => $name"
     echo "\${$constant} => $constant_name"
 
     # Set active profiles:

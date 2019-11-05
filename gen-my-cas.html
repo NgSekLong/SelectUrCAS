@@ -43,18 +43,25 @@
 
 
                     <v-select v-model="authenticationValues" :items="authenticationValuesOptions"
-                        label="Where you want your authentication credential stored?" multiple persistent-hint chips>
+                        label="Select where Authentication credential stored at:" multiple persistent-hint clearable  chips>
                     </v-select>
                     <v-select v-model="authenticationAttributesValues" :items="authenticationAttributesValuesOptions"
-                        label="Where you want your authentication attribute stored?" multiple persistent-hint chips>
+                        label="Select where Authentication attribute stored at:" multiple persistent-hint clearable  chips>
                     </v-select>
                     <v-select v-model="clientValues" :items="clientValuesOptions"
-                        label="What client is to be used to authenticate your system against" multiple persistent-hint
+                        label="Client is to be used to authenticate your system against:" multiple clearable  persistent-hint
                         chips>
                     </v-select>
                     <v-select v-model="serviceRegistryValues" :items="serviceRegistryValuesOptions"
-                        label="Where you want your service stored?" multiple persistent-hint chips>
+                        label="Select where service stored at:" multiple persistent-hint clearable  chips
+                        >
                     </v-select>
+                    <v-alert type="info">
+                        Number at the end is used for service id and order
+                    </v-alert>
+                    <v-alert type="info">
+                      By default, each of the above service registry allow all http / https traffic, you should select one and only one service registry unless you modified the service registry
+                    </v-alert>
 
                     <v-switch v-model="isHaveSudo" :label="`Include sudo to command ?`"></v-switch>
                     <v-switch v-model="isDockerUp" :label="`Is docker up?`"></v-switch>
