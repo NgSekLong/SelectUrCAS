@@ -32,7 +32,7 @@
         </init-param>
         <init-param>
             <param-name>serverName</param-name>
-            <param-value>https://localhost:9443</param-value>
+            <param-value>https://cas.example.org:9443</param-value>
         </init-param>
     </filter>
 
@@ -46,7 +46,7 @@
         </init-param>
         <init-param>
             <param-name>serverName</param-name>
-            <param-value>https://localhost:9443</param-value>
+            <param-value>https://cas.example.org:9443</param-value>
         </init-param>
         <init-param>
             <param-name>redirectAfterValidation</param-name>
@@ -67,13 +67,13 @@
         </init-param>
         <init-param>
             <param-name>proxyCallbackUrl</param-name>
-            <param-value>https://localhost:9443/sample/proxyUrl</param-value>
+            <param-value>https://cas.example.org:9443/sample/proxyUrl</param-value>
         </init-param>
         -->
-        <init-param>
+        <!-- <init-param>
             <param-name>authn_method</param-name>
             <param-value>mfa-duo</param-value>
-        </init-param>
+        </init-param> -->
     </filter>
 
     <filter>

@@ -12,7 +12,6 @@ services:
         read_only: true
     environment:
       AUTHENTICATION_MYSQL_QUERY: ${AUTHENTICATION_MYSQL_QUERY}
-      AUTHENTICATION_MYSQL_QUERY_PORT: ${AUTHENTICATION_MYSQL_QUERY_PORT}
   authentication_mysql_query:
     image: mysql:8
     command: --default-authentication-plugin=mysql_native_password
