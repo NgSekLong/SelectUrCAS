@@ -188,6 +188,13 @@
                             allValueOptions[parentKey] = {};
                         }
                         allValueOptions[parentKey]['value'] = value;
+                    } else if (key.includes("_NAME")) {
+                        console.log('why lol');
+                        let parentKey = key.split("_NAME")[0];
+                        if (!(parentKey in allValueOptions)) {
+                            allValueOptions[parentKey] = {};
+                        }
+                        allValueOptions[parentKey]['name'] = value;
                     }
                     else {
                         if (!(key in allValueOptions)) {
@@ -197,6 +204,7 @@
                     }
                 });
 
+                console.log('allValueOptions', allValueOptions);
                 // let allValueOptions = enviornmentVarables.reduce(function (filtered, element) {
                 //     if (Array.isArray(filtered)) {
                 //         filtered = {};

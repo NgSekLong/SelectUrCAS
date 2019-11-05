@@ -8,9 +8,12 @@ services:
       - type: bind
         source: ${CLIENT_PHPCAS_PATH:-.}/index.php
         target: /var/www/html/index.php
+        read_only: true
       - type: bind
         source: ${CLIENT_PHPCAS_PATH:-.}/login.php
         target: /var/www/html/login.php
+        read_only: true
       - type: bind
         source: ${CLIENT_PHPCAS_PATH:-.}/logout.php
         target: /var/www/html/logout.php
+        read_only: true

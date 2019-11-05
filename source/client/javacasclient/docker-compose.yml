@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  javacasclient:
+    build: ${CLIENT_JAVACASCLIENT_PATH:-.}/.
+    ports:
+      - "9080:9080"
+      - "9443:9443"
+    volumes:
+      - type: bind
+        source: ${CLIENT_JAVACASCLIENT_PATH:-.}/thekeystore
+        target: /etc/cas/jetty/thekeystore
+        read_only: true
+      - type: bind
+        source: ${CLIENT_JAVACASCLIENT_PATH:-.}/web.xml
+        target: /javacasclient/src/main/webapp/WEB-INF/web.xml
+        read_only: true
+    #   - type: bind
+    #     source: ${CLIENT_JAVACASCLIENT_PATH:-.}/index.php
+    #     target: /var/www/html/index.php
+    #   - type: bind
+    #     source: ${CLIENT_JAVACASCLIENT_PATH:-.}/login.php
+    #     target: /var/www/html/login.php
+    #   - type: bind
+    #     source: ${CLIENT_JAVACASCLIENT_PATH:-.}/logout.php
+    #     target: /var/www/html/logout.php
+    environment:
+      CAS_SERVER_URL: "https://cas.example.org:8443/cas"
+      CATALINA_OPTS: "-DCAS_SERVER_URL=%CAS_SERVER_URL%"
+      #set "CATALINA_OPTS=-DsomeJavaSysProp=%SOME_OS_ENVVAR%"

@@ -44,7 +44,7 @@ do
     constant=${constant//\//_}
 
     # Set Constant Value
-    constant_name=${constant//_/-}
+    constant_id=${constant//_/-}
     constant=$(echo $constant | tr a-z A-Z)
     type=`echo $dir | sed 's/\.\/\(.*\)\/.*/\1/'`
     path="./source/${dir:2}"
@@ -58,7 +58,7 @@ do
     constant_name="$constant"_NAME
 
     # Write to .env
-    echo $constant=$constant_name >> $env_file
+    echo $constant=$constant_id >> $env_file
 
     echo $constant_path=$path >> $env_file
     echo $constant_type=$type >> $env_file
@@ -70,10 +70,10 @@ do
     echo "\${$constant_path:-.} => $path"
     echo "\${$constant_type:-.} => $type"
     echo "\${$constant_name:-.} => $name"
-    echo "\${$constant} => $constant_name"
+    echo "\${$constant} => $constant_id"
 
     # Set active profiles:
-    spring_active_profile=$spring_active_profile,$constant_name
+    spring_active_profile=$spring_active_profile,$constant_id
 done
 echo "\${SPRING_PROFILES_ACTIVE} => $spring_active_profile"
 echo SPRING_PROFILES_ACTIVE=$spring_active_profile >> $env_file
