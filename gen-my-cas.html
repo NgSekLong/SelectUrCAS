@@ -39,8 +39,15 @@
         <v-app>
             <v-content>
                 <v-container class="mt-5">
-                    <h1>Select Ur CAS</h1>
 
+                    <v-row>
+                        <v-col cols="4" >
+                            <h1>Select Ur CAS</h1>
+                        </v-col>
+                        <v-col cols="8" class="float-right">
+                            <v-btn class="float-right" @click="resetToDefaultSettings">Click to reset to example setup</v-btn>
+                        </v-col>
+                    </v-row>
 
                     <v-select v-model="authenticationValues" :items="authenticationValuesOptions"
                         label="Select where Authentication credential stored at:" multiple persistent-hint clearable  chips>
@@ -205,38 +212,6 @@
                 });
 
                 console.log('allValueOptions', allValueOptions);
-                // let allValueOptions = enviornmentVarables.reduce(function (filtered, element) {
-                //     if (Array.isArray(filtered)) {
-                //         filtered = {};
-                //     }
-                //     if (element.includes("=")) {
-                //         let [key, value] = element.split("=");
-                //         if (key.includes("_TYPE")) {
-                //             let parentKey = key.split("_TYPE")[0];
-                //             if (!(parentKey in filtered)) {
-                //                 filtered[parentKey] = {};
-                //             }
-                //             filtered[parentKey]['type'] = value;
-                //         } else if (key.includes("_PATH")) {
-                //             let parentKey = key.split("_PATH")[0];
-                //             if (!(parentKey in filtered)) {
-                //                 filtered[parentKey] = {};
-                //             }
-                //             filtered[parentKey]['value'] = value;
-
-                //         }
-                //         else {
-                //             if (!(key in filtered)) {
-                //                 filtered[key] = {};
-                //             }
-                //             filtered[key]['text'] = kebabToProper(value);
-                //         }
-
-
-                //     }
-                //     return filtered;
-                // }, []);
-                console.log('allValueOptions', allValueOptions);
 
                 this.authenticationValuesOptions = Object.values(allValueOptions).filter(function (option) {
                     return option.type == "authentication"
@@ -327,6 +302,13 @@
                         str[i] = str[i].slice(0, 1).toUpperCase() + str[i].slice(1, str[i].length);
                     }
                     return str.join(' ');
+                },
+                resetToDefaultSettings() {
+                    this.authenticationValues = [ "./source/authentication/json-whitelist" ];
+                    this.authenticationAttributesValues = ["./source/authentication-attribute/mysql"];
+                    this.clientValues = ["./source/client/phpcas"];
+                    this.serviceRegistryValues = ["./source/service-registry/json-1001"];
+
                 },
 
             },
