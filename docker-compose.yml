@@ -12,6 +12,7 @@ services:
       CONFIG_PATH: ${CONFIG_PATH}
       CONFIG_PROPERTIES_PATH: ${CONFIG_PROPERTIES_PATH}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      CAS_DOMAIN_NAME: ${CAS_DOMAIN_NAME}
     volumes:
       - type: bind
         source: ${CAS_OVERLAY_PATH:-.}/cas.yml

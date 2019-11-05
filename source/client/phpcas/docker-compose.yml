@@ -3,7 +3,8 @@ services:
   phpcas:
     build: ${CLIENT_PHPCAS_PATH:-.}/.
     ports:
-      - "80:80"
+      - target: 80
+        published: 51515
     volumes:
       - type: bind
         source: ${CLIENT_PHPCAS_PATH:-.}/index.php
@@ -17,3 +18,5 @@ services:
         source: ${CLIENT_PHPCAS_PATH:-.}/logout.php
         target: /var/www/html/logout.php
         read_only: true
+    environment:
+      CAS_DOMAIN_NAME: ${CAS_DOMAIN_NAME}        

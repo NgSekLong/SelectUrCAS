@@ -3,8 +3,8 @@ services:
   javacasclient:
     build: ${CLIENT_JAVACASCLIENT_PATH:-.}/.
     ports:
-      - "9080:9080"
-      - "9443:9443"
+      - target: 9443
+        published: 52525
     volumes:
       - type: bind
         source: ${CLIENT_JAVACASCLIENT_PATH:-.}/web.xml
