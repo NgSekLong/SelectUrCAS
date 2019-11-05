@@ -191,7 +191,7 @@ task createKeystore(group: "build", description: "Create CAS keystore") {
                     "-keyalg", "RSA",
                     "-keypass", "changeit", "-storepass", "changeit",
                     "-keystore", keystorePath,
-                    "-dname", dn, "-ext", "SAN=${subjectAltName}"
+                    "-dname", dn//, "-ext", "SAN=${subjectAltName}"
         }
         logger.info "Exporting cert from keystore..."
         exec {

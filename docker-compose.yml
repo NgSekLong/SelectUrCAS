@@ -17,7 +17,8 @@ services:
         source: ${CAS_OVERLAY_PATH:-.}/cas.yml
         target: ${CONFIG_PATH:-.}/${CAS_OVERLAY}.yml
         read_only: true
+    hostname: cas.example.org
     networks:
       default:
         aliases:
-          - 127.0.0.1
+          - cas.example.org

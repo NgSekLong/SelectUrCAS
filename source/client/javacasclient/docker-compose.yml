@@ -26,4 +26,8 @@ services:
     environment:
       CAS_SERVER_URL: "https://cas.example.org:8443/cas"
       CATALINA_OPTS: "-DCAS_SERVER_URL=%CAS_SERVER_URL%"
+      JAVA_OPTS: '-Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true'
+      MAVEN_OPTS : '-Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true'
       #set "CATALINA_OPTS=-DsomeJavaSysProp=%SOME_OS_ENVVAR%"
+    # This is so java won't be stubborn about we using self-defined domain
+    command: -Darguments="-Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true"
