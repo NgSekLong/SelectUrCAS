@@ -14,12 +14,3 @@ services:
         source: ${CLIENT_JAVACASCLIENT_PATH:-.}/pom.xml
         target: /javacasclient/pom.xml
         read_only: true
-
-
-    # environment:
-    #   CAS_SERVER_URL: "https://cas.example.org:8443/cas"
-    #   CATALINA_OPTS: "-DCAS_SERVER_URL=%CAS_SERVER_URL%"
-    #   JAVA_OPTS: '-Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true'
-    #   MAVEN_OPTS : '-Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true'
-    # # This is so java won't be stubborn about we using self-defined domain
-    # command: -Darguments="-Dcom.sun.jndi.ldap.object.disableEndpointIdentification=true"
