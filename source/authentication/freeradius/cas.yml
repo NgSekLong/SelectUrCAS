@@ -10,7 +10,7 @@ cas.authn.radius:
   # server.nasIdentifier: -1
 
   # client.authenticationPort: 1812
-  # client.sharedSecret: N0Sh@ar3d$ecReT
+  client.sharedSecret: testing123
   # client.socketTimeout: 0
   client.inetAddress: ${AUTHENTICATION_FREERADIUS}
   # client.accountingPort: 1813
@@ -27,3 +27,7 @@ cas.authn.radius:
   # principalTransformation.suffix: 
   # principalTransformation.caseConversion: NONE|UPPERCASE|LOWERCASE
   # principalTransformation.prefix: 
+cas.authn.mfa.simple.name:
+  from: wotobe@netmail8.com
+  replyTo: wotobe@netmail8.com
+  

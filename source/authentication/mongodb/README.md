@@ -1,4 +1,3 @@
-<html>
 ## MongoDB Authentication
 
 Login using:
@@ -17,4 +16,3 @@ Steps to inside MongoDB to have a look at your user data:
 
 
 Documentation: https://apereo.github.io/cas/6.1.x/installation/MongoDb-Authentication.html
-</html>

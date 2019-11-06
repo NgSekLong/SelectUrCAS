@@ -1,11 +1,34 @@
 version: '3.7'
 services:
+  cas:
+    volumes: 
+      - type: bind
+        source: ${AUTHENTICATION_FREERADIUS_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${AUTHENTICATION_FREERADIUS}.yml
+        read_only: true
+      - type: bind
+        source: ${AUTHENTICATION_FREERADIUS_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${AUTHENTICATION_FREERADIUS_PATH:-.}/build.gradle
+        read_only: true
+    environment:
+      AUTHENTICATION_FREERADIUS: ${AUTHENTICATION_FREERADIUS}
   authentication_freeradius:
     image: freeradius/freeradius-server
+    expose:
+      - 1812
+      - 1813
     volumes: 
       - type: bind
         source: ${AUTHENTICATION_FREERADIUS_PATH:-.}/authorize
         target: /etc/raddb/mods-config/files/authorize
+        read_only: true
+      - type: bind
+        source: ${AUTHENTICATION_FREERADIUS_PATH:-.}/clients.conf
+        target: /etc/raddb/clients.conf
+        read_only: true
+      - type: bind
+        source: ${AUTHENTICATION_FREERADIUS_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${AUTHENTICATION_FREERADIUS_PATH:-.}/build.gradle
         read_only: true
     environment:
      - AUTHENTICATION_FREERADIUS_PATH=${AUTHENTICATION_FREERADIUS_PATH}

@@ -21,13 +21,14 @@ Need to install the following
 
 ## Setup
 
-1. Open `gen-my-cas.html` using a Chrome browser (Firefox is tested not work)
+1. Open `gen-my-cas.html` using a Chrome browser (Firefox and other would not work)
 2. Select the CAS components that you want to include in your stack (e.g. *MySQL Authentication* + *JSON Service Registry* + ...)
 3. Copy the docker command generated
 4. Add `127.0.0.1 cas.example.org` into your host file
 5. Paste it in the root directory of this repository
-7. Execute script and wait for everything components ready 
-8. Go to `http://cas.example.org:8443/cas`
+7. Execute script and wait for everything components ready
+8. Read the documentation for each components, for how to use them
+8. If you want just test authentication, go to `http://cas.example.org:8443/cas`
 9. Start to play with your deployment!
 
 ## Troubleshoot
@@ -35,4 +36,5 @@ Need to install the following
 1. Having trouble start up your system because of Tomcat listening problem? 
     - then you might already have ports exposed in this machine, turning them off will solve this issue
     - In normal mechaism, you need to reserved port `8443` and `80` for **Select Ur CAS** project
+    - A number of other ports might also need to be reserved depends on components selected, check the *READMD.md* for for each project for ports!
 

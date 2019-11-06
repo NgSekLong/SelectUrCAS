@@ -99,14 +99,11 @@
                                 </template>
                                 <h1>Copy docker command</h1>
                             </v-badge>
-                            <v-row>
                                 <v-switch v-model="isHaveSudo" :label="`Include sudo to command ?`"></v-switch>
 
                                 <v-select v-model="dockerCommand" :items="dockerCommandOptions"
                                     label="Select action for Docker:" persistent-hint>
                                 </v-select>
-
-                            </v-row>
 
                             <v-card class="mx-auto">
                                 <v-card-text class="caption">
