@@ -1,1 +1,3 @@
 cas.authn.json.location: file://${RESOURCE_PATH}/${AUTHENTICATION_JSON_WHITELIST_PATH}/sample.json
+#logging.level.org.apereo.cas: DEBUG
+logging.level.com.fasterxml.jackson: DEBUG

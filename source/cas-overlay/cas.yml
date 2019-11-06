@@ -4,3 +4,6 @@ cas.server.prefix: ${cas.server.name}/cas
 
 # Remove default user
 cas.authn.accept.users:
+
+# Use debug by default
+logging.level.org.apereo.cas: DEBUG

@@ -1,4 +1,1 @@
 compile "org.apereo.cas:cas-server-support-radius:${project.'cas.version'}"
-// This is needed somehow ???
-compile "org.apereo.cas:cas-server-support-simple-mfa:${project.'cas.version'}"
-

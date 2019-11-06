@@ -7,15 +7,16 @@ buildscript {
         maven { url "https://repo.spring.io/libs-snapshot" }
         maven { url "https://plugins.gradle.org/m2/" }
         // For Radius Authetication
-        maven { url "https://jitpack.io" }
+        // maven { url "https://jitpack.io" }
         // For Radius Authetication
-        maven { url "https://maven.repository.redhat.com/ga/" }
+        // maven { url "https://maven.repository.redhat.com/ga/" }
     }
     dependencies {
         classpath "de.undercouch:gradle-download-task:${project.gradleDownloadTaskVersion}"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${project.springBootVersion}"
         classpath "gradle.plugin.com.google.cloud.tools:jib-gradle-plugin:${project.jibVersion}"
         classpath "io.freefair.gradle:maven-plugin:${project.gradleMavenPluginVersion}"
+        classpath "io.freefair.gradle:lombok-plugin:4.1.3"
     }
 }
 
@@ -28,7 +29,7 @@ repositories {
     maven { url "https://repo.spring.io/milestone/" }
     maven { url "https://repo.spring.io/snapshot/" }
     maven { url "https://oss.jfrog.org/artifactory/oss-snapshot-local" }
-    // For Radius Authetication
+    // https://jitpack.io isFor Radius Authetication
     maven { url "https://jitpack.io" }
     // For Radius Authetication
     maven { url "https://maven.repository.redhat.com/ga/" }
@@ -50,6 +51,8 @@ apply plugin: "idea"
 
 apply from: rootProject.file("gradle/springboot.gradle")
 apply from: rootProject.file("gradle/dockerjib.gradle")
+
+apply plugin: "io.freefair.lombok"
 
 // Note: DO NOT ADD DEPENDENCIES HERE, an dependencies block will be appended at the end
 // dependencies {
