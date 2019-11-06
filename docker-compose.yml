@@ -18,6 +18,10 @@ services:
         source: ${CAS_OVERLAY_PATH:-.}/cas.yml
         target: ${CONFIG_PATH:-.}/${CAS_OVERLAY}.yml
         read_only: true
+      - type: bind
+        source: ${CAS_OVERLAY_PATH:-.}/src
+        target: /cas-overlay/src
+        read_only: true
     hostname: cas.example.org
     networks:
       default:
