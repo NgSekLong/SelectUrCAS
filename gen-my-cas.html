@@ -23,13 +23,17 @@
             background: white;
             opacity: 0.95;
         }
+
         .v-chip {
             opacity: 1;
         }
 
         .iframe {
             width: 100%;
-            height: 12em;
+            height: 7em;
+            margin-bottom: 1em;
+            overflow-y: hidden;
+            overflow:hidden;
         }
     </style>
 </head>
@@ -38,87 +42,133 @@
     <div id="app">
         <v-app>
             <v-content>
-                <v-container class="mt-5">
 
+
+                <v-container class="mt-5 ">
                     <v-row>
-                        <v-col cols="4" >
+                        <v-col cols="4">
+
+
                             <h1>Select Ur CAS</h1>
                         </v-col>
-                        <v-col cols="8" class="float-right">
-                            <v-btn class="float-right" @click="resetToDefaultSettings">Click to reset to example setup</v-btn>
+                        <v-col cols="8">
+                            <v-btn class="success float-right" @click="resetToDefaultSettings">Click to reset to example
+                                setup</v-btn>
+                        </v-col>
+                    </v-row>
+                    <v-divider></v-divider>
+                    <v-row>
+                        <v-col col="12" md="4" sm="12">
+                            <v-badge right>
+                                <template v-slot:badge>
+                                    <span>1</span>
+                                </template>
+                                <h1>Select Command</h1>
+                            </v-badge>
+                            
+
+                            <v-select v-model="authenticationValues" :items="authenticationValuesOptions"
+                                label="Select where Authentication credential stored at:" multiple persistent-hint
+                                clearable chips>
+                            </v-select>
+                            <v-select v-model="authenticationAttributesValues"
+                                :items="authenticationAttributesValuesOptions"
+                                label="Select where Authentication attribute stored at:" multiple persistent-hint
+                                clearable chips>
+                            </v-select>
+                            <v-select v-model="clientValues" :items="clientValuesOptions"
+                                label="Client is to be used to authenticate your system against:" multiple clearable
+                                persistent-hint chips>
+                            </v-select>
+                            <v-select v-model="serviceRegistryValues" :items="serviceRegistryValuesOptions"
+                                label="Select where service stored at:" multiple persistent-hint clearable chips>
+                            </v-select>
+                            <v-alert type="info">
+                                Number at the end is used for service id and order
+                            </v-alert>
+                            <v-alert type="info">
+                                By default, each of the above service registry allow all http / https traffic, you
+                                should select one and only one service registry unless you modified the service registry
+                            </v-alert>
+                        </v-col>
+                        <v-col col="12" md="5" sm="12">
+
+                            <v-badge right>
+                                <template v-slot:badge>
+                                    <span>2</span>
+                                </template>
+                                <h1>Copy docker command</h1>
+                            </v-badge>
+                            <v-row>
+                                <v-switch v-model="isHaveSudo" :label="`Include sudo to command ?`"></v-switch>
+
+                                <v-select v-model="dockerCommand" :items="dockerCommandOptions"
+                                    label="Select action for Docker:" persistent-hint>
+                                </v-select>
+
+                            </v-row>
+
+                            <v-card class="mx-auto">
+                                <v-card-text class="caption">
+
+                                    <span id="docker-command">
+                                        <span class="blue--text">
+                                            {{ isHaveSudo ? 'sudo' : ''}} docker-compose -f
+                                            <span class="purple--text"> docker-compose.yml </span>
+                                        </span>
+                                        <div v-for="dockerComposeParam in dockerComposeParams">
+                                            <span class="blue--text"> -f </span>
+                                            <span class="purple--text"> {{dockerComposeParam}}/docker-compose.yml
+                                            </span>
+                                        </div>
+                                        <span class="blue--text"> {{ dockerCommand }} </span>
+
+
+                                    </span>
+                                    <input id="docker-command-copy" type="hidden" />
+                                </v-card-text>
+                                <v-divider class="mx-4"></v-divider>
+                                <v-card-actions>
+                                    <v-btn text color="deep-purple accent-4" @click="copyDockerComposeCode">
+                                        Copy
+                                    </v-btn>
+
+
+                                    <v-snackbar v-model="snackbar" :timeout="timeout" :multi-line="true">
+                                        {{ snackbarText }}
+                                        <v-btn color="blue" text @click="snackbar = false">
+                                            Close
+                                        </v-btn>
+                                    </v-snackbar>
+                                </v-card-actions>
+                            </v-card>
+                        </v-col>
+                        <v-col col="12" md="3" sm="12">
+
+                            <v-badge right>
+                                <template v-slot:badge>
+                                    <span>3</span>
+                                </template>
+                                <h1>Read Docs</h1>
+                            </v-badge>
+                            <v-card>
+
+                                <template v-for="dockerComposeParam in dockerComposeParams">
+
+                                    <v-card class="mr-2 ml-2 mb-1 mt-1">
+                                        <iframe frameBorder="0" class="iframe"
+                                            :src="dockerComposeParam + '/README.md'"></iframe>
+                                    </v-card>
+                                    <!-- <v-col :key="dockerComposeParam" cols="12" sm="6" md="4" >
+                                            </v-col> -->
+                                </template>
+                            </v-card>
                         </v-col>
                     </v-row>
 
-                    <v-select v-model="authenticationValues" :items="authenticationValuesOptions"
-                        label="Select where Authentication credential stored at:" multiple persistent-hint clearable  chips>
-                    </v-select>
-                    <v-select v-model="authenticationAttributesValues" :items="authenticationAttributesValuesOptions"
-                        label="Select where Authentication attribute stored at:" multiple persistent-hint clearable  chips>
-                    </v-select>
-                    <v-select v-model="clientValues" :items="clientValuesOptions"
-                        label="Client is to be used to authenticate your system against:" multiple clearable  persistent-hint
-                        chips>
-                    </v-select>
-                    <v-select v-model="serviceRegistryValues" :items="serviceRegistryValuesOptions"
-                        label="Select where service stored at:" multiple persistent-hint clearable  chips
-                        >
-                    </v-select>
-                    <v-alert type="info">
-                        Number at the end is used for service id and order
-                    </v-alert>
-                    <v-alert type="info">
-                      By default, each of the above service registry allow all http / https traffic, you should select one and only one service registry unless you modified the service registry
-                    </v-alert>
-
-                    <v-switch v-model="isHaveSudo" :label="`Include sudo to command ?`"></v-switch>
-                    <v-switch v-model="isDockerUp" :label="`Is docker up?`"></v-switch>
-                    <v-card class="mx-auto">
-                        <v-card-text>
-
-                            <span id="docker-command">
-                                <span class="blue--text">
-                                    {{ isHaveSudo ? 'sudo' : ''}} docker-compose -f
-                                    <span class="purple--text"> docker-compose.yml </span>
-                                </span>
-                                <div v-for="dockerComposeParam in dockerComposeParams">
-                                    <span class="blue--text"> -f </span>
-                                    <span class="purple--text"> {{dockerComposeParam}}/docker-compose.yml </span>
-                                </div>
-                                <span class="blue--text"> {{ isDockerUp ? 'up' : 'down'}} </span>
 
 
-                            </span>
-                            <input id="docker-command-copy" type="hidden" />
-                        </v-card-text>
-                        <v-divider class="mx-4"></v-divider>
-                        <v-card-actions>
-                            <v-btn text color="deep-purple accent-4" @click="copyDockerComposeCode">
-                                Copy
-                            </v-btn>
 
-
-                            <v-snackbar v-model="snackbar" :timeout="timeout" :multi-line="true">
-                                {{ snackbarText }}
-                                <v-btn color="blue" text @click="snackbar = false">
-                                    Close
-                                </v-btn>
-                            </v-snackbar>
-                        </v-card-actions>
-                    </v-card>
-                    <h2 class="mt-5">Documentation About components selected:</h2>
-                    <v-card>
-                        <v-row>
-                            
-                            <template v-for="dockerComposeParam in dockerComposeParams">
-                                <v-col :key="dockerComposeParam" cols="12" sm="6" md="4" >
-                                    <v-card class="mr-3 ml-3">
-                                            <iframe frameBorder="0" class="iframe" 
-                                                :src="dockerComposeParam + '/README.md'"></iframe>
-                                    </v-card>
-                                </v-col>
-                            </template>
-                        </v-row>
-                    </v-card>
                 </v-container>
             </v-content>
         </v-app>
@@ -151,7 +201,8 @@
 
                     // page related
                     isHaveSudo: true,
-                    isDockerUp: true,
+                    dockerCommand: 'up',
+                    dockerCommandOptions: ['up', 'stop', 'rm', 'build'],
 
                     // Snack back
                     snackbar: false,
@@ -196,7 +247,6 @@
                         }
                         allValueOptions[parentKey]['value'] = value;
                     } else if (key.includes("_NAME")) {
-                        console.log('why lol');
                         let parentKey = key.split("_NAME")[0];
                         if (!(parentKey in allValueOptions)) {
                             allValueOptions[parentKey] = {};
@@ -225,10 +275,24 @@
                 this.serviceRegistryValuesOptions = Object.values(allValueOptions).filter(function (option) {
                     return option.type == "service-registry"
                 });
+
+                // Initialize storage if first landing
+                if (!localStorage.noFirstVisit && this.dockerComposeParams.length == 0) {
+                    this.resetToDefaultSettings();
+
+                    this.snackbarText = 'Welcome to Select Ur CAS, just initialized an example config for you :)';
+                    this.snackbar = true;
+
+                    // check this flag for escaping this if block next time
+                    localStorage.noFirstVisit = "1";
+                }
             },
             mounted() {
                 if (localStorage.isHaveSudo) {
                     this.isHaveSudo = JSON.parse(localStorage.isHaveSudo);
+                }
+                if (localStorage.dockerCommand) {
+                    this.dockerCommand = JSON.parse(localStorage.dockerCommand);
                 }
                 if (localStorage.authenticationValues) {
                     this.authenticationValues = JSON.parse(localStorage.authenticationValues);
@@ -250,6 +314,9 @@
             watch: {
                 isHaveSudo(newIsHaveSudo) {
                     localStorage.isHaveSudo = newIsHaveSudo;
+                },
+                dockerCommand(newDockerCommand) {
+                    localStorage.dockerCommand = JSON.stringify(newDockerCommand);
                 },
                 authenticationValues(newAuthenticationValues) {
                     localStorage.authenticationValues = JSON.stringify(newAuthenticationValues);
@@ -304,7 +371,7 @@
                     return str.join(' ');
                 },
                 resetToDefaultSettings() {
-                    this.authenticationValues = [ "./source/authentication/json-whitelist" ];
+                    this.authenticationValues = ["./source/authentication/json-whitelist"];
                     this.authenticationAttributesValues = ["./source/authentication-attribute/mysql"];
                     this.clientValues = ["./source/client/phpcas"];
                     this.serviceRegistryValues = ["./source/service-registry/json-1001"];
