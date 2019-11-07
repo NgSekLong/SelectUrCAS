@@ -1,0 +1,15 @@
+
+cas.authn.attributeRepository.ldap:
+  - id: 1
+    order: 0
+    ldapUrl: ldap://${AUTHENTICATION_ATTRIBUTE_OPENLDAP}/cn=admin%2Cdc=example%2Cdc=org
+    bindDn: cn=admin,dc=example,dc=org
+    bindCredential: admin
+    # type: DIRECT
+    baseDn: dc=example,dc=org
+    # dnFormat: uid=%s,dc=example,dc=org
+    searchFilter: uid={user}
+    # # Temp false to test, later need to add back ssl
+    useSsl: false
+
+    attributes.mail: mail

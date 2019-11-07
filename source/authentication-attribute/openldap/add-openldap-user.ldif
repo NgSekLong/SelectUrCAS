@@ -1,0 +1,15 @@
+dn: uid=openldap,dc=example,dc=org
+changetype: add
+uid: openldap
+cn: openldap
+sn: 3
+objectClass: top
+objectClass: posixAccount
+objectClass: inetOrgPerson
+loginShell: /bin/bash
+homeDirectory: /home/openldap
+uidNumber: 14583102
+gidNumber: 14564100
+userPassword: Mellon
+mail: openldap@example.org
+gecos: openldap User
