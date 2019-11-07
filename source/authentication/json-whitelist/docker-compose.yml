@@ -7,8 +7,8 @@ services:
         target: ${CONFIG_PATH:-.}/${AUTHENTICATION_JSON_WHITELIST}.yml
         read_only: true
       - type: bind
-        source: ${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/sample.json
-        target: ${RESOURCE_PATH:-.}/${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/sample.json
+        source: ${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/authenticate.json
+        target: ${RESOURCE_PATH:-.}/${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/authenticate.json
         read_only: true
       - type: bind
         source: ${AUTHENTICATION_JSON_WHITELIST_PATH:-.}/build.gradle

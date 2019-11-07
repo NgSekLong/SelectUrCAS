@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  cas:
+    volumes: 
+      - type: bind
+        source: ${AUTHENTICATION_ATTRIBUTE_JSON_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${AUTHENTICATION_ATTRIBUTE_JSON}.yml
+        read_only: true
+      - type: bind
+        source: ${AUTHENTICATION_ATTRIBUTE_JSON_PATH:-.}/attribute.json
+        target: ${RESOURCE_PATH:-.}/${AUTHENTICATION_ATTRIBUTE_JSON_PATH:-.}/attribute.json
+        read_only: true
+    environment:
+      AUTHENTICATION_ATTRIBUTE_JSON_PATH: ${AUTHENTICATION_ATTRIBUTE_JSON_PATH}
