@@ -1,7 +1,7 @@
 ## Mysql Query Authentication
 
 Attribute retrived for `casuser` account is:
-- attributeRetriveFrom
+- attributeRetriveFrom: mysql
 - firstname
 - lastname
 

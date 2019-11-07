@@ -12,7 +12,7 @@ services:
         read_only: true
     environment:
       AUTHENTICATION_ATTRIBUTE_REST: ${AUTHENTICATION_ATTRIBUTE_REST}
-  AUTHENTICATION_ATTRIBUTE_REST:
+  authentication_attribute_rest:
     image: php:7.2-apache
     expose:
       - 80

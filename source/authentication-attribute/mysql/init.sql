@@ -10,7 +10,7 @@ CREATE TABLE USERATTRS (
 
 INSERT INTO USERATTRS (uid,  attrname, attrvalue)
 VALUES 
-  ('casuser', 'attributeRetriveFrom', 'MySQL'),
+  ('casuser', 'attributeRetriveFrom', 'mysql'),
   ('casuser', 'firstname', 'Cool'),
   ('casuser', 'lastname', 'Dude'),
   ('casuser', 'phone', '+13476452319');

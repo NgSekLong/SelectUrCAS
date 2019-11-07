@@ -2,7 +2,10 @@
   "@class" : "org.apereo.cas.services.RegexRegisteredService",
   "serviceId" : "https?://.*",
   "name" : "json-1001",
-  "description" : "Json example service - Allow all http or https traffic",
+  "description" : "Json example service - Allow all http or https traffic and return all attributes",
   "id" : 1001,
-  "evaluationOrder" : 1001
+  "evaluationOrder" : 1001,
+  "attributeReleasePolicy" : {
+    "@class" : "org.apereo.cas.services.ReturnAllAttributeReleasePolicy"
+  }
 }

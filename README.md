@@ -12,6 +12,10 @@ While being incredibly well documented, CAS does seems daunting for starter.
 
 Empowered by **Docker**, **Select Ur CAS** is very flexible in term of what can be mix and matched together.
 
+Note that:
+- **Select Ur CAS** is not associated to Apereo, just an project from a user of CAS :)
+- **Select Ur CAS** is components are usually not build secure, you should not relies on this project for secure standard
+
 ## Prerequisite
 
 Need to install the following

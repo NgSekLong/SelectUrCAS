@@ -32,7 +32,7 @@ RUN mkdir -p ~/.gradle \
     && cd cas-overlay \
     && chmod 750 ./gradlew \
     && ./gradlew --version \
-    && ./gradlew clean;
+    && ./gradlew clean build --parallel;
 
 
 

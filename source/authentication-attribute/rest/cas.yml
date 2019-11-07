@@ -1,7 +1,8 @@
-# cas.authn.rest.uri=https://...
-# cas.authn.rest.name=
-# cas.authn.rest.charset=US-ASCII
+
 cas.authn.attributeRepository.rest: 
   - method: GET
     caseInsensitive: false
     url: http://AUTHENTICATION_ATTRIBUTE_REST
+
+# Disabling the attribute properties caching for ease of testing
+cas.authn.attributeRepository.expirationTime: 0
