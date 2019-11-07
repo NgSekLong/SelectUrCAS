@@ -1,17 +1,7 @@
 ## Freeradius Authentication
 
-Work in process...
+Login using:
+- Username: freeradius
+- Password: Mellon
 
-
-/etc/raddb/
-- clients.conf
-client dockernet {
-    ipaddr = 0.0.0.0/0
-    secret = testing123
-}
-
-- mods-config
-- mods-config/files/
-- mods-config/files/authorize
-bob    Cleartext-Password := "hello"
-
+Documentation: https://apereo.github.io/cas/6.1.x/mfa/RADIUS-Authentication.html

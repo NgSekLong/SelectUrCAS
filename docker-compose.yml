@@ -19,6 +19,10 @@ services:
         target: ${CONFIG_PATH:-.}/${CAS_OVERLAY}.yml
         read_only: true
       - type: bind
+        source: ${CAS_OVERLAY_PATH:-.}/gradle.properties
+        target: /cas-overlay/gradle.properties
+        read_only: true
+      - type: bind
         source: ${CAS_OVERLAY_PATH:-.}/src
         target: /cas-overlay/src
         read_only: true
