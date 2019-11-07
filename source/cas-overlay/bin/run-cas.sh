@@ -44,4 +44,4 @@ done
 #####
 # Exec java
 #
-exec java -server -noverify -Xmx2048M -jar cas.war
+exec java -server -noverify -Xmx2048M -jar cas.war ${ADDITIONAL_JAVA_PARAM}

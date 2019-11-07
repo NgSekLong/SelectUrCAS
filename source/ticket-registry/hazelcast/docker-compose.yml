@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  cas:
+    expose:
+      - 8443
+    volumes: 
+      - type: bind
+        source: ${TICKET_REGISTRY_HAZELCAST_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${TICKET_REGISTRY_HAZELCAST}.yml
+        read_only: true
+      - type: bind
+        source: ${TICKET_REGISTRY_HAZELCAST_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${TICKET_REGISTRY_HAZELCAST_PATH:-.}/build.gradle
+        read_only: true
+    environment:
+      TICKET_REGISTRY_HAZELCAST: ${TICKET_REGISTRY_HAZELCAST}
+      # ADDITIONAL_JAVA_PARAM: > 
+      #   --add-modules java.se 
+      #   --add-exports java.base/jdk.internal.ref=ALL-UNNAMED 
+      #   --add-opens java.base/java.lang=ALL-UNNAMED 
+      #   --add-opens java.base/java.nio=ALL-UNNAMED 
+      #   --add-opens java.base/sun.nio.ch=ALL-UNNAMED 
+      #   --add-opens java.management/sun.management=ALL-UNNAMED 
+      #   --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED

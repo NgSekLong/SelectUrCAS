@@ -1,0 +1,3 @@
+cas.ticket.registry.hazelcast.cluster:
+  members: cas.example.org
+  instanceName: localhost

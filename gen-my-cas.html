@@ -76,9 +76,9 @@
                                 label="Authentication attribute:" multiple persistent-hint
                                 clearable chips>
                             </v-select>
-                            <v-select v-model="ticketRegistryValues" :items="ticketRegistryValuesOptions"
-                                label="Ticket registry:" multiple clearable
-                                persistent-hint chips>
+                            <v-select v-model="ticketRegistryValue" :items="ticketRegistryValuesOptions"
+                                label="Ticket registry:"
+                                persistent-hint>
                             </v-select>
                             <v-select v-model="clientValues" :items="clientValuesOptions"
                                 label="CAS clients:" multiple clearable
@@ -135,7 +135,16 @@
                                             <span class="purple--text"> {{dockerComposeParam}}/docker-compose.yml
                                             </span>
                                         </div>
-                                        <span class="blue--text"> {{ dockerCommand }} </span>
+                                        <div v-if="isUseTicketRegistry">
+                                            <span class="blue--text"> -f </span>
+                                            <span class="purple--text"> ./source/nginx-load-balancer/docker-compose.yml
+                                            </span>
+                                        </div>
+                                        
+                                        <span class="blue--text"> 
+                                            {{ dockerCommand }}  
+                                            <template v-if="isUseTicketRegistry" > --scale cas=2</template>
+                                        </span>
 
 
                                     </span>
@@ -204,7 +213,7 @@
                 return {
                     authenticationValues: [],
                     authenticationAttributesValues: [],
-                    ticketRegistryValues: [],
+                    ticketRegistryValue: "",
                     clientValues: [],
                     serviceRegistryValues: [],
 
@@ -239,6 +248,12 @@
                     ];
                     return allParam;
                 },
+                ticketRegistryValues() {
+                    return [this.ticketRegistryValue];
+                },
+                isUseTicketRegistry() {
+                    return this.ticketRegistryValue != './source/ticket-registry/no-ticket-registry';
+                }
             },
             async created() {
                 let response = await fetchJsonp('env.jsonp', {
@@ -327,8 +342,8 @@
                     this.authenticationAttributesValues = JSON.parse(localStorage.authenticationAttributesValues);
                 }
 
-                if (localStorage.ticketRegistryValues) {
-                    this.ticketRegistryValues = JSON.parse(localStorage.ticketRegistryValues);
+                if (localStorage.ticketRegistryValue) {
+                    this.ticketRegistryValue = JSON.parse(localStorage.ticketRegistryValue);
                 }
 
                 if (localStorage.clientValues) {
@@ -356,8 +371,9 @@
                 authenticationAttributesValues(newAuthenticationAttributesValues) {
                     localStorage.authenticationAttributesValues = JSON.stringify(newAuthenticationAttributesValues);
                 },
-                ticketRegistryValues(newTicketRegistryValues){
-                    localStorage.ticketRegistryValues = JSON.stringify(newTicketRegistryValues);
+
+                ticketRegistryValue(newTicketRegistryValue){
+                    localStorage.ticketRegistryValue = JSON.stringify(newTicketRegistryValue);
                 },
                 clientValues(newClientValues) {
                     localStorage.clientValues = JSON.stringify(newClientValues);
@@ -408,11 +424,12 @@
                 resetToDefaultSettings() {
                     this.authenticationValues = ["./source/authentication/json-whitelist"];
                     this.authenticationAttributesValues = ["./source/authentication-attribute/json"];
-                    this.ticketRegistryValues = [];
+                    this.ticketRegistryValue = "./source/ticket-registry/no-ticket-registry";
                     this.clientValues = ["./source/client/phpcas"];
                     this.serviceRegistryValues = ["./source/service-registry/json-1001"];
 
                 },
+                
 
             },
         })
