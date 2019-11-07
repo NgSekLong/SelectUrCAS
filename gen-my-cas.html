@@ -68,20 +68,24 @@
                             
 
                             <v-select v-model="authenticationValues" :items="authenticationValuesOptions"
-                                label="Select where Authentication credential stored at:" multiple persistent-hint
+                                label="Authentication credential storage:" multiple persistent-hint
                                 clearable chips>
                             </v-select>
                             <v-select v-model="authenticationAttributesValues"
                                 :items="authenticationAttributesValuesOptions"
-                                label="Select where Authentication attribute stored at:" multiple persistent-hint
+                                label="Authentication attribute:" multiple persistent-hint
                                 clearable chips>
                             </v-select>
+                            <v-select v-model="ticketRegistryValues" :items="ticketRegistryValuesOptions"
+                                label="Ticket registry:" multiple clearable
+                                persistent-hint chips>
+                            </v-select>
                             <v-select v-model="clientValues" :items="clientValuesOptions"
-                                label="Client is to be used to authenticate your system against:" multiple clearable
+                                label="CAS clients:" multiple clearable
                                 persistent-hint chips>
                             </v-select>
                             <v-select v-model="serviceRegistryValues" :items="serviceRegistryValuesOptions"
-                                label="Select where service stored at:" multiple persistent-hint clearable chips>
+                                label="Service storage:" multiple persistent-hint clearable chips>
                             </v-select>
                             <v-alert type="info">
                                 Number at the end is used for service id and order
@@ -101,9 +105,18 @@
                             </v-badge>
                                 <v-switch v-model="isHaveSudo" :label="`Include sudo to command ?`"></v-switch>
 
+
+
                                 <v-select v-model="dockerCommand" :items="dockerCommandOptions"
                                     label="Select action for Docker:" persistent-hint>
                                 </v-select>
+
+                                <v-switch v-model="isUseCAS5" :label="`Check to select CAS 5`"></v-switch>
+                                    
+                                <v-alert v-if="isUseCAS5" type="warning">
+                                    This project is built using latest released CAS 6 version, 
+                                    so some config / properties might need to be altered for CAS 5 to work.
+                                </v-alert>
 
                             <v-card class="mx-auto">
                                 <v-card-text class="caption">
@@ -112,6 +125,10 @@
                                         <span class="blue--text">
                                             {{ isHaveSudo ? 'sudo' : ''}} docker-compose -f
                                             <span class="purple--text"> docker-compose.yml </span>
+                                        </span>
+                                        <span v-if="isUseCAS5">
+                                            -f
+                                            <span class="purple--text"> ./source/cas-overlay-5-3/docker-compose.yml </span>
                                         </span>
                                         <div v-for="dockerComposeParam in dockerComposeParams">
                                             <span class="blue--text"> -f </span>
@@ -187,17 +204,20 @@
                 return {
                     authenticationValues: [],
                     authenticationAttributesValues: [],
+                    ticketRegistryValues: [],
                     clientValues: [],
                     serviceRegistryValues: [],
 
 
                     authenticationValuesOptions: [],
                     authenticationAttributesValuesOptions: [],
+                    ticketRegistryValuesOptions: [],
                     clientValuesOptions: [],
                     serviceRegistryValuesOptions: [],
 
                     // page related
                     isHaveSudo: true,
+                    isUseCAS5: false,
                     dockerCommand: 'up',
                     dockerCommandOptions: ['up', 'stop', 'rm', 'build'],
 
@@ -213,6 +233,7 @@
                     let allParam = [
                         ...this.authenticationValues,
                         ...this.authenticationAttributesValues,
+                        ...this.ticketRegistryValues,
                         ...this.clientValues,
                         ...this.serviceRegistryValues,
                     ];
@@ -266,6 +287,9 @@
                 this.authenticationAttributesValuesOptions = Object.values(allValueOptions).filter(function (option) {
                     return option.type == "authentication-attribute"
                 });
+                this.ticketRegistryValuesOptions = Object.values(allValueOptions).filter(function (option) {
+                    return option.type == "ticket-registry"
+                });
                 this.clientValuesOptions = Object.values(allValueOptions).filter(function (option) {
                     return option.type == "client"
                 });
@@ -288,6 +312,10 @@
                 if (localStorage.isHaveSudo) {
                     this.isHaveSudo = JSON.parse(localStorage.isHaveSudo);
                 }
+                if (localStorage.isUseCAS5) {
+                    this.isUseCAS5 = JSON.parse(localStorage.isUseCAS5);
+                }
+                
                 if (localStorage.dockerCommand) {
                     this.dockerCommand = JSON.parse(localStorage.dockerCommand);
                 }
@@ -297,6 +325,10 @@
 
                 if (localStorage.authenticationAttributesValues) {
                     this.authenticationAttributesValues = JSON.parse(localStorage.authenticationAttributesValues);
+                }
+
+                if (localStorage.ticketRegistryValues) {
+                    this.ticketRegistryValues = JSON.parse(localStorage.ticketRegistryValues);
                 }
 
                 if (localStorage.clientValues) {
@@ -312,6 +344,9 @@
                 isHaveSudo(newIsHaveSudo) {
                     localStorage.isHaveSudo = newIsHaveSudo;
                 },
+                isUseCAS5(newIsUseCAS5){
+                    localStorage.isUseCAS5 = newIsUseCAS5;
+                },
                 dockerCommand(newDockerCommand) {
                     localStorage.dockerCommand = JSON.stringify(newDockerCommand);
                 },
@@ -320,6 +355,9 @@
                 },
                 authenticationAttributesValues(newAuthenticationAttributesValues) {
                     localStorage.authenticationAttributesValues = JSON.stringify(newAuthenticationAttributesValues);
+                },
+                ticketRegistryValues(newTicketRegistryValues){
+                    localStorage.ticketRegistryValues = JSON.stringify(newTicketRegistryValues);
                 },
                 clientValues(newClientValues) {
                     localStorage.clientValues = JSON.stringify(newClientValues);
@@ -370,6 +408,7 @@
                 resetToDefaultSettings() {
                     this.authenticationValues = ["./source/authentication/json-whitelist"];
                     this.authenticationAttributesValues = ["./source/authentication-attribute/json"];
+                    this.ticketRegistryValues = [];
                     this.clientValues = ["./source/client/phpcas"];
                     this.serviceRegistryValues = ["./source/service-registry/json-1001"];
 

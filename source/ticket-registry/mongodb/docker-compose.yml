@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  cas:
+    volumes: 
+      - type: bind
+        source: ${TICKET_REGISTRY_MONGODB_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${TICKET_REGISTRY_MONGODB}.yml
+        read_only: true
+      - type: bind
+        source: ${TICKET_REGISTRY_MONGODB_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${TICKET_REGISTRY_MONGODB_PATH:-.}/build.gradle
+        read_only: true
+    environment:
+      TICKET_REGISTRY_MONGODB: ${TICKET_REGISTRY_MONGODB}
+  ticket_registry_mongodb:
+    image: mongo:4
+    expose:
+      - 27017
+    environment:
+      MONGO_INITDB_DATABASE: ${TICKET_REGISTRY_MONGODB}
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ThisIsThePasswordForRoot
+      TICKET_REGISTRY_MONGODB: ${TICKET_REGISTRY_MONGODB}
+    # volumes: 
+    #   - type: bind
+    #     source:  ${TICKET_REGISTRY_MONGODB_PATH:-.}/init.js
+    #     target: /docker-entrypoint-initdb.d/${TICKET_REGISTRY_MONGODB}-init.js
+    #     read_only: true
+    hostname: ${TICKET_REGISTRY_MONGODB}
+    networks:
+      default:
+        aliases:
+          - ${TICKET_REGISTRY_MONGODB}
