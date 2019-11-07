@@ -115,4 +115,31 @@ wrapper {
 }
 
 dependencies {
+    compile "org.apereo.cas:cas-server-support-generic:${project.'cas.version'}"
+
+
+    compile "org.apereo.cas:cas-server-core-util-api:${project.'cas.version'}"
+    compile "org.apereo.cas:cas-server-core-api-authentication:${project.'cas.version'}"
+    compile "org.apereo.cas:cas-server-core-authentication:${project.'cas.version'}"
+    compile "org.apereo.cas:cas-server-core-api-services:${project.'cas.version'}"
+    compile "org.apereo.cas:cas-server-core-authentication-api:${project.'cas.version'}"
+
+
+    compile "org.apereo.cas:cas-server-support-radius-core:${project.'cas.version'}"
+    compile "org.apereo.cas:cas-server-core-api-cookie:${project.'cas.version'}"
+    compile "org.apereo.cas:cas-server-support-radius:${project.'cas.version'}"
+
+
+
+    
+
+    compile "com.fasterxml.jackson.core:jackson-databind:2.10.0"
+    compile "org.springframework:spring-core:5.2.1.RELEASE"
+
+    compileOnly 'org.projectlombok:lombok:1.18.10'
+    annotationProcessor 'org.projectlombok:lombok:1.18.10'
+
+
+    compile "org.springframework:spring-core:5.2.1.RELEASE"
+
 }

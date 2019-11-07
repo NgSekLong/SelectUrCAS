@@ -15,7 +15,7 @@
 # RUN cd cas-overlay \
 #     && ./gradlew clean build --parallel;
 
-FROM adoptopenjdk/openjdk11:alpine-jre AS cas
+FROM adoptopenjdk/openjdk11:alpine AS cas
 
 RUN apk --no-cache add curl
 RUN mkdir -p cas-overlay
