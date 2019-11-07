@@ -114,3 +114,5 @@ wrapper {
     gradleVersion = "${project.gradleVersion}"
 }
 
+dependencies {
+}

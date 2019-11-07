@@ -1,0 +1,24 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${project.'springboot.version'}"
+    }
+}
+
+subprojects {
+    task allDependenciesInsight(type: DependencyInsightReportTask, description: "Produce insight information for all dependencies") {}
+    task allDependencies(type: DependencyReportTask, description: "Display a graph of all project dependencies") {}
+}
+
+task wrapper(type: Wrapper, description: "Update the Gradle wrapper") {
+    gradleVersion = project."gradle.version"
+}
+
+task casVersion() {
+    doFirst {
+        println "${project.'cas.version'}"
+    }
+}

@@ -1,0 +1,20 @@
+# Note, by enabling CAS 5.3, some properties in other components might not work, 
+# cautious is adviced
+version: '3.7'
+services:
+  cas:
+    build: 
+      context: ${CAS_OVERLAY_5_3_PATH:-.}
+    volumes:
+      - type: bind
+        source: ${CAS_OVERLAY_5_3_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${CAS_OVERLAY}.yml
+        read_only: true
+      - type: bind
+        source: ${CAS_OVERLAY_5_3_PATH:-.}/gradle.properties
+        target: /cas-overlay/gradle.properties
+        read_only: true
+      - type: bind
+        source: ${CAS_OVERLAY_5_3_PATH:-.}/src
+        target: /cas-overlay/src
+        read_only: true
