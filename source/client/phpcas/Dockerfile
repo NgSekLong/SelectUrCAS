@@ -2,7 +2,8 @@ FROM php:7.2-apache
 WORKDIR /var/www/html
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y git
+    apt-get install -y git && \
+    rm -rf /var/www/html
 RUN git clone -c advice.detachedHead=false \
     --single-branch --branch 1.3.8 https://github.com/apereo/phpCAS.git .
 
