@@ -3,11 +3,13 @@
 #####
 # Build build.gradle
 #
+cd cas
 cp build.default.gradle build.gradle
 echo "dependencies {"  >> build.gradle
-find ./build-gradle-dependencies/ -type f -name 'build.gradle' \
+find ../build-gradle-dependencies/ -type f -name 'build.gradle' \
     -exec sh -c 'for file in "{}" ; do cat "$file" >> build.gradle ; echo  >> build.gradle ;  done' \;
 echo "}"  >> build.gradle
+cd ..
 
 
 # #####

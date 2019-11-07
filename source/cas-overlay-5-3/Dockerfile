@@ -4,11 +4,12 @@ RUN apk --no-cache add curl
 RUN mkdir -p cas-overlay
 COPY ./src cas-overlay/src/
 COPY ./gradle/ cas-overlay/gradle/
-COPY ./cas/ cas-overlay/cas/
+COPY ./cas/build.gradle cas-overlay/cas/build.gradle
 COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties ./build.sh /cas-overlay/
 
 # Add a base build gradle
-COPY ./build.gradle /cas-overlay/build.default.gradle
+#COPY ./build.gradle /cas-overlay/build.default.gradle
+COPY ./cas/build.gradle /cas-overlay/cas/build.default.gradle
 
 RUN mkdir -p ~/.gradle \
     && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties \
