@@ -1,21 +1,21 @@
 version: '3.7'
 services:
   phpcas:
-    build: ${CLIENT_MODAUTHCAS_PATH:-.}/.
+    build: ${CAS_CLIENT_PHPCAS_PATH:-.}/.
     ports:
       - target: 80
-        published: 53535
+        published: 51515
     volumes:
       - type: bind
-        source: ${CLIENT_MODAUTHCAS_PATH:-.}/index.php
+        source: ${CAS_CLIENT_PHPCAS_PATH:-.}/index.php
         target: /var/www/html/index.php
         read_only: true
       - type: bind
-        source: ${CLIENT_MODAUTHCAS_PATH:-.}/login.php
+        source: ${CAS_CLIENT_PHPCAS_PATH:-.}/login.php
         target: /var/www/html/login.php
         read_only: true
       - type: bind
-        source: ${CLIENT_MODAUTHCAS_PATH:-.}/logout.php
+        source: ${CAS_CLIENT_PHPCAS_PATH:-.}/logout.php
         target: /var/www/html/logout.php
         read_only: true
     environment:

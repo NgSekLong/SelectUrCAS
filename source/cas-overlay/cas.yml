@@ -5,6 +5,9 @@ cas.server.prefix: ${cas.server.name}/cas
 # Remove default user
 cas.authn.accept.users:
 
+# Default JSON location
+cas.serviceRegistry.json.location: file://${SERVICES_PATH}/
+
 # Signing & Encryption keys:
 cas.tgc.crypto.signing.key: Oflx211XF0NDoS-v9gr4GwOvmw_cxuOhHaRKZMJEDrdewGM4_itoLujVnyOqyVsG1-nwEY8rkLEACzHjmCsg-A
 cas.tgc.crypto.encryption.key: g4BkHb8oGgJSQb5jfFRB7uc4W2NcLrbr-dYJxN1HWQo

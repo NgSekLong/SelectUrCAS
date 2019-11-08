@@ -73,21 +73,41 @@
                             </v-select>
                             <v-select v-model="authenticationAttributesValues"
                                 :items="authenticationAttributesValuesOptions"
-                                label="Authentication attribute:" multiple persistent-hint
+                                label="Authentication attribute storage:" multiple persistent-hint
                                 clearable chips>
                             </v-select>
-                            <v-select v-model="clientValues" :items="clientValuesOptions"
-                                label="CAS clients:" multiple clearable
+                            <v-select v-model="casClientValues" :items="casClientValuesOptions"
+                                label="CAS protocol clients:" multiple clearable
                                 persistent-hint chips>
                             </v-select>
+                            <v-alert dense type="info">
+                                <div>
+                                    Each CAS protocol client does not have service enabled, you need to use add an 
+                                    service together with an CAS protocol client
+                                </div>
+                            </v-alert>
+
+                            <v-select v-model="protocolValues" :items="protocolValuesOptions"
+                                label="Enabled other protocol (also need to assign a client below):" multiple persistent-hint
+                                clearable chips>
+                            </v-select>
+                            <v-select v-model="otherClientValues" :items="otherClientValuesOptions"
+                                label="Other protocol clients (e.g. OAuth 2, OIDC, SAML 2):" multiple clearable
+                                persistent-hint chips>
+                            </v-select>
+                            <v-alert dense type="info">
+                                <div>
+                                    Each non cas protocol client is also bundled with an related JSON service, see Readme for usage
+                                </div>
+                            </v-alert>
                             <v-select v-model="ticketRegistryValue" :items="ticketRegistryValuesOptions"
                                 label="Ticket registry:"
                                 persistent-hint>
                             </v-select>
                             <v-select v-model="serviceRegistryValue" :items="serviceRegistryValuesOptions"
-                                label="Service storage:"  persistent-hint >
+                                label="Service storage:"  persistent-hint clearable>
                             </v-select>
-                            <v-alert type="info">
+                            <v-alert dense type="info">
                                 <div>
                                         Number at the end is used for service id and order
                                 </div>
@@ -114,7 +134,7 @@
 
                                 <v-switch v-model="isUseCAS5" :label="`Check to select CAS 5`"></v-switch>
                                     
-                                <v-alert v-if="isUseCAS5" type="warning">
+                                <v-alert dense v-if="isUseCAS5" type="warning">
                                     This project is built using latest released CAS 6 version, 
                                     so some config / properties might need to be altered for CAS 5 to work.
                                 </v-alert>
@@ -176,7 +196,7 @@
                                 <h1>Read Docs</h1>
                             </v-badge>
                             <v-card>
-                                <v-alert v-if="!isChromeBrowser" type="warning">
+                                <v-alert dense v-if="!isChromeBrowser" type="warning">
                                     Use Chrome will allow the below document to be shown in the same page, so consider using Chrome
                                 </v-alert>
                                 <template v-for="dockerComposeParam in dockerComposeParams">
@@ -220,17 +240,21 @@
             vuetify: new Vuetify(),
             data() {
                 return {
+                    protocolValues: [],
                     authenticationValues: [],
                     authenticationAttributesValues: [],
                     ticketRegistryValue: "",
-                    clientValues: [],
+                    casClientValues: [],
+                    otherClientValues: [],
                     serviceRegistryValue: "",
 
 
+                    protocolValuesOptions: [],
                     authenticationValuesOptions: [],
                     authenticationAttributesValuesOptions: [],
                     ticketRegistryValuesOptions: [],
-                    clientValuesOptions: [],
+                    casClientValuesOptions: [],
+                    otherClientValuesOptions: [],
                     serviceRegistryValuesOptions: [],
 
                     // page related
@@ -249,10 +273,12 @@
                 // Compuse docker compose param
                 dockerComposeParams() {
                     let allParam = [
+                        ...this.protocolValues,
                         ...this.authenticationValues,
                         ...this.authenticationAttributesValues,
                         ...this.ticketRegistryValues,
-                        ...this.clientValues,
+                        ...this.casClientValues,
+                        ...this.otherClientValues,
                         ...this.serviceRegistryValues,
                     ];
                     return allParam;
@@ -300,17 +326,21 @@
                             allValueOptions[parentKey] = {};
                         }
                         allValueOptions[parentKey]['name'] = value;
+                        allValueOptions[parentKey]['text'] = kebabToProper(value);
                     }
                     else {
                         if (!(key in allValueOptions)) {
                             allValueOptions[key] = {};
                         }
-                        allValueOptions[key]['text'] = kebabToProper(value);
+                        //allValueOptions[key]['text'] = kebabToProper(value);
                     }
                 });
 
                 console.log('allValueOptions', allValueOptions);
-
+                
+                this.protocolValuesOptions = Object.values(allValueOptions).filter(function (option) {
+                    return option.type == "protocol"
+                });
                 this.authenticationValuesOptions = Object.values(allValueOptions).filter(function (option) {
                     return option.type == "authentication"
                 });
@@ -320,8 +350,11 @@
                 this.ticketRegistryValuesOptions = Object.values(allValueOptions).filter(function (option) {
                     return option.type == "ticket-registry"
                 });
-                this.clientValuesOptions = Object.values(allValueOptions).filter(function (option) {
-                    return option.type == "client"
+                this.casClientValuesOptions = Object.values(allValueOptions).filter(function (option) {
+                    return option.type == "cas-client"
+                });
+                this.otherClientValuesOptions = Object.values(allValueOptions).filter(function (option) {
+                    return option.type == "other-client"
                 });
                 this.serviceRegistryValuesOptions = Object.values(allValueOptions).filter(function (option) {
                     return option.type == "service-registry"
@@ -349,6 +382,11 @@
                 if (localStorage.dockerCommand) {
                     this.dockerCommand = JSON.parse(localStorage.dockerCommand);
                 }
+
+                if (localStorage.protocolValues){
+                    this.protocolValues = JSON.parse(localStorage.protocolValues);
+                }
+
                 if (localStorage.authenticationValues) {
                     this.authenticationValues = JSON.parse(localStorage.authenticationValues);
                 }
@@ -361,8 +399,12 @@
                     this.ticketRegistryValue = JSON.parse(localStorage.ticketRegistryValue);
                 }
 
-                if (localStorage.clientValues) {
-                    this.clientValues = JSON.parse(localStorage.clientValues);
+                if (localStorage.casClientValues) {
+                    this.casClientValues = JSON.parse(localStorage.casClientValues);
+                }
+
+                if (localStorage.otherClientValues) {
+                    this.otherClientValues = JSON.parse(localStorage.otherClientValues);
                 }
 
                 if (localStorage.serviceRegistryValue) {
@@ -380,6 +422,9 @@
                 dockerCommand(newDockerCommand) {
                     localStorage.dockerCommand = JSON.stringify(newDockerCommand);
                 },
+                protocolValues(newProtocolValues){
+                    localStorage.protocolValues = JSON.stringify(newProtocolValues);
+                },
                 authenticationValues(newAuthenticationValues) {
                     localStorage.authenticationValues = JSON.stringify(newAuthenticationValues);
                 },
@@ -390,8 +435,11 @@
                 ticketRegistryValue(newTicketRegistryValue){
                     localStorage.ticketRegistryValue = JSON.stringify(newTicketRegistryValue);
                 },
-                clientValues(newClientValues) {
-                    localStorage.clientValues = JSON.stringify(newClientValues);
+                casClientValues(newCasClientValues) {
+                    localStorage.casClientValues = JSON.stringify(newCasClientValues);
+                },
+                otherClientValues(newOtherClientValues) {
+                    localStorage.otherClientValues = JSON.stringify(newOtherClientValues);
                 },
                 serviceRegistryValue(newServiceRegistryValue) {
                     localStorage.serviceRegistryValue = JSON.stringify(newServiceRegistryValue);
@@ -437,12 +485,13 @@
                     return str.join(' ');
                 },
                 resetToDefaultSettings() {
+                    this.protocolValues = [];
                     this.authenticationValues = ["./source/authentication/json-whitelist"];
                     this.authenticationAttributesValues = ["./source/authentication-attribute/json"];
                     this.ticketRegistryValue = "./source/ticket-registry/no-ticket-registry";
-                    this.clientValues = ["./source/client/phpcas"];
+                    this.casClientValues = ["./source/cas-client/phpcas"];
+                    this.otherClientValues = [];
                     this.serviceRegistryValue = "./source/service-registry/json-1001";
-
                 },
                 
 
