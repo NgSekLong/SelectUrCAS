@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  cas:
+  cas_server:
     volumes: 
       - type: bind
         source: ${SERVICE_REGISTRY_JSON_1001_PATH:-.}/cas.yml

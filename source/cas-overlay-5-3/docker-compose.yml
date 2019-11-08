@@ -2,7 +2,7 @@
 # cautious is adviced
 version: '3.7'
 services:
-  cas:
+  cas_server:
     build: 
       context: ${CAS_OVERLAY_5_3_PATH:-.}
     volumes:

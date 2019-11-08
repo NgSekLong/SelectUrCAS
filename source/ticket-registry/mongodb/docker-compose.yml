@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  cas:
+  cas_server:
     volumes: 
       - type: bind
         source: ${TICKET_REGISTRY_MONGODB_PATH:-.}/cas.yml

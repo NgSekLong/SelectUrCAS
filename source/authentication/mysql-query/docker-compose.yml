@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  cas:
+  cas_server:
     volumes: 
       - type: bind
         source: ${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/cas.yml

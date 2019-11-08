@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  cas:
+  cas_server:
     build: 
       context: ${CAS_OVERLAY_PATH:-.}
     # ports:
