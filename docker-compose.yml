@@ -3,9 +3,9 @@ services:
   cas:
     build: 
       context: ${CAS_OVERLAY_PATH:-.}
-    ports:
-      - "8443:8443"
-      - "8080:8080"
+    # ports:
+    #   - "8443:8443"
+    #   - "8080:8080"
     environment:
       RESOURCE_PATH: ${RESOURCE_PATH}
       SERVICES_PATH: ${SERVICES_PATH}
@@ -26,8 +26,3 @@ services:
         source: ${CAS_OVERLAY_PATH:-.}/src
         target: /cas-overlay/src
         read_only: true
-    hostname: cas.example.org
-    networks:
-      default:
-        aliases:
-          - cas.example.org
