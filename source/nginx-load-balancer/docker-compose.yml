@@ -25,3 +25,5 @@ services:
       default:
         aliases:
           - cas.example.org
+    depends_on:
+      - cas_server

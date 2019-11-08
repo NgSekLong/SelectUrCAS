@@ -76,23 +76,24 @@
                                 label="Authentication attribute:" multiple persistent-hint
                                 clearable chips>
                             </v-select>
-                            <v-select v-model="ticketRegistryValue" :items="ticketRegistryValuesOptions"
-                                label="Ticket registry:"
-                                persistent-hint>
-                            </v-select>
                             <v-select v-model="clientValues" :items="clientValuesOptions"
                                 label="CAS clients:" multiple clearable
                                 persistent-hint chips>
                             </v-select>
-                            <v-select v-model="serviceRegistryValues" :items="serviceRegistryValuesOptions"
-                                label="Service storage:" multiple persistent-hint clearable chips>
+                            <v-select v-model="ticketRegistryValue" :items="ticketRegistryValuesOptions"
+                                label="Ticket registry:"
+                                persistent-hint>
+                            </v-select>
+                            <v-select v-model="serviceRegistryValue" :items="serviceRegistryValuesOptions"
+                                label="Service storage:"  persistent-hint >
                             </v-select>
                             <v-alert type="info">
-                                Number at the end is used for service id and order
-                            </v-alert>
-                            <v-alert type="info">
-                                By default, each of the above service registry allow all http / https traffic, you
-                                should select one and only one service registry unless you modified the service registry
+                                <div>
+                                        Number at the end is used for service id and order
+                                </div>
+                                <div>
+                                        By default, each of the above service registry allow all http / https traffic.
+                                </div>
                             </v-alert>
                         </v-col>
                         <v-col col="12" md="4" sm="12">
@@ -223,7 +224,7 @@
                     authenticationAttributesValues: [],
                     ticketRegistryValue: "",
                     clientValues: [],
-                    serviceRegistryValues: [],
+                    serviceRegistryValue: "",
 
 
                     authenticationValuesOptions: [],
@@ -258,6 +259,9 @@
                 },
                 ticketRegistryValues() {
                     return [this.ticketRegistryValue];
+                },
+                serviceRegistryValues() {
+                    return [this.serviceRegistryValue];
                 },
                 isUseTicketRegistry() {
                     return this.ticketRegistryValue != './source/ticket-registry/no-ticket-registry';
@@ -361,8 +365,8 @@
                     this.clientValues = JSON.parse(localStorage.clientValues);
                 }
 
-                if (localStorage.serviceRegistryValues) {
-                    this.serviceRegistryValues = JSON.parse(localStorage.serviceRegistryValues);
+                if (localStorage.serviceRegistryValue) {
+                    this.serviceRegistryValue = JSON.parse(localStorage.serviceRegistryValue);
                 }
 
             },
@@ -389,8 +393,8 @@
                 clientValues(newClientValues) {
                     localStorage.clientValues = JSON.stringify(newClientValues);
                 },
-                serviceRegistryValues(newServiceRegistryValues) {
-                    localStorage.serviceRegistryValues = JSON.stringify(newServiceRegistryValues);
+                serviceRegistryValue(newServiceRegistryValue) {
+                    localStorage.serviceRegistryValue = JSON.stringify(newServiceRegistryValue);
                 },
             },
             methods: {
@@ -437,7 +441,7 @@
                     this.authenticationAttributesValues = ["./source/authentication-attribute/json"];
                     this.ticketRegistryValue = "./source/ticket-registry/no-ticket-registry";
                     this.clientValues = ["./source/client/phpcas"];
-                    this.serviceRegistryValues = ["./source/service-registry/json-1001"];
+                    this.serviceRegistryValue = "./source/service-registry/json-1001";
 
                 },
                 
