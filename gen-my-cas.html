@@ -143,7 +143,7 @@
                                         
                                         <span class="blue--text"> 
                                             {{ dockerCommand }}  
-                                            <template v-if="isUseTicketRegistry" > --scale cas=2</template>
+                                            <template v-if="isUseTicketRegistry" > --scale cas_server=2</template>
                                         </span>
 
 
@@ -175,12 +175,20 @@
                                 <h1>Read Docs</h1>
                             </v-badge>
                             <v-card>
-
+                                <v-alert v-if="!isChromeBrowser" type="warning">
+                                    Use Chrome will allow the below document to be shown in the same page, so consider using Chrome
+                                </v-alert>
                                 <template v-for="dockerComposeParam in dockerComposeParams">
 
                                     <v-card class="mr-2 ml-2 mb-1 mt-1">
-                                        <iframe frameBorder="0" class="iframe"
+                                        <template v-if="isChromeBrowser">
+                                            <iframe frameBorder="0" class="iframe"
                                             :src="dockerComposeParam + '/README.md'"></iframe>
+                                        </template>
+                                        <template v-else>
+                                            Click below link to documentation:<br/>
+                                            <a :href="dockerComposeParam + '/README.md'"> {{dockerComposeParam}}</a>
+                                        </template>
                                     </v-card>
                                     <!-- <v-col :key="dockerComposeParam" cols="12" sm="6" md="4" >
                                             </v-col> -->
@@ -253,6 +261,9 @@
                 },
                 isUseTicketRegistry() {
                     return this.ticketRegistryValue != './source/ticket-registry/no-ticket-registry';
+                },
+                isChromeBrowser() {
+                    return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
                 }
             },
             async created() {
