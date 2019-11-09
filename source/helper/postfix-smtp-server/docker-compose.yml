@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  postfix_smtp_server:
+    image: boky/postfix
+    volumes: 
+      - type: bind
+        source: ${HELPER_POSTFIX_SMTP_SERVER_PATH:-.}/init.sh
+        target: /docker-init.db/init.sh
+        read_only: true
+    environment:
+      ALLOWED_SENDER_DOMAINS: example.org
+      HOSTNAME: castesting
+    hostname: smtp.example.org
+    networks:
+      default:
+        aliases:
+          - smtp.example.org

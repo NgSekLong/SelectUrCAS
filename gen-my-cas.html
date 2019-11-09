@@ -158,12 +158,19 @@
                                         </span>
                                         <div v-for="dockerComposeParam in dockerComposeParams">
                                             <span class="blue--text"> -f </span>
-                                            <span class="purple--text"> {{dockerComposeParam}}/docker-compose.yml
+                                            <span class="purple--text"> {{ dockerComposeParam }}/docker-compose.yml
+                                            </span>
+                                        </div>
+                                        <div v-if="isUseSmtp">
+                                            <span class="blue--text"> -f </span>
+                                            <span class="purple--text"> 
+                                                {{ nameToPathMapping['helper-postfix-smtp-server'] }}/docker-compose.yml
                                             </span>
                                         </div>
                                         <div v-if="isUseTicketRegistry">
                                             <span class="blue--text"> -f </span>
-                                            <span class="purple--text"> {{nameToPathMapping['helper-nginx-load-balancer']}}
+                                            <span class="purple--text"> 
+                                                {{ nameToPathMapping['helper-nginx-load-balancer'] }}/docker-compose.yml
                                             </span>
                                         </div>
                                         
@@ -293,11 +300,13 @@
                 isUseTicketRegistry() {
                     return this.ticketRegistryValue != this.nameToPathMapping["ticket-registry-no-ticket-registry"];
                 },
+                isUseSmtp(){
+                    return this.protocolValues.includes(this.nameToPathMapping["protocol-passwordless-email"]);
+                },
                 isChromeBrowser() {
                     return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
                 },
                 
-
                 protocolValuesOptions() {
                     return this.allComponentsArray.filter(function (option) {
                         return option.type == "protocol"
