@@ -2,6 +2,9 @@
 cas.server.name: https://cas.example.org:8443
 cas.server.prefix: ${cas.server.name}/cas
 
+# Enabled Debug log by default
+logging.level.org.apereo.cas: DEBUG
+
 # Remove default user
 cas.authn.accept.users:
 

@@ -9,15 +9,15 @@ services:
       - "8443:8443"
     volumes:
       - type: bind
-        source: ${NGINX_LOAD_BALANCER_PATH:-.}/nginx.conf
+        source: ${HELPER_NGINX_LOAD_BALANCER_PATH:-.}/nginx.conf
         target: /etc/nginx/nginx.conf
         read_only: true
       - type: bind
-        source: ${NGINX_LOAD_BALANCER_PATH:-.}/cert.pem
+        source: ${HELPER_NGINX_LOAD_BALANCER_PATH:-.}/cert.pem
         target: /etc/nginx/cert.pem
         read_only: true
       - type: bind
-        source: ${NGINX_LOAD_BALANCER_PATH:-.}/private_key.pem
+        source: ${HELPER_NGINX_LOAD_BALANCER_PATH:-.}/private_key.pem
         target: /etc/nginx/private_key.pem
         read_only: true
     hostname: cas.example.org
