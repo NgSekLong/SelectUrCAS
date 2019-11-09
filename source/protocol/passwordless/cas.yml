@@ -1,0 +1,11 @@
+# The below email address is tested using temp email from: https://10minutemail.net/
+cas.authn.passwordless.accounts.simple.casuser: ygu04671@bcaoo.com
+cas.authn.passwordless.tokens.mail: 
+  from: helpdeskcas@example.org
+  text: CAS Passwordless Authentication Token is %s
+  subject: Testing Passwordless Authentication
+spring.mail: 
+  host: smtp.example.org
+  port: 587
+  testConnection: true
+logging.level.org.apereo.cas: DEBUG

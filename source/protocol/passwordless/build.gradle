@@ -1,0 +1,1 @@
+compile "org.apereo.cas:cas-server-support-passwordless:${project.'cas.version'}"

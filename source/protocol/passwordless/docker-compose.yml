@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  cas_server:
+    volumes: 
+      - type: bind
+        source: ${PROTOCOL_PASSWORDLESS_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${PROTOCOL_PASSWORDLESS}.yml
+        read_only: true
+      - type: bind
+        source: ${PROTOCOL_PASSWORDLESS_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${PROTOCOL_PASSWORDLESS_PATH:-.}/build.gradle
+        read_only: true
+    environment:
+      PROTOCOL_PASSWORDLESS_PATH: ${PROTOCOL_PASSWORDLESS_PATH}
+    depends_on:
+      - postfix_smtp_server
+  postfix_smtp_server:
+    image: boky/postfix
+    volumes: 
+      - type: bind
+        source: ${PROTOCOL_PASSWORDLESS_PATH:-.}/init.sh
+        target: /docker-init.db/init.sh
+        read_only: true
+    environment:
+      ALLOWED_SENDER_DOMAINS: example.org
+      HOSTNAME: helpdeskcas
+    hostname: smtp.example.org
+    networks:
+      default:
+        aliases:
+          - smtp.example.org
