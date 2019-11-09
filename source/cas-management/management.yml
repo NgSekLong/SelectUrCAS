@@ -1,0 +1,8 @@
+cas.server.name: https://${CAS_DOMAIN_NAME}
+cas.server.prefix: ${cas.server.name}:8443/cas
+
+mgmt.serverName: https://${CAS_DOMAIN_NAME}:8444
+mgmt.adminRoles[0]: ROLE_ADMIN
+# mgmt.userPropertiesFile: file:/etc/cas/config/users.json
+
+# logging.config: file:/etc/cas/config/log4j2-management.x
