@@ -3,7 +3,6 @@ services:
   cas_server:
     ports:
       - "8443:8443"
-      - "8080:8080"
     hostname: cas.example.org
     networks:
       default:

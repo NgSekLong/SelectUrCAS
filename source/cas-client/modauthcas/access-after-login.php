@@ -32,12 +32,11 @@
 </head>
 <body>
 <div class="login-form">
-    <form action="./access-after-login/index.php" method="post">
-        <h2 class="text-center">Modauthcas: Log in with CAS</h2>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Log in</button>
-        </div>   
-    </form>
+      <form action="./logout.php" method="post">
+          <h2 class="text-center">Authentication is success!</h2>
+          <h4 class="text-center">User:</h4>
+          <pre><?= $_SERVER['REMOTE_USER'] ?></pre>
+      </form>
 </div>
 </body>
 </html>
