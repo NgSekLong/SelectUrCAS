@@ -33,7 +33,7 @@
 <body>
 <div class="login-form">
       <form action="./logout.php" method="post">
-          <h2 class="text-center">Authentication is success!</h2>
+          <h2 class="text-center">Modauthcas: Authentication is success!</h2>
           <h4 class="text-center">User:</h4>
           <pre><?= $_SERVER['REMOTE_USER'] ?></pre>
       </form>
