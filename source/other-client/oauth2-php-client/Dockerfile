@@ -10,6 +10,12 @@ RUN a2enmod rewrite
 RUN a2ensite default-ssl
 RUN a2enmod ssl
 
+# import self-signed cert into trusted
+COPY cas_public.crt /usr/local/share/ca-certificates/
+RUN update-ca-certificates
+
+
+
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
