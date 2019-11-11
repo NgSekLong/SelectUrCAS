@@ -1,0 +1,22 @@
+{
+    "@class" : "org.apereo.cas.services.RegexRegisteredService",
+    "serviceId" : "^https://cas.example.org:58585/.*",
+    "id": 300,
+    "name": "JWT Service Tickets",
+    "evaluationOrder" : 300,
+    "properties" : {
+      "@class" : "java.util.HashMap",
+      "jwtAsServiceTicket" : {
+        "@class" : "org.apereo.cas.services.DefaultRegisteredServiceProperty",
+        "values" : [ "java.util.HashSet", [ "true" ] ]
+      },
+      "jwtAsServiceTicketSigningKey" : {
+         "@class" : "org.apereo.cas.services.DefaultRegisteredServiceProperty",
+         "values" : [ "java.util.HashSet", [ "OSZ8QqaXoDku2ZWh2QnBSIRjlzA9pbOnYEO6II53mC7M2syTqSZxwu4JwfNXhKUgKv1o8goC71J_UgukcZHt3w" ] ]
+      },
+      "jwtAsServiceTicketEncryptionKey" : {
+           "@class" : "org.apereo.cas.services.DefaultRegisteredServiceProperty",
+           "values" : [ "java.util.HashSet", [ "rahGhI7TeQSXPwRtWKbpU6boIb6vnVWvLTDp7jW-ibw" ] ]
+      }
+    }
+  }

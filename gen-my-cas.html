@@ -292,10 +292,10 @@
                     return allParam;
                 },
                 ticketRegistryValues() {
-                    return [this.ticketRegistryValue];
+                    return this.ticketRegistryValue? [this.ticketRegistryValue] : [];
                 },
                 serviceRegistryValues() {
-                    return [this.serviceRegistryValue];
+                    return this.serviceRegistryValue? [this.serviceRegistryValue] : [];
                 },
                 isUseTicketRegistry() {
                     return this.ticketRegistryValue != this.nameToPathMapping["ticket-registry-no-ticket-registry"];

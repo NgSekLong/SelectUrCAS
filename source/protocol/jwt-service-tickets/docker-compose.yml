@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  cas_server:
+    volumes: 
+      - type: bind
+        source: ${PROTOCOL_JWT_SERVICE_TICKETS_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${PROTOCOL_JWT_SERVICE_TICKETS}.yml
+        read_only: true
+      - type: bind
+        source: ${PROTOCOL_JWT_SERVICE_TICKETS_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${PROTOCOL_JWT_SERVICE_TICKETS_PATH:-.}/build.gradle
+        read_only: true
+    environment:
+      PROTOCOL_JWT_SERVICE_TICKETS_PATH: ${PROTOCOL_JWT_SERVICE_TICKETS_PATH}
