@@ -10,6 +10,8 @@ buildscript {
         maven { url "https://jitpack.io" }
         // For Radius Authetication
         maven { url "https://maven.repository.redhat.com/ga/" }
+        // For SAML2
+        maven { url "https://build.shibboleth.net/nexus/content/repositories/releases" }
     }
     dependencies {
         classpath "de.undercouch:gradle-download-task:${project.gradleDownloadTaskVersion}"

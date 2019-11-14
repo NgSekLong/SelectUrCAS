@@ -1,0 +1,7 @@
+{
+  "@class" : "org.apereo.cas.support.saml.services.SamlRegisteredService",
+  "serviceId" : "^https://cas.example.org:59595/.*",
+  "name": "SAML2 client",
+  "id": 300,
+  "evaluationOrder" : 300
+}

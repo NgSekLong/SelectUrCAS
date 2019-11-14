@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  cas_server:
+    volumes:
+      - type: bind
+        source: ${OTHER_CLIENT_SAML2_PHP_CLIENT_PATH:-.}/service.json
+        target: ${SERVICES_PATH:-.}/${OTHER_CLIENT_SAML2_PHP_CLIENT_NAME}.json
+        read_only: true
+  other_client_saml2_php_client:
+    build: ${OTHER_CLIENT_SAML2_PHP_CLIENT_PATH:-.}/.
+    ports:
+      - target: 443
+        published: 59595
+    volumes:
+      # - type: bind
+      #   source: ${OTHER_CLIENT_SAML2_PHP_CLIENT_PATH:-.}/index.php
+      #   target: /var/www/html/index.php
+      #   read_only: true
+      - type: bind
+        source: ${OTHER_CLIENT_SAML2_PHP_CLIENT_PATH:-.}/cas_private.pem
+        # This is the default for Apache, don't change it
+        target: /etc/ssl/private/ssl-cert-snakeoil.key 
+        read_only: true
+      - type: bind
+        source: ${OTHER_CLIENT_SAML2_PHP_CLIENT_PATH:-.}/cas_public.crt
+        # This is the default for Apache, don't change it
+        target: /etc/ssl/certs/ssl-cert-snakeoil.pem
+        read_only: true
+    environment:
+      CAS_DOMAIN_NAME: ${CAS_DOMAIN_NAME}        
