@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  phpcas:
+    build: ${CAS_CLIENT_PHPCAS_PATH:-.}/.
+    ports:
+      - target: 80
+        published: 51515
+    volumes:
+      - type: bind
+        source: ${CAS_CLIENT_PHPCAS_PATH:-.}/index.php
+        target: /var/www/html/index.php
+        read_only: true
+      - type: bind
+        source: ${CAS_CLIENT_PHPCAS_PATH:-.}/login.php
+        target: /var/www/html/login.php
+        read_only: true
+      - type: bind
+        source: ${CAS_CLIENT_PHPCAS_PATH:-.}/logout.php
+        target: /var/www/html/logout.php
+        read_only: true
+    environment:
+      CAS_DOMAIN_NAME: ${CAS_DOMAIN_NAME}        

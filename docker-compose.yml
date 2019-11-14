@@ -1,25 +1,62 @@
-version: '3.7'
 services:
-  cas_server:
-    build: 
-      context: ${CAS_OVERLAY_PATH:-.}
+  cas_management_server:
+    build:
+      context: ./source/cas-management
     environment:
-      RESOURCE_PATH: ${RESOURCE_PATH}
-      SERVICES_PATH: ${SERVICES_PATH}
-      CONFIG_PATH: ${CONFIG_PATH}
-      CONFIG_PROPERTIES_PATH: ${CONFIG_PROPERTIES_PATH}
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
-      CAS_DOMAIN_NAME: ${CAS_DOMAIN_NAME}
+      CAS_DOMAIN_NAME: cas.example.org
+    ports:
+    - published: 8444
+      target: 8443
     volumes:
-      - type: bind
-        source: ${CAS_OVERLAY_PATH:-.}/cas.yml
-        target: ${CONFIG_PATH:-.}/${CAS_OVERLAY}.yml
-        read_only: true
-      - type: bind
-        source: ${CAS_OVERLAY_PATH:-.}/gradle.properties
-        target: /cas-overlay/gradle.properties
-        read_only: true
-      - type: bind
-        source: ${CAS_OVERLAY_PATH:-.}/src
-        target: /cas-overlay/src
-        read_only: true
+    - read_only: true
+      source: ./source/cas-management/cas-server-self-sign-cert.crt
+      target: /etc/cas/cert.crt
+      type: bind
+    - read_only: true
+      source: ./source/cas-management/management.yml
+      target: /etc/cas/config/management.yml
+      type: bind
+    - read_only: true
+      source: ./source/cas-management/thekeystore
+      target: /etc/cas/thekeystore
+      type: bind
+  cas_server:
+    build:
+      context: ./source/cas-overlay
+    environment:
+      AUTHENTICATION_ATTRIBUTE_JSON_PATH: ./source/authentication-attribute/json
+      AUTHENTICATION_JSON_WHITELIST_PATH: ./source/authentication/json-whitelist
+      CAS_DOMAIN_NAME: cas.example.org
+      CONFIG_PATH: /etc/cas/config
+      CONFIG_PROPERTIES_PATH: /etc/cas/config/properties
+      RESOURCE_PATH: /etc/cas/resources
+      SERVICES_PATH: /etc/cas/services
+      SERVICE_REGISTRY_JSON_1001_PATH: ./source/service-registry/json-1001
+      SPRING_PROFILES_ACTIVE: standalone,other-client-oauth2-php-client,other-client-jwt-service-tickets-php-client,other-client-oidc-php-client,cas-management,ticket-registry-mongodb,ticket-registry-no-ticket-registry,ticket-registry-hazelcast,cas-client-java-cas-client,cas-client-phpcas,cas-client-modauthcas,cas-overlay,helper-postfix-smtp-server,helper-nginx-load-balancer,protocol-oauth2,protocol-jwt-service-tickets,protocol-oidc,protocol-passwordless-email,service-registry-json-1001,cas-overlay-5-3,authentication-openldap,authentication-mysql-query,authentication-json-whitelist,authentication-mongodb,authentication-rest,authentication-freeradius,authentication-attribute-openldap,authentication-attribute-rest,authentication-attribute-json,authentication-attribute-mysql
+    hostname: cas.example.org
+    networks:
+      default:
+        aliases:
+        - cas.example.org
+    ports:
+    - published: 8443
+      target: 8443
+    volumes:
+    - read_only: true
+      source: ./source/cas-overlay/gradle.properties
+      target: /cas-overlay/gradle.properties
+      type: bind
+    - read_only: true
+      source: ./source/cas-overlay/src
+      target: /cas-overlay/src
+      type: bind
+    - read_only: true
+      source: ./source/cas-overlay/cas.yml
+      target: /etc/cas/config/cas-overlay.yml
+      type: bind
+    - read_only: true
+      source: ./source/service-registry/json-1001/service.json
+      target: /etc/cas/services/json-1001.json
+      type: bind
+version: '3.7'
+

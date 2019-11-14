@@ -1,5 +1,5 @@
 # Default host name
-cas.server.name: https://${CAS_DOMAIN_NAME}:8443
+cas.server.name: https://cas.example.org:8443
 cas.server.prefix: ${cas.server.name}/cas
 
 # Remove default user

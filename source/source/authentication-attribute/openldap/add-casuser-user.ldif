@@ -1,0 +1,15 @@
+dn: uid=casuser,dc=example,dc=org
+changetype: add
+uid: casuser
+cn: casuser
+sn: 3
+objectClass: top
+objectClass: posixAccount
+objectClass: inetOrgPerson
+loginShell: /bin/bash
+homeDirectory: /home/casuser
+uidNumber: 14583103
+gidNumber: 14564101
+userPassword: Mellon
+mail: casuser@example.org
+gecos: casuser User

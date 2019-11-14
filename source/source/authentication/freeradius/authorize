@@ -1,0 +1,7 @@
+freeradius    Cleartext-Password := "Mellon"
+	Reply-Message := "Hello, %{User-Name}"
+
+
+
+casuser    Cleartext-Password := "Mellon"
+	Reply-Message := "Hello, %{User-Name}"

@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  cas_server:
+    expose:
+      - 8443
+  nginx:
+    image: nginx:1.17
+    ports:
+      - "8443:8443"
+    volumes:
+      - type: bind
+        source: ${HELPER_NGINX_LOAD_BALANCER_PATH:-.}/nginx.conf
+        target: /etc/nginx/nginx.conf
+        read_only: true
+      - type: bind
+        source: ${HELPER_NGINX_LOAD_BALANCER_PATH:-.}/cert.pem
+        target: /etc/nginx/cert.pem
+        read_only: true
+      - type: bind
+        source: ${HELPER_NGINX_LOAD_BALANCER_PATH:-.}/private_key.pem
+        target: /etc/nginx/private_key.pem
+        read_only: true
+    hostname: cas.example.org
+    networks:
+      default:
+        aliases:
+          - cas.example.org
+    depends_on:
+      - cas_server

@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  cas_server:
+    volumes: 
+      - type: bind
+        source: ${SERVICE_REGISTRY_JSON_1001_PATH:-.}/service.json
+        target: ${SERVICES_PATH:-.}/${SERVICE_REGISTRY_JSON_1001_NAME}.json
+        read_only: true
+    environment:
+      SERVICE_REGISTRY_JSON_1001_PATH: ${SERVICE_REGISTRY_JSON_1001_PATH}

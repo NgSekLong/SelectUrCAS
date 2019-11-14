@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  javacasclient:
+    build: ${CAS_CLIENT_JAVA_CAS_CLIENT_PATH:-.}/.
+    ports:
+      - target: 9443
+        published: 52525
+    volumes:
+      - type: bind
+        source: ${CAS_CLIENT_JAVA_CAS_CLIENT_PATH:-.}/web.xml
+        target: /javacasclient/src/main/webapp/WEB-INF/web.xml
+        read_only: true
+      - type: bind
+        source: ${CAS_CLIENT_JAVA_CAS_CLIENT_PATH:-.}/pom.xml
+        target: /javacasclient/pom.xml
+        read_only: true

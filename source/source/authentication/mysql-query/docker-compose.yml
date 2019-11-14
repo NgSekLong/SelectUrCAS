@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  cas_server:
+    volumes: 
+      - type: bind
+        source: ${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${AUTHENTICATION_MYSQL_QUERY}.yml
+        read_only: true
+      - type: bind
+        source: ${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/build.gradle
+        read_only: true
+    environment:
+      AUTHENTICATION_MYSQL_QUERY: ${AUTHENTICATION_MYSQL_QUERY}
+  authentication_mysql_query:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    expose:
+      - 3306
+    environment:
+      MYSQL_DATABASE: ${AUTHENTICATION_MYSQL_QUERY}
+      MYSQL_ROOT_PASSWORD: ThisIsThePasswordForRoot
+    volumes: 
+      - type: bind
+        source:  ${AUTHENTICATION_MYSQL_QUERY_PATH:-.}/init.sql
+        target: /docker-entrypoint-initdb.d/${AUTHENTICATION_MYSQL_QUERY}-init.sql
+        read_only: true
+    hostname: ${AUTHENTICATION_MYSQL_QUERY}
+    networks:
+      default:
+        aliases:
+          - ${AUTHENTICATION_MYSQL_QUERY}

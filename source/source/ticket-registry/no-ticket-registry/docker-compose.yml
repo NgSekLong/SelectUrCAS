@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  cas_server:
+    ports:
+      - "8443:8443"
+    hostname: cas.example.org
+    networks:
+      default:
+        aliases:
+          - cas.example.org

@@ -1,0 +1,9 @@
+{
+  "@class" : "org.apereo.cas.services.OidcRegisteredService",
+  "clientId": "clientId",
+  "clientSecret": "clientSecret",
+  "serviceId" : "^https://cas.example.org:54545/.*",
+  "name": "OIDC",
+  "id": 200,
+  "evaluationOrder" : 200
+}

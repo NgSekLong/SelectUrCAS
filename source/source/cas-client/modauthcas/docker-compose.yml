@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  modauthcas:
+    build: ${CAS_CLIENT_MODAUTHCAS_PATH:-.}/.
+    ports:
+      - target: 80
+        published: 56565
+    volumes:
+      - type: bind
+        source: ${CAS_CLIENT_MODAUTHCAS_PATH:-.}/index.php
+        target: /var/www/html/index.php
+        read_only: true
+      - type: bind
+        source: ${CAS_CLIENT_MODAUTHCAS_PATH:-.}/access-after-login.php
+        target: /var/www/html/access-after-login/index.php
+        read_only: true
+        
+      - type: bind
+        source: ${CAS_CLIENT_MODAUTHCAS_PATH:-.}/login.php
+        target: /var/www/html/login.php
+        read_only: true
+      - type: bind
+        source: ${CAS_CLIENT_MODAUTHCAS_PATH:-.}/logout.php
+        target: /var/www/html/logout.php
+        read_only: true
+      - type: bind
+        source: ${CAS_CLIENT_MODAUTHCAS_PATH:-.}/cas.conf
+        target: /etc/apache2/conf-enabled/cas.conf
+        read_only: true
+        
+    environment:
+      CAS_DOMAIN_NAME: ${CAS_DOMAIN_NAME}        

@@ -1,0 +1,19 @@
+# Default host name
+cas.server.name: https://${CAS_DOMAIN_NAME}:8443
+cas.server.prefix: ${cas.server.name}/cas
+
+# Enabled Debug log by default
+logging.level.org.apereo.cas: DEBUG
+
+# Remove default user
+cas.authn.accept.users:
+
+# Default JSON location
+cas.serviceRegistry.json.location: file://${SERVICES_PATH}/
+
+# Signing & Encryption keys:
+cas.tgc.crypto.signing.key: Oflx211XF0NDoS-v9gr4GwOvmw_cxuOhHaRKZMJEDrdewGM4_itoLujVnyOqyVsG1-nwEY8rkLEACzHjmCsg-A
+cas.tgc.crypto.encryption.key: g4BkHb8oGgJSQb5jfFRB7uc4W2NcLrbr-dYJxN1HWQo
+
+cas.webflow.crypto.signing.key: mzMvJh703k2cqwmq6J_x1sKX2QvytCtvij6hgR23nRQ50t7ICWpZ4GSJr2qFIDgUkRIRVIQHV0jmtgYCuO4h4A
+cas.webflow.crypto.encryption.key: OT_WMkgc6z3hVO6m_Cn_ow

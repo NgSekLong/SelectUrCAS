@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  cas_server:
+    volumes: 
+      - type: bind
+        source: ${AUTHENTICATION_REST_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${AUTHENTICATION_REST}.yml
+        read_only: true
+      - type: bind
+        source: ${AUTHENTICATION_REST_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${AUTHENTICATION_REST_PATH:-.}/build.gradle
+        read_only: true
+    environment:
+      AUTHENTICATION_REST: ${AUTHENTICATION_REST}
+  authentication_rest:
+    image: php:7.2-apache
+    expose:
+      - 80
+    volumes:
+      - type: bind
+        source: ${AUTHENTICATION_REST_PATH:-.}/index.php
+        target: /var/www/html/index.php
+    environment:
+      CAS_DOMAIN_NAME: ${CAS_DOMAIN_NAME}        
+    hostname: ${AUTHENTICATION_REST}
+    networks:
+      default:
+        aliases:
+          - ${AUTHENTICATION_REST}

@@ -12,6 +12,14 @@ services:
         read_only: true
     environment:
       TICKET_REGISTRY_MONGODB: ${TICKET_REGISTRY_MONGODB}
+    # ports:
+    #   - "8443:8443"
+    #   - "8080:8080"
+    # hostname: cas.example.org
+    # networks:
+    #   default:
+    #     aliases:
+    #       - cas.example.org
   ticket_registry_mongodb:
     image: mongo:4
     expose:
@@ -21,6 +29,11 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: ThisIsThePasswordForRoot
       TICKET_REGISTRY_MONGODB: ${TICKET_REGISTRY_MONGODB}
+    # volumes: 
+    #   - type: bind
+    #     source:  ${TICKET_REGISTRY_MONGODB_PATH:-.}/init.js
+    #     target: /docker-entrypoint-initdb.d/${TICKET_REGISTRY_MONGODB}-init.js
+    #     read_only: true
     hostname: ${TICKET_REGISTRY_MONGODB}
     networks:
       default:

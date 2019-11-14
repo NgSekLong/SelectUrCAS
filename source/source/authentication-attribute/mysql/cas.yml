@@ -1,0 +1,15 @@
+cas.authn.attributeRepository:
+  jdbc:
+    - sql: SELECT * FROM USERATTRS WHERE {0}
+      singleRow: false
+      username: uid
+      columnMappings.attrname: attrvalue
+      user: root
+      password: ThisIsThePasswordForRoot
+      driverClass: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://${AUTHENTICATION_ATTRIBUTE_MYSQL}/${AUTHENTICATION_ATTRIBUTE_MYSQL}
+      attributes:
+        firstname: firstname
+        lastname: lastname
+        attributeRetriveFrom: attributeRetriveFrom
+  defaultAttributesToRelease: firstname, lastname, attributeRetriveFrom

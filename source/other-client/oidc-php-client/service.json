@@ -4,6 +4,6 @@
   "clientSecret": "clientSecret",
   "serviceId" : "^https://cas.example.org:54545/.*",
   "name": "OIDC",
-  "id": 200,
-  "evaluationOrder" : 200
+  "id": 1000,
+  "evaluationOrder" : 1000
 }

@@ -56,10 +56,6 @@ EXPOSE 8080 8443
 
 ENV PATH $PATH:$JAVA_HOME/bin:.
 
-COPY cas_public.crt /etc/cas_public.crt
-
-RUN keytool -import -trustcacerts -keystore /opt/java/openjdk/lib/security/cacerts  -storepass changeit -noprompt -alias cas -file /etc/cas_public.crt
-
 WORKDIR /cas-overlay
 #ENTRYPOINT ["java", "-server", "-noverify", "-Xmx2048M", "-jar", "cas.war"]
 ENTRYPOINT "/cas-overlay/run-cas.sh"
