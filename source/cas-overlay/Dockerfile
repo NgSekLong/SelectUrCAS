@@ -17,7 +17,7 @@
 
 FROM adoptopenjdk/openjdk11:alpine-jre AS cas
 
-RUN apk --no-cache add curl
+RUN apk  add --no-cache curl
 RUN mkdir -p cas-overlay
 COPY ./src cas-overlay/src/
 COPY ./gradle/ cas-overlay/gradle/
