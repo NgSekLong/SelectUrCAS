@@ -1,0 +1,10 @@
+{
+    "@class" : "java.util.HashMap",
+    "services" : [ "java.util.ArrayList", [ {
+      "@class" : "org.apereo.cas.adaptors.u2f.storage.U2FDeviceRegistration",
+      "id" : 1508515100762,
+      "username" : "casuser",
+      "record" : "{\"keyHandle\":\"keyhandle11\",\"publicKey\":\"publickey1\",\"counter\":1,\"compromised\":false}",
+      "createdDate" : "2016-10-15"
+    } ] ]
+  }

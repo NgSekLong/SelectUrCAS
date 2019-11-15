@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  cas_server:
+    volumes: 
+      - type: bind
+        source: ${MFA_U2F_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${MFA_U2F}.yml
+        read_only: true
+      - type: bind
+        source: ${MFA_U2F_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${MFA_U2F_PATH:-.}/build.gradle
+        read_only: true
+      - type: bind
+        source: ${MFA_U2F_PATH:-.}/u2f.json
+        target: ${RESOURCE_PATH:-.}/${MFA_U2F_PATH:-.}/u2f.json
+        read_only: true
+    environment:
+      MFA_U2F_PATH: ${MFA_U2F_PATH}

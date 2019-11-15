@@ -1,0 +1,2 @@
+compile "org.apereo.cas:cas-server-support-u2f:${project.'cas.version'}"
+compile "org.apereo.cas:cas-server-support-u2f-jpa:${project.'cas.version'}"
