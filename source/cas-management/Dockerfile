@@ -7,7 +7,8 @@ RUN git clone -c advice.detachedHead=false \
 RUN sh ./build.sh package
 #ENTRYPOINT ["/cas-management/build.sh", "package"]
 
-COPY cas-server-self-sign-cert.crt /etc/cas/cert.crt
+COPY cas_public.crt /etc/cas/cert.crt
+COPY thekeystore /etc/cas/thekeystore
 
 RUN keytool -import -trustcacerts -keystore /opt/java/openjdk/lib/security/cacerts \
      -storepass changeit -noprompt -alias cas -file /etc/cas/cert.crt

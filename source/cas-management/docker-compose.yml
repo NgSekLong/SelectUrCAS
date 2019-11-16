@@ -8,14 +8,6 @@ services:
       # - "8080:8080"
     volumes: 
       - type: bind
-        source: ${CAS_MANAGEMENT_PATH:-.}/thekeystore
-        target: /etc/cas/thekeystore
-        read_only: true
-      - type: bind
-        source: ${CAS_MANAGEMENT_PATH:-.}/cas-server-self-sign-cert.crt
-        target: /etc/cas/cert.crt
-        read_only: true
-      - type: bind
         source: ${CAS_MANAGEMENT_PATH:-.}/management.yml
         target: /etc/cas/config/management.yml
         read_only: true

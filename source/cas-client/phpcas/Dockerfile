@@ -7,6 +7,6 @@ RUN apt-get update && \
 RUN git clone -c advice.detachedHead=false \
     --single-branch --branch 1.3.8 https://github.com/apereo/phpCAS.git .
 
-COPY cas-server-self-sign-cert.crt /etc/cert.crt
+COPY cas_public.crt /etc/cert.crt
 
 COPY index.php login.php logout.php ./

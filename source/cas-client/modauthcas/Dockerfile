@@ -26,7 +26,7 @@ RUN a2enmod auth_cas
 # RUN chmod 700 /var/cache/apache2/mod_auth_cas
 
 # Copy in the cert
-COPY cas-server-self-sign-cert.crt /etc/cert.crt
+COPY cas_public.crt /etc/cert.crt
 
 
 

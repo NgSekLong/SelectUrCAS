@@ -9,7 +9,7 @@ RUN git clone -c advice.detachedHead=false \
 COPY thekeystore /etc/cas/jetty/thekeystore
 
 # This step is needed because the demo in this repository used self-sign cert
-COPY cas-server-self-sign-cert.crt /etc/cas/jetty/cert.crt
+COPY cas_public.crt /etc/cas/jetty/cert.crt
 
 RUN keytool -import -trustcacerts -keystore /opt/java/openjdk/jre/lib/security/cacerts  -storepass changeit -noprompt -alias cas -file /etc/cas/jetty/cert.crt
 
