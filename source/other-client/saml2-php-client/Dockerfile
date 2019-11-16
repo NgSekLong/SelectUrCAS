@@ -23,8 +23,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Add PHP OAuth Basic Client
 RUN composer create-project simplesamlphp/simplesamlphp .
 
-# Remove default html
-RUN rm -rf /var/www/html
-
 # Make symbolic link
-RUN ln -s /var/simplesamlphp/www /var/www/html
+RUN ln -s /var/simplesamlphp/www /var/www/html/simplesaml

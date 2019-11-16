@@ -3,5 +3,6 @@
   "serviceId" : "^https://cas.example.org:59595/.*",
   "name": "SAML2 client",
   "id": 300,
-  "evaluationOrder" : 300
+  "evaluationOrder" : 300,
+  "metadataLocation" : "file:///etc/cas/resources/simplesamlphp-sp.xml"
 }
