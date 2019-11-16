@@ -51,8 +51,11 @@
 
                             <h1>Select Ur CAS</h1>
                         </v-col>
+                        
                         <v-col cols="8">
-                            <v-btn class="success float-right" @click="resetToDefaultSettings">Click to reset to example
+                                
+                            <v-btn class="success float-right ml-2" @click="resetToEmptySettings">Clear setting</v-btn>
+                            <v-btn class="success float-right" @click="resetToDefaultSettings">Reset to example
                                 setup</v-btn>
                         </v-col>
                     </v-row>
@@ -66,17 +69,28 @@
                                 <h1>Select Command</h1>
                             </v-badge>
                             
-
-                            <v-select v-model="authenticationValues" :items="authenticationValuesOptions"
+                            <v-select v-model="authenticationValues" :items="authenticationValuesOptions"  
+                                :class="typeToColor['authenticationValues']"
                                 label="Authentication credential storage:" multiple persistent-hint
                                 clearable chips>
                             </v-select>
+                            <v-alert v-if="authenticationValues.length == 0" dense type="warning">
+                                <div>
+                                    If no authentication credential storage is enabled, no account will be able to login.
+                                </div>
+                                <div>
+                                    Picking at least one authentication credential storage is recommended.
+                                </div>
+                            </v-alert>
+
                             <v-select v-model="authenticationAttributesValues"
+                                :class="typeToColor['authenticationAttributesValues']"
                                 :items="authenticationAttributesValuesOptions"
                                 label="Authentication attribute storage:" multiple persistent-hint
                                 clearable chips>
                             </v-select>
                             <v-select v-model="casClientValues" :items="casClientValuesOptions"
+                                :class="typeToColor['casClientValues']"
                                 label="CAS protocol clients:" multiple clearable
                                 persistent-hint chips>
                             </v-select>
@@ -88,11 +102,13 @@
                             </v-alert>
 
                             <v-select v-model="protocolValues" :items="protocolValuesOptions"
+                                :class="typeToColor['protocolValues']"
                                 label="Enabled other protocol (also need to assign a client below):" multiple persistent-hint
                                 clearable chips>
                             </v-select>
                             <template v-if="protocolValues.length > 0">
                                 <v-select 
+                                    :class="typeToColor['otherClientValues']"
                                     v-model="otherClientValues" 
                                     :items="otherClientValuesOptions"
                                     label="Other protocol clients (e.g. OAuth 2, OIDC, SAML 2):" multiple clearable
@@ -106,10 +122,12 @@
                                 
                             </template>
                             <v-select v-model="ticketRegistryValue" :items="ticketRegistryValuesOptions"
+                                :class="typeToColor['ticketRegistryValues']"
                                 label="Ticket registry:"
                                 persistent-hint>
                             </v-select>
                             <v-select v-model="serviceRegistryValue" :items="serviceRegistryValuesOptions"
+                                :class="typeToColor['serviceRegistryValues']"
                                 label="Service storage:"  persistent-hint clearable>
                             </v-select>
                             <v-alert dense type="info">
@@ -121,29 +139,59 @@
                                 </div>
                             </v-alert>
                         </v-col>
-                        <v-col col="12" md="4" sm="12">
+                        <v-col  col="12" md="4" sm="12">
 
                             <v-badge right>
                                 <template v-slot:badge>
                                     <span>2</span>
                                 </template>
-                                <h1>Copy docker command</h1>
+                                <h1>Read Docs</h1>
+                            </v-badge>
+                            <v-card>
+                                <v-alert dense v-if="!isChromeBrowser" type="warning">
+                                    Use Chrome will allow the below document to be shown in the same page, so consider using Chrome
+                                </v-alert>
+                                <template v-for="(dockerComposeParams, type) in allDockerComposeParams">
+                                    <template v-for="dockerComposeParam in dockerComposeParams">
+                                        <v-card class="mr-2 ml-2 mb-1 mt-1" :class="typeToColor[type]">
+                                            <template v-if="isChromeBrowser">
+                                                <iframe frameBorder="0" class="iframe"
+                                                :src="dockerComposeParam + '/README.md'"></iframe>
+                                            </template>
+                                            <template v-else>
+                                                Click below link to documentation:<br/>
+                                                <a :href="dockerComposeParam + '/README.md'"> {{dockerComposeParam}}</a>
+                                            </template>
+                                        </v-card>
+                                        <!-- <v-col :key="dockerComposeParam" cols="12" sm="6" md="4" >
+                                                </v-col> -->
+                                    </template>
+                                </template>
+                            </v-card>
+                        </v-col>
+                        <v-col col="12" md="4" sm="12">
+
+                            <v-badge right>
+                                <template v-slot:badge>
+                                    <span>3</span>
+                                </template>
+                                <h1>Deploy Command</h1>
                             </v-badge>
                                 <v-switch v-model="isHaveSudo" :label="`Include sudo to command ?`"></v-switch>
 
 
 
-                                <v-select v-model="dockerCommand" :items="dockerCommandOptions"
-                                    label="Select action for Docker:" persistent-hint>
-                                </v-select>
 
-                                <v-switch v-model="isUseCAS5" :label="`Check to select CAS 5`"></v-switch>
+                                <v-switch v-model="isUseCAS5" :label="`Check to select CAS 5.3`"></v-switch>
                                     
                                 <v-alert dense v-if="isUseCAS5" type="warning">
                                     This project is built using latest released CAS 6 version, 
                                     so some config / properties might need to be altered for CAS 5 to work.
                                 </v-alert>
 
+                                <v-select v-model="dockerCommand" :items="dockerCommandOptions"
+                                    label="Select action for Docker:" persistent-hint>
+                                </v-select>
                             <v-card class="mx-auto">
                                 <v-card-text class="caption">
 
@@ -156,10 +204,13 @@
                                             -f
                                             <span class="purple--text"> ./source/cas-overlay-5-3/docker-compose.yml </span>
                                         </span>
-                                        <div v-for="dockerComposeParam in dockerComposeParams">
-                                            <span class="blue--text"> -f </span>
-                                            <span class="purple--text"> {{ dockerComposeParam }}/docker-compose.yml
-                                            </span>
+                                        <div v-for="(dockerComposeParams, type) in allDockerComposeParams">
+                                            <div v-for="dockerComposeParam in dockerComposeParams"
+                                                :class="typeToColor[type]">
+                                                <span class="blue--text"> -f </span>
+                                                <span class="purple--text"> {{ dockerComposeParam }}/docker-compose.yml
+                                                </span>
+                                            </div>
                                         </div>
                                         <div v-if="isUseSmtp">
                                             <span class="blue--text"> -f </span>
@@ -197,35 +248,6 @@
                                         </v-btn>
                                     </v-snackbar>
                                 </v-card-actions>
-                            </v-card>
-                        </v-col>
-                        <v-col  col="12" md="4" sm="12">
-
-                            <v-badge right>
-                                <template v-slot:badge>
-                                    <span>3</span>
-                                </template>
-                                <h1>Read Docs</h1>
-                            </v-badge>
-                            <v-card>
-                                <v-alert dense v-if="!isChromeBrowser" type="warning">
-                                    Use Chrome will allow the below document to be shown in the same page, so consider using Chrome
-                                </v-alert>
-                                <template v-for="dockerComposeParam in dockerComposeParams">
-
-                                    <v-card class="mr-2 ml-2 mb-1 mt-1">
-                                        <template v-if="isChromeBrowser">
-                                            <iframe frameBorder="0" class="iframe"
-                                            :src="dockerComposeParam + '/README.md'"></iframe>
-                                        </template>
-                                        <template v-else>
-                                            Click below link to documentation:<br/>
-                                            <a :href="dockerComposeParam + '/README.md'"> {{dockerComposeParam}}</a>
-                                        </template>
-                                    </v-card>
-                                    <!-- <v-col :key="dockerComposeParam" cols="12" sm="6" md="4" >
-                                            </v-col> -->
-                                </template>
                             </v-card>
                         </v-col>
                     </v-row>
@@ -279,17 +301,43 @@
             },
             computed: {
                 // Compuse docker compose param
-                dockerComposeParams() {
-                    let allParam = [
-                        ...this.protocolValues,
-                        ...this.authenticationValues,
-                        ...this.authenticationAttributesValues,
-                        ...this.ticketRegistryValues,
-                        ...this.casClientValues,
-                        ...this.otherClientValues,
-                        ...this.serviceRegistryValues,
-                    ];
+                allDockerComposeParams() {
+                    const authenticationValues = this.authenticationValues;
+                    const authenticationAttributesValues = this.authenticationAttributesValues;
+                    const casClientValues = this.casClientValues;
+                    const protocolValues = this.protocolValues;
+                    const otherClientValues = this.otherClientValues;
+                    const ticketRegistryValues = this.ticketRegistryValues;
+                    const serviceRegistryValues = this.serviceRegistryValues;
+                    let allParam = {
+                        authenticationValues,
+                        authenticationAttributesValues,
+                        casClientValues,
+                        protocolValues,
+                        otherClientValues,
+                        ticketRegistryValues,
+                        serviceRegistryValues,
+                    };
+                    console.log('allParam', allParam);
                     return allParam;
+                },
+                typeToColor() {
+                    const authenticationValues = 'lime lighten-5';
+                    const authenticationAttributesValues = 'lime lighten-4';
+                    const casClientValues = 'lime lighten-3';
+                    const protocolValues = 'lime lighten-2';
+                    const otherClientValues = 'lime lighten-1';
+                    const ticketRegistryValues = 'lime darken-1';
+                    const serviceRegistryValues = 'lime darken-2';
+                    return {
+                        authenticationValues,
+                        authenticationAttributesValues,
+                        casClientValues,
+                        protocolValues,
+                        otherClientValues,
+                        ticketRegistryValues,
+                        serviceRegistryValues,
+                    };
                 },
                 ticketRegistryValues() {
                     return this.ticketRegistryValue? [this.ticketRegistryValue] : [];
@@ -393,7 +441,7 @@
                 // console.log('nameToPathMapping', this.nameToPathMapping);
 
                 // Initialize storage if first landing
-                if (!localStorage.noFirstVisit && this.dockerComposeParams.length == 0) {
+                if (!localStorage.noFirstVisit && this.allDockerComposeParams.length == 0) {
                     this.resetToDefaultSettings();
 
                     this.snackbarText = 'Welcome to Select Ur CAS, just initialized an example config for you :)';
@@ -480,7 +528,7 @@
             methods: {
                 getDockerCommandText() {
                     // Need to keep this for refresh :D
-                    console.log(this.dockerComposeParams);
+                    console.log(this.allDockerComposeParams);
 
                     let returnText = $("#docker-command").text().trim();
                     returnText = returnText.replace(/(\r\n|\n|\r)/gm, "");
@@ -525,8 +573,15 @@
                     this.otherClientValues = [];
                     this.serviceRegistryValue = this.nameToPathMapping["service-registry-json-1001"];
                 },
-                
-
+                resetToEmptySettings() {
+                    this.protocolValues = [];
+                    this.authenticationValues = [];
+                    this.authenticationAttributesValues = [];
+                    this.ticketRegistryValue = this.nameToPathMapping["ticket-registry-no-ticket-registry"];
+                    this.casClientValues = [];
+                    this.otherClientValues = [];
+                    this.serviceRegistryValue = this.nameToPathMapping["service-registry-json-1001"];
+                },
             },
         })
     </script>
