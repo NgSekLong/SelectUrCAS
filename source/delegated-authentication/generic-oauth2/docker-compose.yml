@@ -1,0 +1,48 @@
+version: '3.7'
+services:
+  cas_server:
+    volumes: 
+      - type: bind
+        source: ${DELEGATED_AUTHENTICATION_GENERIC_OAUTH2_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${DELEGATED_AUTHENTICATION_GENERIC_OAUTH2}.yml
+        read_only: true
+      - type: bind
+        source: ${DELEGATED_AUTHENTICATION_GENERIC_OAUTH2_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${DELEGATED_AUTHENTICATION_GENERIC_OAUTH2_PATH:-.}/build.gradle
+        read_only: true
+    environment:
+      DELEGATED_AUTHENTICATION_GENERIC_OAUTH2: ${DELEGATED_AUTHENTICATION_GENERIC_OAUTH2}
+  delegated_authentication_generic_oauth2:
+    build: ${DELEGATED_AUTHENTICATION_GENERIC_OAUTH2_PATH:-.}/.
+    ports:
+      - target: 80
+        published: 60606
+    expose:
+      - 80
+      - 443
+    volumes:
+      - type: bind
+        source: ${DELEGATED_AUTHENTICATION_GENERIC_OAUTH2_PATH:-.}/profile.php
+        target: /var/www/html/profile.php
+        read_only: true
+      # - type: bind
+      #   source: ${DELEGATED_AUTHENTICATION_GENERIC_OAUTH2_PATH:-.}/login.php
+      #   target: /var/www/html/login.php
+      #   read_only: true
+      - type: bind
+        source: ${DELEGATED_AUTHENTICATION_GENERIC_OAUTH2_PATH:-.}/cas_private.pem
+        # This is the default for Apache, don't change it
+        target: /etc/ssl/private/ssl-cert-snakeoil.key 
+        read_only: true
+      - type: bind
+        source: ${DELEGATED_AUTHENTICATION_GENERIC_OAUTH2_PATH:-.}/cas_public.crt
+        # This is the default for Apache, don't change it
+        target: /etc/ssl/certs/ssl-cert-snakeoil.pem
+        read_only: true
+    environment:
+      CAS_DOMAIN_NAME: ${CAS_DOMAIN_NAME}        
+    hostname: ${DELEGATED_AUTHENTICATION_GENERIC_OAUTH2}
+    networks:
+      default:
+        aliases:
+          - ${DELEGATED_AUTHENTICATION_GENERIC_OAUTH2}

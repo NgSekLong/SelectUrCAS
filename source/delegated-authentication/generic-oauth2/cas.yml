@@ -1,0 +1,6 @@
+cas.authn.pac4j.oauth2:
+  - id: demoapp
+    secret: demopass
+    authUrl: http://cas.example.org:60606/web/lockdin/authorize
+    tokenUrl: http://${DELEGATED_AUTHENTICATION_GENERIC_OAUTH2}/web/lockdin/token
+    profileUrl:  http://${DELEGATED_AUTHENTICATION_GENERIC_OAUTH2}/profile.php
