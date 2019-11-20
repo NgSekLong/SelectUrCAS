@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  cas_server:
+    volumes: 
+      - type: bind
+        source: ${PROTOCOL_PASSWORD_MANAGEMENT_JDBC_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${PROTOCOL_PASSWORD_MANAGEMENT_JDBC}.yml
+        read_only: true
+      - type: bind
+        source: ${PROTOCOL_PASSWORD_MANAGEMENT_JDBC_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${PROTOCOL_PASSWORD_MANAGEMENT_JDBC_PATH:-.}/build.gradle
+        read_only: true
+    environment:
+      PROTOCOL_PASSWORD_MANAGEMENT_JDBC: ${PROTOCOL_PASSWORD_MANAGEMENT_JDBC}
+  protocol_password_management_jdbc:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    expose:
+      - 3306
+    environment:
+      MYSQL_DATABASE: ${PROTOCOL_PASSWORD_MANAGEMENT_JDBC}
+      MYSQL_ROOT_PASSWORD: ThisIsThePasswordForRoot
+    volumes: 
+      - type: bind
+        source:  ${PROTOCOL_PASSWORD_MANAGEMENT_JDBC_PATH:-.}/init.sql
+        target: /docker-entrypoint-initdb.d/${PROTOCOL_PASSWORD_MANAGEMENT_JDBC}-init.sql
+        read_only: true
+    hostname: ${PROTOCOL_PASSWORD_MANAGEMENT_JDBC}
+    networks:
+      default:
+        aliases:
+          - ${PROTOCOL_PASSWORD_MANAGEMENT_JDBC}

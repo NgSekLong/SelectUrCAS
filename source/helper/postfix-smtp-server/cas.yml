@@ -1,0 +1,4 @@
+spring.mail: 
+  host: smtp.example.org
+  port: 587
+  testConnection: true

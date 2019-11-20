@@ -4,8 +4,4 @@ cas.authn.passwordless.tokens.mail:
   from: castesting@example.org
   text: CAS Passwordless Authentication Token is %s
   subject: Testing Passwordless Authentication
-spring.mail: 
-  host: smtp.example.org
-  port: 587
-  testConnection: true
 logging.level.org.apereo.cas: DEBUG

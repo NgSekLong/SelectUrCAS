@@ -301,7 +301,11 @@
                     return this.ticketRegistryValue != this.nameToPathMapping["ticket-registry-no-ticket-registry"];
                 },
                 isUseSmtp(){
-                    return this.protocolValues.includes(this.nameToPathMapping["protocol-passwordless-email"]);
+                    let allowToUseSmtpServices = [
+                        this.nameToPathMapping["protocol-passwordless-email"],
+                        this.nameToPathMapping["protocol-password-management-jdbc"],
+                    ];
+                    return this.protocolValues.some(r=> allowToUseSmtpServices.includes(r));
                 },
                 isChromeBrowser() {
                     return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
