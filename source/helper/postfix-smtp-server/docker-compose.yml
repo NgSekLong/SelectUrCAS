@@ -1,5 +1,11 @@
 version: '3.7'
 services:
+  cas_server:
+    volumes: 
+      - type: bind
+        source: ${HELPER_POSTFIX_SMTP_SERVER_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${HELPER_POSTFIX_SMTP_SERVER}.yml
+        read_only: true
   postfix_smtp_server:
     image: boky/postfix
     volumes: 

@@ -42,3 +42,29 @@ Need to install the following
     - In normal mechaism, you need to reserved port `8443` and `80` for **Select Ur CAS** project
     - A number of other ports might also need to be reserved depends on components selected, check the *READMD.md* for for each project for ports!
 
+## Current Support demo:
+- OpenLdap Authentication
+- Mysql Query Authentication
+- JSON Whitelist Authentication
+- MongoDB Authentication
+- Rest Authentication
+- Freeradius Authentication
+
+- Rest Attribute Storage
+- Json Attribute Storage
+- Mysql Attribute Storage
+
+- Java CAS client
+- Phpcas client
+- Modauthcas client
+
+- OAuth protocol + php client
+- Oidc protocol + php client
+- Passwordless Authentication by email
+- SAML 2 protocol + Simplesamlphp
+
+- MongoDB Ticket registry
+- Hazelcast Ticket registry
+
+- Json Service Storage
+
