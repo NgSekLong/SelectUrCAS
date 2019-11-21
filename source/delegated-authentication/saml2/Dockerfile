@@ -25,3 +25,6 @@ RUN composer create-project simplesamlphp/simplesamlphp:v1.17.8 .
 
 # Make symbolic link
 RUN ln -s /var/simplesamlphp/www /var/www/html/simplesaml
+
+# Enabled exampleauth
+RUN touch modules/exampleauth/enable

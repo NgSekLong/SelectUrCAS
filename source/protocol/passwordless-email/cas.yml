@@ -4,4 +4,3 @@ cas.authn.passwordless.tokens.mail:
   from: castesting@example.org
   text: CAS Passwordless Authentication Token is %s
   subject: Testing Passwordless Authentication
-logging.level.org.apereo.cas: DEBUG

@@ -1,0 +1,12 @@
+
+cas.authn.pac4j.saml:
+   -  keystorePassword: changeit
+      privateKeyPassword: changeit 
+      keystorePath: file:/etc/cas/thekeystore
+      principalAttributeId: uid
+      clientName: SAMLIdp
+      serviceProviderEntityId: simplesamlphp
+      serviceProviderMetadataPath: file:${SAML_PATH}/saml-self-sp-metadata.xml
+      identityProviderMetadataPath: file:${SAML_PATH}/idp-metadata.php
+      attributeConsumingServiceIndex: 1
+      nameIdPolicyFormat: urn:oasis:names:tc:SAML:2.0:nameid-format:transient

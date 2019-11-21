@@ -1,7 +1,9 @@
 <?php
 # Fake a profile endpoint...
 $data = [
-    'id' => 'casuser',
+    'id' => '123456789',
+    'principalAttributeId' => 'principalAttributeIdValue',
+    'profileId' => 'profileIdValue',
     'otherstuff' => 'Other Stuff',
 ];
 header('Content-Type: application/json');

@@ -1,0 +1,54 @@
+version: '3.7'
+services:
+  cas_server:
+    volumes:
+      - type: bind
+        source: ${DELEGATED_AUTHENTICATION_SAML2_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${DELEGATED_AUTHENTICATION_SAML2_PATH:-.}/build.gradle
+        read_only: true
+      - type: bind
+        source: ${DELEGATED_AUTHENTICATION_SAML2_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${DELEGATED_AUTHENTICATION_SAML2}.yml
+        read_only: true
+      - type: bind
+        source: ${DELEGATED_AUTHENTICATION_SAML2_PATH:-.}/cas-saml/idp-metadata.php
+        target: ${SAML_PATH:-.}/idp-metadata.php
+        read_only: true
+    environment:
+      SAML_PATH: ${SAML_PATH}    
+      DELEGATED_AUTHENTICATION_SAML2: ${DELEGATED_AUTHENTICATION_SAML2}
+  delegated_authentication_saml2:
+    build: ${DELEGATED_AUTHENTICATION_SAML2_PATH:-.}/.
+    ports:
+      - target: 443
+        published: 61616
+    volumes:
+      - type: bind
+        source: ${DELEGATED_AUTHENTICATION_SAML2_PATH:-.}/simplesamlphp-config
+        target: /var/simplesamlphp/config
+        read_only: true
+      - type: bind
+        source: ${DELEGATED_AUTHENTICATION_SAML2_PATH:-.}/simplesamlphp-metadata
+        target: /var/simplesamlphp/metadata
+        read_only: true
+      - type: bind
+        source: ${DELEGATED_AUTHENTICATION_SAML2_PATH:-.}/saml-cert
+        target: /var/simplesamlphp/cert
+        read_only: true
+      - type: bind
+        source: ${DELEGATED_AUTHENTICATION_SAML2_PATH:-.}/cas_private.pem
+        # This is the default for Apache, don't change it
+        target: /etc/ssl/private/ssl-cert-snakeoil.key 
+        read_only: true
+      - type: bind
+        source: ${DELEGATED_AUTHENTICATION_SAML2_PATH:-.}/cas_public.crt
+        # This is the default for Apache, don't change it
+        target: /etc/ssl/certs/ssl-cert-snakeoil.pem
+        read_only: true
+    environment:
+      CAS_DOMAIN_NAME: ${CAS_DOMAIN_NAME}        
+    hostname: ${DELEGATED_AUTHENTICATION_SAML2}
+    networks:
+      default:
+        aliases:
+          - ${DELEGATED_AUTHENTICATION_SAML2}
