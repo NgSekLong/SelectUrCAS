@@ -1,4 +1,4 @@
-## SAML 2 PHP client
+## SAML 2 PHP client - SimpleSAMLPHP
 
 Login to service
 1. Go to https://cas.example.org:59595/simplesaml/module.php/core/authenticate.php?as=default-sp

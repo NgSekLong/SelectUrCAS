@@ -1,7 +1,7 @@
 {
   "@class" : "org.apereo.cas.support.saml.services.SamlRegisteredService",
   "serviceId" : "^https://cas.example.org:59595/.*",
-  "name": "SAML2 client",
+  "name": "SAML2 client - SimpleSAMLphp",
   "id": 300,
   "evaluationOrder" : 300,
   "metadataLocation" : "file:///etc/cas/resources/simplesamlphp-sp.xml"
