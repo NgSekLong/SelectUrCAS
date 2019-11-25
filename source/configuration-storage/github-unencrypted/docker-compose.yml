@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  cas_server:
+    volumes: 
+      - type: bind
+        source: ${CONFIGURATION_STORAGE_GITHUB_UNENCRYPTED_PATH:-.}/bootstrap.properties
+        target: /cas-overlay/src/main/resources/bootstrap.properties
+        read_only: true
+      - type: bind
+        source: ${CONFIGURATION_STORAGE_GITHUB_UNENCRYPTED_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${CONFIGURATION_STORAGE_GITHUB_UNENCRYPTED_PATH:-.}/build.gradle
+        read_only: true
+  spring-cloud-config-server:
+    image: hyness/spring-cloud-config-server
+    expose:
+      - 8888
+    environment:
+      SPRING_CLOUD_CONFIG_SERVER_GIT_URI: https://github.com/NgSekLong/cas-git-config-example.git
+    hostname: spring-cloud-config.example.org
+    networks:
+      default:
+        aliases:
+          - spring-cloud-config.example.org

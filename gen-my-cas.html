@@ -138,6 +138,18 @@
                                         By default, each of the above service registry allow all http / https traffic.
                                 </div>
                             </v-alert>
+                            <v-select v-model="configurationStorageValue" :items="configurationStorageValuesOptions"
+                                :class="typeToColor['configurationStorageValues']"
+                                label="Configuration Storage:"  persistent-hint clearable>
+                            </v-select>
+                            <v-alert v-if="configurationStorageValue"  dense type="warning">
+                                <div>
+                                    Setting Configuration storage demo might break other demo
+                                </div>
+                                <div>
+                                    Consider turing configuration storage off after finish testing
+                                </div>
+                            </v-alert>
                         </v-col>
                         <v-col  col="12" md="4" sm="12">
 
@@ -281,6 +293,7 @@
                     casClientValues: [],
                     otherClientValues: [],
                     serviceRegistryValue: "",
+                    configurationStorageValue: "",
 
                     // All value options
                     allComponentsArray: [],
@@ -309,6 +322,7 @@
                     const otherClientValues = this.otherClientValues;
                     const ticketRegistryValues = this.ticketRegistryValues;
                     const serviceRegistryValues = this.serviceRegistryValues;
+                    const configurationStorageValues = this.configurationStorageValues;
                     let allParam = {
                         authenticationValues,
                         authenticationAttributesValues,
@@ -317,6 +331,7 @@
                         otherClientValues,
                         ticketRegistryValues,
                         serviceRegistryValues,
+                        configurationStorageValues,
                     };
                     console.log('allParam', allParam);
                     return allParam;
@@ -329,6 +344,7 @@
                     const otherClientValues = 'lime lighten-1';
                     const ticketRegistryValues = 'lime darken-1';
                     const serviceRegistryValues = 'lime darken-2';
+                    const configurationStorageValues = 'lime darken-3';
                     return {
                         authenticationValues,
                         authenticationAttributesValues,
@@ -337,6 +353,7 @@
                         otherClientValues,
                         ticketRegistryValues,
                         serviceRegistryValues,
+                        configurationStorageValues,
                     };
                 },
                 ticketRegistryValues() {
@@ -344,6 +361,9 @@
                 },
                 serviceRegistryValues() {
                     return this.serviceRegistryValue? [this.serviceRegistryValue] : [];
+                },
+                configurationStorageValues() {
+                    return this.configurationStorageValue? [this.configurationStorageValue] : [];
                 },
                 isUseTicketRegistry() {
                     return this.ticketRegistryValue != this.nameToPathMapping["ticket-registry-no-ticket-registry"];
@@ -393,7 +413,12 @@
                     return this.allComponentsArray.filter(function (option) {
                         return option.type == "service-registry"
                     });
-                },        
+                },
+                configurationStorageValuesOptions() {
+                    return this.allComponentsArray.filter(function (option) {
+                        return option.type == "configuration-storage"
+                    });
+                }     
             },
             async created() {
                 let response = await fetchJsonp('env.jsonp', {
@@ -495,6 +520,10 @@
                     this.serviceRegistryValue = JSON.parse(localStorage.serviceRegistryValue);
                 }
 
+                if (localStorage.configurationStorageValue) {
+                    this.configurationStorageValue = JSON.parse(localStorage.configurationStorageValue);
+                }
+
             },
             watch: {
                 isHaveSudo(newIsHaveSudo) {
@@ -528,6 +557,10 @@
                 serviceRegistryValue(newServiceRegistryValue) {
                     localStorage.serviceRegistryValue = JSON.stringify(newServiceRegistryValue);
                 },
+                configurationStorageValue(newConfigurationStorageValue) {
+                    localStorage.configurationStorageValue = JSON.stringify(newConfigurationStorageValue);
+                },
+                
             },
             methods: {
                 getDockerCommandText() {
@@ -576,6 +609,7 @@
                     this.casClientValues = [this.nameToPathMapping["cas-client-phpcas"]];
                     this.otherClientValues = [];
                     this.serviceRegistryValue = this.nameToPathMapping["service-registry-json-1001"];
+                    this.configurationStorageValue = null;
                 },
                 resetToEmptySettings() {
                     this.protocolValues = [];
@@ -585,6 +619,7 @@
                     this.casClientValues = [];
                     this.otherClientValues = [];
                     this.serviceRegistryValue = null;
+                    this.configurationStorageValue = null;
                 },
             },
         })
