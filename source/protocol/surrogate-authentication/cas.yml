@@ -1,0 +1,5 @@
+cas.authn.accept.users: surrogate-admin::Mellon,surrogate-user::Mellon,surrogate-user2::Mellon
+
+cas.authn.surrogate.json.location: file://${RESOURCE_PATH}/${PROTOCOL_SURROGATE_AUTHENTICATION_PATH}/surrogate.json
+cas.authn.attributeRepository.json:
+  - location: file://${RESOURCE_PATH}/${PROTOCOL_SURROGATE_AUTHENTICATION_PATH}/surrogate-attributes.json

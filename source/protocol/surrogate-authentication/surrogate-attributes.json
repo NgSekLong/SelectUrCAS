@@ -1,0 +1,11 @@
+{
+    "surrogate-user": {
+        "name":["Surrogate User"]
+    },
+    "surrogate-user2": {
+        "name":["Surrogate User2"]
+    },
+    "surrogate-admin": {
+        "name":["Surrogate Admin"]
+    }
+}

@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  cas_server:
+    volumes: 
+      - type: bind
+        source: ${PROTOCOL_SURROGATE_AUTHENTICATION_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/${PROTOCOL_SURROGATE_AUTHENTICATION}.yml
+        read_only: true
+      - type: bind
+        source: ${PROTOCOL_SURROGATE_AUTHENTICATION_PATH:-.}/build.gradle
+        target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${PROTOCOL_SURROGATE_AUTHENTICATION_PATH:-.}/build.gradle
+        read_only: true
+      - type: bind
+        source: ${PROTOCOL_SURROGATE_AUTHENTICATION_PATH:-.}/surrogate-attributes.json
+        target: ${RESOURCE_PATH:-.}/${PROTOCOL_SURROGATE_AUTHENTICATION_PATH:-.}/surrogate-attributes.json
+        read_only: true
+      - type: bind
+        source: ${PROTOCOL_SURROGATE_AUTHENTICATION_PATH:-.}/surrogate.json
+        target: ${RESOURCE_PATH:-.}/${PROTOCOL_SURROGATE_AUTHENTICATION_PATH:-.}/surrogate.json
+        read_only: true
+    environment:
+      PROTOCOL_SURROGATE_AUTHENTICATION_PATH: ${PROTOCOL_SURROGATE_AUTHENTICATION_PATH}
