@@ -2,5 +2,5 @@ cas.ticket.registry.hazelcast.cluster:
   # Since I can't think of a way to get all Hazelcast members address dynamically, 
   # I just add a bunch of address and this should works fine
   # FYI, some members is down is OK
-  members: 172.20.0.1,172.20.0.2,172.20.0.3,172.20.0.4,172.20.0.5,172.20.0.6,172.20.0.7,172.20.0.8,172.20.0.9,172.20.0.10
+  members: 172.20.0.1,172.20.0.2,172.20.0.3,172.20.0.4,172.20.0.5,172.20.0.6,172.20.0.7,172.20.0.8,172.20.0.9,172.20.0.10,172.18.0.1,172.18.0.2,172.18.0.3,172.18.0.4,172.18.0.5,172.18.0.6,172.18.0.7,172.18.0.8,172.18.0.9,172.18.0.10
   instanceName: localhost
