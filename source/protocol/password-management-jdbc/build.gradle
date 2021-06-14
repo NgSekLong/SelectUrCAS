@@ -1,4 +1,4 @@
 // Allow JDBC Login for testing if password change is successful
-implementation "org.apereo.cas:cas-server-support-jdbc:${project.'cas.version'}"
-implementation "org.apereo.cas:cas-server-support-pm-webflow:${project.'cas.version'}"
-implementation "org.apereo.cas:cas-server-support-pm-jdbc:${project.'cas.version'}"
+implementation "org.apereo.cas:cas-server-support-jdbc:${casServerVersion}"
+implementation "org.apereo.cas:cas-server-support-pm-webflow:${casServerVersion}"
+implementation "org.apereo.cas:cas-server-support-pm-jdbc:${casServerVersion}"

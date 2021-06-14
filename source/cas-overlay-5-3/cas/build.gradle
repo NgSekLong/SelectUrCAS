@@ -2,7 +2,7 @@ apply plugin: "org.springframework.boot"
 apply from: "https://dl.bintray.com/scalding/generic/waroverlay.gradle"
 
 def currentBranch = "master"
-def currentVersion = "${project.'cas.version'}"
+def currentVersion = "${casServerVersion}"
 if (!currentVersion.contains("RC")) {
     def matcher = currentVersion =~ /(\d+\.\d+\.).+/
     if (matcher.find()) {
@@ -53,7 +53,7 @@ repositories {
 
 // DO NOT ENABLED THIS
 // dependencies {
-//     implementation "org.apereo.cas:cas-server-webapp-tomcat:${project.'cas.version'}@war"
+//     implementation "org.apereo.cas:cas-server-webapp-tomcat:${casServerVersion}@war"
 //     if (!project.hasProperty('bootiful')) {
 //         // Other dependencies may be listed here...
 //     } else {
@@ -116,5 +116,5 @@ task debug(group: "build", description: "Debug the CAS web application in embedd
 
 
 dependencies {
-    implementation "org.apereo.cas:cas-server-webapp-tomcat:${project.'cas.version'}@war"
+    implementation "org.apereo.cas:cas-server-webapp-tomcat:${casServerVersion}@war"
 }

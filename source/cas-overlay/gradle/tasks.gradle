@@ -21,8 +21,8 @@ buildscript {
     
     dependencies {
         classpath "org.apache.ivy:ivy:${project.ivyVersion}"
-        classpath "org.apereo.cas:cas-server-core-api-configuration-model:${project.'cas.version'}"
-        classpath "org.apereo.cas:cas-server-core-configuration-metadata-repository:${project.'cas.version'}"
+        classpath "org.apereo.cas:cas-server-core-api-configuration-model:${casServerVersion}"
+        classpath "org.apereo.cas:cas-server-core-configuration-metadata-repository:${casServerVersion}"
     }
 }
 

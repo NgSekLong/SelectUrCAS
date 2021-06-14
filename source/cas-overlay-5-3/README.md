@@ -21,8 +21,8 @@ CAS modules may be specified under the `dependencies` block of the [CAS subproje
 
 ```gradle
 dependencies {
-    implementation "org.apereo.cas:cas-server-webapp-tomcat:${project.'cas.version'}@war"
-    implementation "org.apereo.cas:cas-server-some-module:${project.'cas.version'}"
+    implementation "org.apereo.cas:cas-server-webapp-tomcat:${casServerVersion}@war"
+    implementation "org.apereo.cas:cas-server-some-module:${casServerVersion}"
     ...
 }
 ```

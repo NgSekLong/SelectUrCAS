@@ -19,6 +19,6 @@ task wrapper(type: Wrapper, description: "Update the Gradle wrapper") {
 
 task casVersion() {
     doFirst {
-        println "${project.'cas.version'}"
+        println "${casServerVersion}"
     }
 }

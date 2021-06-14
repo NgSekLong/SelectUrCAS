@@ -1,1 +1,1 @@
-implementation "org.apereo.cas:cas-server-webapp-config-server:${project.'cas.version'}"
+implementation "org.apereo.cas:cas-server-webapp-config-server:${casServerVersion}"

@@ -1,1 +1,1 @@
-implementation "org.apereo.cas:cas-server-support-generic:${project.'cas.version'}"
+implementation "org.apereo.cas:cas-server-support-generic:${casServerVersion}"

@@ -1,2 +1,2 @@
-implementation "org.apereo.cas:cas-server-support-u2f:${project.'cas.version'}"
-implementation "org.apereo.cas:cas-server-support-u2f-jpa:${project.'cas.version'}"
+implementation "org.apereo.cas:cas-server-support-u2f:${casServerVersion}"
+implementation "org.apereo.cas:cas-server-support-u2f-jpa:${casServerVersion}"
