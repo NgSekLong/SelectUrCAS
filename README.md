@@ -32,7 +32,7 @@ Need to install the following
 5. Paste it in the root directory of this repository
 7. Execute script and wait for everything components ready
 8. Read the documentation for each components, for how to use them
-8. If you want just test authentication, go to `http://cas.example.org:8443/cas`
+8. If you want just test authentication, go to `https://cas.example.org:8443/cas`
 9. Start to play with your deployment!
 
 ## Troubleshoot

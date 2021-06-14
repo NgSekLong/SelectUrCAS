@@ -1,10 +1,15 @@
 #!/bin/bash
 
-image_tag=(`cat gradle.properties | grep "cas.version" | cut -d= -f2`)
+imageTag="$1"
 
-echo "Building CAS docker image tagged as [$image_tag]"
+if [ -z "$imageTag" ]; then
+  version=(`cat gradle.properties | grep "cas.version" | cut -d= -f2`)
+  imageTag="v$version" 
+fi
+
+echo "Building CAS docker image tagged as [$imageTag]"
 # read -p "Press [Enter] to continue..." any_key;
 
-docker build --tag="org.apereo.cas/cas:$image_tag" . \
-  && echo "Built CAS image successfully tagged as org.apereo.cas/cas:$image_tag" \
-  && docker images "org.apereo.cas/cas:$image_tag"
+docker build --tag="apereo/cas:$imageTag" . \
+  && echo "Built CAS image successfully tagged as apereo/cas:$imageTag" \
+  && docker images "apereo/cas:$imageTag"

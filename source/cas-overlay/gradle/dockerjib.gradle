@@ -17,11 +17,11 @@ jib {
             username = "*******"
             password = "*******"
         }
-        tags = [casServerVersion]
         */
+        tags = ["v" + casServerVersion]
     }
     container {
-        useCurrentTimestamp = true
+        creationTime = "USE_CURRENT_TIMESTAMP"
         entrypoint = ['docker/entrypoint.sh']
         ports = ['80', '443', '8080', '8443']
         labels = [version:casServerVersion, name:project.name, group:project.group]

@@ -5,7 +5,7 @@ Generic CAS WAR overlay to exercise the latest versions of CAS. This overlay cou
 
 # Versions
 
-- CAS `6.2.x`
+- CAS `6.3.x`
 - JDK `11`
 
 # Overview
@@ -63,7 +63,7 @@ CAS modules may be specified under the `dependencies` block of the [Gradle build
 
 ```gradle
 dependencies {
-    compile "org.apereo.cas:cas-server-some-module:${project.casVersion}"
+    implmentation "org.apereo.cas:cas-server-some-module:${project.casVersion}"
     ...
 }
 ```
@@ -73,6 +73,8 @@ To collect the list of all project modules and dependencies:
 ```bash
 ./gradlew[.bat] allDependencies
 ```
+
+You could also add modules and dependencies dynamically on the fly using the `casModules` project property. For example, to include support for OpenID Connect and Duo Security, you could invoke the build using `-PcasModules=oidc,duo` and have it auto-include modules that provide requested functionality. Needless, to say, you will need to know the module name beforehand.
 
 ### Clear Gradle Cache
 

@@ -9,7 +9,7 @@ logging.level.org.apereo.cas: DEBUG
 cas.authn.accept.users:
 
 # Default JSON location
-cas.serviceRegistry.json.location: file://${SERVICES_PATH}/
+cas.service-registry.json.location: file://${SERVICES_PATH}/
 
 # Signing & Encryption keys:
 cas.tgc.crypto.signing.key: Oflx211XF0NDoS-v9gr4GwOvmw_cxuOhHaRKZMJEDrdewGM4_itoLujVnyOqyVsG1-nwEY8rkLEACzHjmCsg-A
