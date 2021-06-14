@@ -1,5 +1,5 @@
 cas.authn.radius:
   server.protocol: MSCHAPv2
-  client.sharedSecret: ThisIsASecretForFreeradius
+  client.shared-Secret: ThisIsASecretForFreeradius
   client.inetAddress: ${AUTHENTICATION_FREERADIUS}
   
