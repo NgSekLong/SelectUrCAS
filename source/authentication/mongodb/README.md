@@ -15,4 +15,4 @@ Steps to inside MongoDB to have a look at your user data:
 > db.users.find({}).pretty();
 
 
-Documentation: https://apereo.github.io/cas/6.1.x/installation/MongoDb-Authentication.html
+Documentation: https://apereo.github.io/cas/6.3.x/installation/MongoDb-Authentication.html
