@@ -1,1 +1,1 @@
-compile "org.apereo.cas:cas-server-support-mongo-ticket-registry:${project.'cas.version'}"
+implementation "org.apereo.cas:cas-server-support-mongo-ticket-registry:${project.'cas.version'}"

@@ -53,7 +53,7 @@ repositories {
 
 // DO NOT ENABLED THIS
 // dependencies {
-//     compile "org.apereo.cas:cas-server-webapp-tomcat:${project.'cas.version'}@war"
+//     implementation "org.apereo.cas:cas-server-webapp-tomcat:${project.'cas.version'}@war"
 //     if (!project.hasProperty('bootiful')) {
 //         // Other dependencies may be listed here...
 //     } else {
@@ -116,5 +116,5 @@ task debug(group: "build", description: "Debug the CAS web application in embedd
 
 
 dependencies {
-    compile "org.apereo.cas:cas-server-webapp-tomcat:${project.'cas.version'}@war"
+    implementation "org.apereo.cas:cas-server-webapp-tomcat:${project.'cas.version'}@war"
 }

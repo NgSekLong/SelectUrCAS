@@ -1,4 +1,4 @@
-compile "org.apereo.cas:cas-server-support-radius:${project.'cas.version'}"
+implementation "org.apereo.cas:cas-server-support-radius:${project.'cas.version'}"
 // The below is needed due to a bug in CAS
-compile "org.apereo.cas:cas-server-support-simple-mfa:${project.'cas.version'}"
+implementation "org.apereo.cas:cas-server-support-simple-mfa:${project.'cas.version'}"
 
