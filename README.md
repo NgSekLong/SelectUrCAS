@@ -14,7 +14,7 @@ Empowered by **Docker**, **Select Ur CAS** is very flexible in term of what can 
 
 Note that:
 - **Select Ur CAS** is not associated to Apereo, just an project from a user of CAS :)
-- **Select Ur CAS** is components are usually not build secure, you should not relies on this project for secure standard
+- **Select Ur CAS** is components are usually not build secure (While I tried my best in making it as secure as possible), you should probably not relies on this project for secure standard...
 
 ## Prerequisite
 
@@ -37,7 +37,9 @@ Need to install the following
 
 ## Troubleshoot
 
-1. Having trouble start up your system because of Tomcat listening problem? 
+1. Why is my browser showing cert is already expired and not valid?
+    - We are using self-sign cert to reduce the complexity of the demo, you can either add this cert to your trusted certification or just accept the risk before testing.
+2. Having trouble start up your system because of Tomcat listening problem? 
     - then you might already have ports exposed in this machine, turning them off will solve this issue
     - In normal mechaism, you need to reserved port `8443` and `80` for **Select Ur CAS** project
     - A number of other ports might also need to be reserved depends on components selected, check the *READMD.md* for for each project for ports!
