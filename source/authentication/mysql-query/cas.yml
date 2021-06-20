@@ -1,9 +1,9 @@
 cas.authn.jdbc.query: 
   - user: root
     password: ThisIsThePasswordForRoot
-    driverClass: com.mysql.cj.jdbc.Driver
+    driver-class: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${AUTHENTICATION_MYSQL_QUERY}/${AUTHENTICATION_MYSQL_QUERY}
     sql: SELECT * FROM USERS WHERE uid=?
-    fieldPassword: psw
+    field-password: psw
     #No password encoding
-    passwordEncoder.type: NONE
+    password-encoder.type: NONE
