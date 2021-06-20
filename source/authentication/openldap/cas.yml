@@ -1,11 +1,11 @@
 
 cas.authn.ldap:
-  - ldapUrl: ldap://${AUTHENTICATION_OPENLDAP}/cn=admin%2Cdc=example%2Cdc=org
-    bindDn: cn=admin,dc=example,dc=org
-    bindCredential: admin
+  - ldap-url: ldap://${AUTHENTICATION_OPENLDAP}/cn=admin%2Cdc=example%2Cdc=org
+    bind-dn: cn=admin,dc=example,dc=org
+    bind-credential: admin
     type: DIRECT
-    baseDn: dc=example,dc=org
-    dnFormat: uid=%s,dc=example,dc=org
-    searchFilter: uid={user}
+    base-dn: dc=example,dc=org
+    dn-format: uid=%s,dc=example,dc=org
+    search-filter: uid={user}
     # Temp false to test
-    useSsl: false
+    use-ssl: false

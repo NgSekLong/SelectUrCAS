@@ -8,4 +8,7 @@ If you have enabled `phpldapadmin` as well, you can use the following admin acco
 - Login DN: cn=admin,dc=example,dc=org
 - Password: admin
 
-Documentation: https://apereo.github.io/cas/6.1.x/installation/LDAP-Authentication.html
+Known issue of this demo:
+- Not able to show attributes from other sources
+
+Documentation: https://apereo.github.io/cas/6.3.x/installation/LDAP-Authentication.html
