@@ -16,6 +16,10 @@ buildscript {
             url "https://plugins.gradle.org/m2/" 
             mavenContent { releasesOnly() }
         }
+        // For Radius Authetication
+        maven { url "https://jitpack.io" }
+        // For Radius Authetication
+        maven { url "https://maven.repository.redhat.com/ga/" }
     }
     dependencies {
         classpath "de.undercouch:gradle-download-task:${project.gradleDownloadTaskVersion}"
@@ -50,6 +54,10 @@ repositories {
         mavenContent { snapshotsOnly() }
         url "https://oss.jfrog.org/artifactory/oss-snapshot-local" 
     }
+    // For Radius Authetication
+    maven { url "https://jitpack.io" }
+    // For Radius Authetication
+    maven { url "https://maven.repository.redhat.com/ga/" }
 }
 
 def casServerVersion = project.'cas.version'
