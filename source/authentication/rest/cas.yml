@@ -1,5 +1,2 @@
-# cas.authn.rest.uri=https://...
-# cas.authn.rest.name=
-# cas.authn.rest.charset=US-ASCII
 cas.authn.rest: 
   uri: http://${AUTHENTICATION_REST}
