@@ -1,6 +1,9 @@
 {
-  "casuser": {
-      "attributeRetriveFrom":["json"],
-      "coolSystemYouGotThere":["thanks"]
-  }
+  "casuser": { "attributeRetriveFrom":["json"], "jsonUsernameRetrived": ["casuser"], "coolSystemYouGotThere":["thanks"] },
+  "freeradius": { "attributeRetriveFrom":["json"], "jsonUsernameRetrived": ["freeradius"], "coolSystemYouGotThere":["thanks"] },
+  "json-whitelist": { "attributeRetriveFrom":["json"], "jsonUsernameRetrived": ["json-whitelist"], "coolSystemYouGotThere":["thanks"] },
+  "mongodb": { "attributeRetriveFrom":["json"], "jsonUsernameRetrived": ["mongodb"], "coolSystemYouGotThere":["thanks"] },
+  "mysql-query": { "attributeRetriveFrom":["json"], "jsonUsernameRetrived": ["mysql-query"], "coolSystemYouGotThere":["thanks"] },
+  "openldap": { "attributeRetriveFrom":["json"], "jsonUsernameRetrived": ["openldap"], "coolSystemYouGotThere":["thanks"] },
+  "rest": { "attributeRetriveFrom":["json"], "jsonUsernameRetrived": ["rest"], "coolSystemYouGotThere":["thanks"] }
 }

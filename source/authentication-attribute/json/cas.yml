@@ -1,2 +1,2 @@
-cas.authn.attributeRepository.json:
+cas.authn.attribute-repository.json:
   - location: file://${RESOURCE_PATH}/${AUTHENTICATION_ATTRIBUTE_JSON_PATH}/attribute.json
