@@ -15,5 +15,7 @@ RUN composer require jasig/phpcas
 #     --single-branch --branch 1.4.0 https://github.com/apereo/phpCAS.git .
 
 COPY cas_public.crt /etc/cert.crt
+# Make sure cert can be read
+RUN chmod 744 /etc/cert.crt
 
 COPY index.php login.php logout.php ./
