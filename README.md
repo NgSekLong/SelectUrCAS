@@ -47,17 +47,24 @@ Need to install the following
 
 The keystore can be generated with this
 
-> keytool -genkeypair -alias cas -keyalg RSA -keypass changeit -storepass changeit -keystore /etc/cas/thekeystore  -dname CN=cas.example.org,OU=Example,OU=Org,C=US -ext SAN=dns:example.org,dns:localhost,ip:127.0.0.1 -validity 3600
+> keytool -genkeypair -alias cas -keyalg RSA -keypass changeit -storepass changeit -keystore /etc/cas/thekeystore  -dname CN=cas.example.org,OU=Example,OU=Org,C=US -ext SAN=dns:cas.example.org,dns:localhost,ip:127.0.0.1 -validity 3600
 
 
 The P12 keystore can be generated with this:
 
-> keytool -importkeystore -srckeystore /etc/cas/thekeystore  -destkeystore /etc/cas/keystore.p12 -deststoretype PKCS12 -srcalias cas -srcstorepass changeit -deststorepass changeit  -destkeypass changeit
+> keytool -importkeystore -srckeystore /etc/cas/thekeystore  -destkeystore /etc/cas/keystore.p12 -deststoretype PKCS12 -srcalias cas -srcstorepass changeit -deststorepass changeit  -destkeypass changeit 
 
+The PEM public cert can be  generated with this:
 
 > openssl pkcs12 -in /etc/cas/keystore.p12 -passin pass:changeit  -nokeys -out /etc/cas/cas_public.crt
 
-The PEM private pert can be  generated with this:
+The PEM CA cert can be  generated with this:
+
+> openssl pkcs12 -in /etc/cas/keystore.p12 -passin pass:changeit -cacerts -chain -nokeys -out /etc/cas/cas_ca_public.crt
+
+# openssl pkcs12 -in /etc/cas/keystore.p12 -cacerts -nokeys -chain
+
+The PEM private cert can be  generated with this:
 
 > openssl pkcs12 -in /etc/cas/keystore.p12 -passin pass:changeit -nodes -nocerts -out /etc/cas/cas_private.pem
 
