@@ -36,6 +36,25 @@
           <h2 class="text-center">Modauthcas: Authentication is success!</h2>
           <h4 class="text-center">User:</h4>
           <pre><?= $_SERVER['REMOTE_USER'] ?></pre>
+
+
+        <h4 class="text-center">Attributes:</h4>
+
+          <?php
+            echo "<pre>";
+
+            $headers = $_SERVER;
+            foreach ($headers as $key => $value) {
+                if (strpos($key, 'HTTP_CAS_') === 0) {
+                    echo substr(strtolower($key), 9) . " = " . $value . "<br>";
+                }
+            }
+
+            echo "</pre>";
+        ?>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Log out</button>
+        </div>   
       </form>
 </div>
 </body>

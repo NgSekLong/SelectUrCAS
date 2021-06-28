@@ -1,5 +1,7 @@
 ## mod_auth_cas client
 
-Work in process...
+Access client by:
+- http://cas.example.org:56565
+- Click Login
 
-http://cas.example.org:56565/
+Documentation: https://github.com/apereo/mod_auth_cas

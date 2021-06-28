@@ -27,6 +27,7 @@ RUN a2enmod auth_cas
 
 # Copy in the cert
 COPY cas_public.crt /etc/cert.crt
+RUN chmod 744 /etc/cert.crt
 
 
 

@@ -21,7 +21,7 @@ services:
         read_only: true
       - type: bind
         source: ${CAS_CLIENT_MODAUTHCAS_PATH:-.}/logout.php
-        target: /var/www/html/logout.php
+        target: /var/www/html/access-after-login/logout.php
         read_only: true
       - type: bind
         source: ${CAS_CLIENT_MODAUTHCAS_PATH:-.}/cas.conf
