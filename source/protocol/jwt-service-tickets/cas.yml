@@ -1,2 +1,2 @@
-cas.authn.token.crypto.encryptionEnabled: true
-cas.authn.token.crypto.signingEnabled: true
+cas.authn.token.crypto.encryption-enabled: true
+cas.authn.token.crypto.signing-enabled: true

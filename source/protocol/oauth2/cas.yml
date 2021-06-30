@@ -1,5 +1,5 @@
 cas.authn.oauth:
-  accessToken.crypto:
+  access-token.crypto:
     encryption.key: JzJ51l362rOPDZLwhtRY3p0SJUUx5sf8ZEDAKDIkdeY
     signing.key: 8PdeTwu4j0thSopZgFvg-oa5GR8GBTzzcmiIMo7Vh0EmoVdWK5yRw4U7bWyOFdI53CU0exVZQCtQlLwMWaJ_og
   crypto:
