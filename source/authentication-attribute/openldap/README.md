@@ -7,4 +7,6 @@ If you have enabled `phpldapadmin` as well, you can use the following admin acco
 - Login DN: cn=admin,dc=example,dc=org
 - Password: admin
 
-Documentation: https://apereo.github.io/cas/6.1.x/configuration/Configuration-Properties.html#ldap
+Note: This Authentication Attribute is only availabel for `casuser` and `openldap` user as of now.
+
+Documentation: https://apereo.github.io/cas/6.3.x/configuration/Configuration-Properties.html#ldap
