@@ -13,12 +13,12 @@ services:
         target: /etc/nginx/nginx.conf
         read_only: true
       - type: bind
-        source: ${HELPER_NGINX_LOAD_BALANCER_PATH:-.}/cert.pem
-        target: /etc/nginx/cert.pem
+        source: ${HELPER_NGINX_LOAD_BALANCER_PATH:-.}/cas_public.crt
+        target: /etc/nginx/cas_public.crt
         read_only: true
       - type: bind
-        source: ${HELPER_NGINX_LOAD_BALANCER_PATH:-.}/private_key.pem
-        target: /etc/nginx/private_key.pem
+        source: ${HELPER_NGINX_LOAD_BALANCER_PATH:-.}/cas_private.pem
+        target: /etc/nginx/cas_private.pem
         read_only: true
     hostname: cas.example.org
     networks:
