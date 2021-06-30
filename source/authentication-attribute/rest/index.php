@@ -6,7 +6,7 @@ $username = $_GET['username'];
 $data = [
     "attributeRetriveFrom" => "rest",
     "restUsernameRetrived" => $username,
-    "someArray" => [1,2,3],
-    "singleArray" => ["hey"],
+    "restArrayAttributes" => [1,2,3],
+    "restSingleArrayAttributes" => ["hey"],
 ];
 echo json_encode($data);

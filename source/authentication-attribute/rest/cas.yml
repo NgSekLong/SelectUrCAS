@@ -1,8 +1,5 @@
 
-cas.authn.attributeRepository.rest: 
+cas.authn.attribute-repository.rest: 
   - method: GET
-    caseInsensitive: false
-    url: http://AUTHENTICATION_ATTRIBUTE_REST
-
-# Disabling the attribute properties caching for ease of testing
-cas.authn.attributeRepository.expirationTime: 0
+    case-insensitive: false
+    url: http://${AUTHENTICATION_ATTRIBUTE_REST}
