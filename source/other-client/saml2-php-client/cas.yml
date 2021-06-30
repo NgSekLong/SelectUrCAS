@@ -1,1 +1,1 @@
-cas.authn.samlIdp.logout.forceSignedLogoutRequests: false
+cas.authn.saml-idp.logout.force-signed-logout-requests: false

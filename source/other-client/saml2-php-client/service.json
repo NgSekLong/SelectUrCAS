@@ -4,5 +4,12 @@
   "name": "SAML2 client - SimpleSAMLphp",
   "id": 300,
   "evaluationOrder" : 300,
-  "metadataLocation" : "file:///etc/cas/resources/simplesamlphp-sp.xml"
+  "metadataLocation" : "file:///etc/cas/resources/simplesamlphp-sp.xml",
+  "attributeReleasePolicy" : {
+    "@class" : "org.apereo.cas.services.ReturnAllAttributeReleasePolicy",
+    "principalAttributesRepository" : {
+      "@class" : "org.apereo.cas.authentication.principal.DefaultPrincipalAttributesRepository",
+      "attributeRepositoryIds": ["java.util.HashSet", [ "*" ]]
+    }
+  }
 }
