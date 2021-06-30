@@ -5,5 +5,12 @@
   "serviceId" : "^https://cas.example.org:54545/.*",
   "name": "OIDC",
   "id": 200,
-  "evaluationOrder" : 200
+  "evaluationOrder" : 200,
+  "attributeReleasePolicy" : {
+    "@class" : "org.apereo.cas.services.ReturnAllAttributeReleasePolicy",
+    "principalAttributesRepository" : {
+      "@class" : "org.apereo.cas.authentication.principal.DefaultPrincipalAttributesRepository",
+      "attributeRepositoryIds": ["java.util.HashSet", [ "*" ]]
+    }
+  }
 }
