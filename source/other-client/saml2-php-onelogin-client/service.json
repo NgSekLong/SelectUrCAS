@@ -1,8 +1,0 @@
-{
-  "@class" : "org.apereo.cas.support.saml.services.SamlRegisteredService",
-  "serviceId" : "^https://cas.example.org:60000/.*",
-  "name": "SAML2 client - OneLogin",
-  "id": 400,
-  "evaluationOrder" : 400,
-  "metadataLocation" : "file:///etc/cas/resources/onelogin-sp.xml"
-}
