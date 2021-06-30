@@ -12,6 +12,7 @@ RUN a2enmod ssl
 
 # import self-signed cert into trusted
 COPY cas_public.crt /usr/local/share/ca-certificates/
+RUN chmod 744 /usr/local/share/ca-certificates/cas_public.crt
 RUN update-ca-certificates
 
 
