@@ -1,20 +1,20 @@
 cas.authn.jdbc.query: 
   - user: root
     password: ThisIsThePasswordForRoot
-    driverClass: com.mysql.cj.jdbc.Driver
+    driver-class: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${PROTOCOL_PASSWORD_MANAGEMENT_JDBC}/${PROTOCOL_PASSWORD_MANAGEMENT_JDBC}
     sql: SELECT * FROM pm_table_accounts WHERE userid=?
-    fieldPassword: password
+    field-password: password
     #No password encoding
-    passwordEncoder.type: NONE
+    password-encoder.type: NONE
 
 
 cas.authn.pm:
   enabled: true
   # Allow any password
-  policyPattern: ^.*
-  reset.securityQuestionsEnabled: true
-  autoLogin: true
+  policy-pattern: ^.*
+  reset.security-questions-enabled: true
+  auto-login: true
   reset.mail:
     from: castesting@example.org
     text: CAS Password Management JDBC Path is %s
@@ -22,15 +22,15 @@ cas.authn.pm:
   jdbc: 
     user: root
     password: ThisIsThePasswordForRoot
-    driverClass: com.mysql.cj.jdbc.Driver
+    driver-class: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${PROTOCOL_PASSWORD_MANAGEMENT_JDBC}/${PROTOCOL_PASSWORD_MANAGEMENT_JDBC}
-    sqlSecurityQuestions: SELECT question, answer FROM pm_table_questions WHERE userid=?
+    sql-security-questions: SELECT question, answer FROM pm_table_questions WHERE userid=?
 
-    sqlFindEmail: SELECT email FROM pm_table_accounts WHERE userid=?
+    sql-find-email: SELECT email FROM pm_table_accounts WHERE userid=?
     # Actually no phone setup, so set this to null
-    sqlFindPhone: SELECT NULL FROM pm_table_accounts WHERE userid=?
-    sqlFindUser: SELECT userid FROM pm_table_accounts WHERE email=?
-    sqlChangePassword: UPDATE pm_table_accounts SET password=? WHERE userid=?
+    sql-find-phone: SELECT NULL FROM pm_table_accounts WHERE userid=?
+    sql-find-user: SELECT userid FROM pm_table_accounts WHERE email=?
+    sql-change-password: UPDATE pm_table_accounts SET password=? WHERE userid=?
     autocommit: true
     #No password encoding
-    passwordEncoder.type: NONE
+    password-encoder.type: NONE

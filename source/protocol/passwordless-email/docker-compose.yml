@@ -11,4 +11,5 @@ services:
         target: ${BUILD_GRADLE_DEPENDENCIES_PATH:-.}/${PROTOCOL_PASSWORDLESS_EMAIL_PATH:-.}/build.gradle
         read_only: true
     environment:
-      SENT_TO_EMAIL: fvz88112@eveav.com
+      SENT_TO_EMAIL: kzzf1m4f.vx3@kjjit.eu
+

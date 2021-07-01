@@ -6,3 +6,5 @@ Passwordless authenticaiton using email:
 2. Go to https://cas.example.org:8443/cas/login, type in `casuser` and enter
 3. Refresh https://10minutemail.net/, until email was receive
 4. Use the code received from last step to login to CAS
+
+Documentation: https://apereo.github.io/cas/6.3.x/installation/Passwordless-Authentication.html#passwordless-authentication

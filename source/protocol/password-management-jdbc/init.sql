@@ -19,8 +19,8 @@ CREATE TABLE pm_table_questions (
 
 INSERT INTO pm_table_accounts (userid, password, email)
 VALUES 
-  ('casuser', 'Mellon', 'sxp30825@eveav.com'),
-  ('password-management-jdbc', 'Mellon', 'sxp30825@eveav.com');
+  ('casuser', 'Mellon', 'gfc81295@cuoly.com'),
+  ('password-management-jdbc', 'Mellon', 'gfc81295@cuoly.com');
 
 
 
