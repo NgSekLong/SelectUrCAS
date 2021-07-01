@@ -5,5 +5,12 @@
   "serviceId" : "^https://cas.example.org:57575/.*",
   "name": "OAuth client",
   "id": 100,
-  "evaluationOrder" : 100
+  "evaluationOrder" : 100,
+  "attributeReleasePolicy" : {
+    "@class" : "org.apereo.cas.services.ReturnAllAttributeReleasePolicy",
+    "principalAttributesRepository" : {
+      "@class" : "org.apereo.cas.authentication.principal.DefaultPrincipalAttributesRepository",
+      "attributeRepositoryIds": ["java.util.HashSet", [ "*" ]]
+    }
+  }
 }
