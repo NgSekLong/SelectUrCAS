@@ -30,14 +30,14 @@ Need to install the following
 ## Setup
 
 1. Open `gen-my-cas.html` using a Chrome browser (Firefox, Safari and other browser currently would not work)
-2. Select the CAS components that you want to include in your stack (e.g. *MySQL Authentication* + *JSON Service Registry* + ...)
+2. Select the CAS components that you want to include in your stack (e.g. *MySQL Authentication* + *Redis Ticket Registry* +*OAuth 2 protocol client* + ...)
 3. Copy the docker command generated
-4. Add `127.0.0.1 cas.example.org` into your host file
-5. Paste it in the root directory of this repository
-7. Execute script and wait for everything components ready
-8. Read the documentation for each components, for how to use them
-8. If you want just test authentication, go to `https://cas.example.org:8443/cas`
-9. Start to play with your deployment!
+4. Paste it in the root directory of this repository
+5. Execute script and wait for everything components ready
+6. Add `127.0.0.1 cas.example.org` into your host file
+7. Read the documentation for each components in the `gen-my-cas.html` page, they contains testing credential, initialize URL, documentation and other useful info 
+  - If you want just test basic authentication, go to `https://cas.example.org:8443/cas/login`
+8. Start to play with your deployment!
 
 ## Troubleshoot
 
