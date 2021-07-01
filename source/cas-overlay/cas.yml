@@ -6,7 +6,7 @@ cas.server.prefix: ${cas.server.name}/cas
 logging.level.org.apereo.cas: DEBUG
 
 # Remove default user
-cas.authn.accept.users:
+# cas.authn.accept.users:
 
 # Default JSON location
 cas.service-registry.json.location: file://${SERVICES_PATH}/
