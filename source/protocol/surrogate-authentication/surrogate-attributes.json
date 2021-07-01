@@ -1,11 +1,14 @@
 {
+    "surrogate-admin": {
+        "name":["Surrogate Admin"]
+    },
     "surrogate-user": {
         "name":["Surrogate User"]
     },
     "surrogate-user2": {
         "name":["Surrogate User2"]
     },
-    "surrogate-admin": {
-        "name":["Surrogate Admin"]
+    "casuser": {
+        "name":["CAS User"]
     }
 }

@@ -6,6 +6,6 @@ Authenticate on behave of another person.
 2. Login using the following 2 methods:
     - GUI mode: `+surrogate-admin` as , `Mellon` as password. Then select your surrogate target.
     - preselection mode: `surrogate-admin+surrogate-user` as username, `Mellon` as password.
-3. You should be logined using surrogately
+3. You should be logined to another account using your `surrogate-admin` account
 
-Documentation: https://apereo.github.io/cas/6.1.x/installation/Surrogate-Authentication.html
+Documentation: https://apereo.github.io/cas/6.3.x/installation/Surrogate-Authentication.html
