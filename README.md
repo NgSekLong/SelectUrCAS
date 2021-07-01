@@ -66,8 +66,6 @@ The PEM CA cert can be  generated with this:
 
 > openssl pkcs12 -in /etc/cas/keystore.p12 -passin pass:changeit -cacerts -chain -nokeys -out /etc/cas/cas_ca_public.crt
 
-# openssl pkcs12 -in /etc/cas/keystore.p12 -cacerts -nokeys -chain
-
 The PEM private cert can be  generated with this:
 
 > openssl pkcs12 -in /etc/cas/keystore.p12 -passin pass:changeit -nodes -nocerts -out /etc/cas/cas_private.pem
