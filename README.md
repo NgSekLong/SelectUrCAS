@@ -10,11 +10,15 @@ While being incredibly well documented, CAS does seems daunting for starter.
 
 **Select Ur CAS** is a project aims to provide a customizable full stack CAS example, so you can have a solid example to work on top of when you start your project.
 
+Here's an architecture diagram to show the possibilty of **Select Ur CAS**:
+
+![image](https://drive.google.com/uc?export=view&id=1yBlWbs5DaRJUHpktIEy6qOiLwADE_J21)
+
 Empowered by **Docker**, **Select Ur CAS** is very flexible in term of what can be mix and matched together.
 
 Note that:
 - **Select Ur CAS** is not associated to Apereo, just an project from a user of CAS :)
-- **Select Ur CAS** is components are usually not build secure (While I tried my best in making it as secure as possible), you should probably not relies on this project for secure standard...
+- **Select Ur CAS** is components might not always follow secure best practice for ease of demo (While I tried my best in making it as secure as possible), you should probably not relies on this project for secure standard...
 
 ## Prerequisite
 
@@ -37,11 +41,11 @@ Need to install the following
 
 ## Troubleshoot
 
-1. Why is my browser showing cert is already expired and not valid?
+1. Why is my browser showing cert is not valid or already expired?
     - We are using self-sign cert to reduce the complexity of the demo, you can either add this cert to your trusted certification or just accept the risk before testing.
 2. Having trouble start up your system because of Tomcat listening problem? 
     - then you might already have ports exposed in this machine, turning them off will solve this issue
-    - In normal mechaism, you need to reserved port `8443` and `80` for **Select Ur CAS** project
+    - In normal mechaism, you need to reserved at least port `8443` and `80` for **Select Ur CAS** project
     - A number of other ports might also need to be reserved depends on components selected, check the *READMD.md* for for each project for ports!
 3. The keystore is expired / I want to use a different keystore!
 
@@ -93,6 +97,7 @@ The PEM private cert can be  generated with this:
 
 - MongoDB Ticket registry
 - Hazelcast Ticket registry
+- Redis Ticket registry
 
 - Json Service Storage
 
