@@ -1,5 +1,5 @@
 ## No Ticket Registry
 
-Select this means your CAS is only one single node, 
+Select this means your CAS is only one single node without ticket registry
 
-and ticket will gone after CAS server restart
+Ticket will gone after CAS server restart
