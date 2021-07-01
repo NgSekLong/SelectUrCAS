@@ -1,14 +1,14 @@
 # Select Ur CAS
 
-*This project assume you already know about CAS https://github.com/apereo/cas*
+*This project assume you already know about Apereo CAS https://github.com/apereo/cas*
 
 ## Introduction
 
-A common question for starter of CAS usually is something like this: "How can I use `XXXXX` authentication, with an `XXXXX` technology cluster, and with `XXXXX` technology enabled?" 
+A common question for starter of CAS usually is something like this: "How can I use `XXXXX` authentication, with an `XXXXX` ticket registry cluster, and with `XXXXX` protocol enabled?" 
 
-While being incredibly well documented, CAS does seems daunting for starter. 
+This shows that CAS while being incredibly powerful and well documented, it is definitely daunting for beginners. This project, **Select Ur CAS** is a project aims to tackle this issue.
 
-**Select Ur CAS** is a project aims to provide a customizable full stack CAS example, so you can have a solid example to work on top of when you start your project.
+**Select Ur CAS** is a project aims to provide a customizable full stack CAS example, so you can have a solid example to work on top of when you start building your own CAS server.
 
 Here's an architecture diagram to show the possibilty of **Select Ur CAS**:
 
@@ -29,7 +29,7 @@ Need to install the following
 
 ## Setup
 
-1. Open `gen-my-cas.html` using a Chrome browser (Firefox and other would not work)
+1. Open `gen-my-cas.html` using a Chrome browser (Firefox, Safari and other browser currently would not work)
 2. Select the CAS components that you want to include in your stack (e.g. *MySQL Authentication* + *JSON Service Registry* + ...)
 3. Copy the docker command generated
 4. Add `127.0.0.1 cas.example.org` into your host file
