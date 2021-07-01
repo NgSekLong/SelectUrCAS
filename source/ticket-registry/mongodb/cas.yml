@@ -1,7 +1,7 @@
 cas.ticket.registry.mongo:
   host: ${TICKET_REGISTRY_MONGODB}
-  userId: root
+  user-id: root
   password: ThisIsThePasswordForRoot
-  databaseName: ${TICKET_REGISTRY_MONGODB}
-  authenticationDatabaseName: admin
+  database-name: ${TICKET_REGISTRY_MONGODB}
+  authentication-database-name: admin
   #crypto.signing.key: 0YZzulrCTZdwV0qW9MSgl0f1mty3YffqBSb8eyCVR4w
