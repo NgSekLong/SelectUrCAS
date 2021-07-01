@@ -17,10 +17,6 @@ services:
         target: /var/www/html/index.php
         read_only: true
       - type: bind
-        source: ${OTHER_CLIENT_OIDC_PHP_CLIENT_PATH:-.}/login.php
-        target: /var/www/html/login.php
-        read_only: true
-      - type: bind
         source: ${OTHER_CLIENT_OIDC_PHP_CLIENT_PATH:-.}/cas_private.pem
         # This is the default for Apache, don't change it
         target: /etc/ssl/private/ssl-cert-snakeoil.key 
