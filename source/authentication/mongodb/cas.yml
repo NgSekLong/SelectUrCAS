@@ -4,6 +4,6 @@ cas.authn.mongo:
   password: ThisIsThePasswordForRoot
   database-name: ${AUTHENTICATION_MONGODB}
   authentication-database-name: admin
-  #MongoDB won't work if there are no attributes as of CAS 6.1.1 ... probably is a bug
+  #MongoDB won't work if there are no attributes as of CAS 6.x ... probably is a bug
   #Since don't want to add additional attributes, I am using `_id` as the attribute :D
   attributes: _id

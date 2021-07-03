@@ -1,19 +1,3 @@
-# FROM adoptopenjdk/openjdk11:alpine-slim AS overlay
-
-# RUN mkdir -p cas-overlay
-# COPY ./src cas-overlay/src/
-# COPY ./gradle/ cas-overlay/gradle/
-# COPY ./gradlew ./settings.gradle ./build.gradle ./gradle.properties /cas-overlay/
-
-# RUN mkdir -p ~/.gradle \
-#     && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties \
-#     && echo "org.gradle.configureondemand=true" >> ~/.gradle/gradle.properties \
-#     && cd cas-overlay \
-#     && chmod 750 ./gradlew \
-#     && ./gradlew --version;
-
-# RUN cd cas-overlay \
-#     && ./gradlew clean build --parallel;
 
 FROM adoptopenjdk/openjdk11:alpine-jre AS cas
 
@@ -34,8 +18,6 @@ RUN mkdir -p ~/.gradle \
     && ./gradlew --version \
     && ./gradlew clean build --parallel;
 
-
-
 LABEL "Organization"="Apereo"
 LABEL "Description"="Apereo CAS"
 
@@ -50,7 +32,6 @@ COPY etc/cas/ /etc/cas/
 COPY etc/cas/config/ /etc/cas/config/
 COPY etc/cas/services/ /etc/cas/services/
 COPY etc/cas/saml/ /etc/cas/saml/
-#COPY --from=overlay cas-overlay/build/libs/cas.war cas-overlay/
 
 EXPOSE 8080 8443
 
@@ -61,5 +42,4 @@ COPY cas_public.crt /etc/cas_public.crt
 RUN keytool -import -trustcacerts -keystore /opt/java/openjdk/lib/security/cacerts  -storepass changeit -noprompt -alias cas -file /etc/cas_public.crt
 
 WORKDIR /cas-overlay
-#ENTRYPOINT ["java", "-server", "-noverify", "-Xmx2048M", "-jar", "cas.war"]
 ENTRYPOINT "/cas-overlay/run-cas.sh"

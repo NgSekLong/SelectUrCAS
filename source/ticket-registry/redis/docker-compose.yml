@@ -17,11 +17,6 @@ services:
     expose:
       - 6379
     command: redis-server --requirepass ThisIsThePasswordForRedis
-    # environment:
-    #   MONGO_INITDB_DATABASE: ${TICKET_REGISTRY_REDIS}
-    #   MONGO_INITDB_ROOT_USERNAME: root
-    #   MONGO_INITDB_ROOT_PASSWORD: ThisIsThePasswordForRoot
-    #   TICKET_REGISTRY_REDIS: ${TICKET_REGISTRY_REDIS}
     hostname: ${TICKET_REGISTRY_REDIS}
     networks:
       default:

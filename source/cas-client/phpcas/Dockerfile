@@ -11,9 +11,6 @@ RUN curl  -sS https://getcomposer.org/installer | php -- --install-dir=/usr/loca
 
 RUN composer require jasig/phpcas
 
-# RUN git clone -c advice.detachedHead=false \
-#     --single-branch --branch 1.4.0 https://github.com/apereo/phpCAS.git .
-
 COPY cas_public.crt /etc/cert.crt
 # Make sure cert can be read
 RUN chmod 744 /etc/cert.crt

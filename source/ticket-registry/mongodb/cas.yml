@@ -4,4 +4,3 @@ cas.ticket.registry.mongo:
   password: ThisIsThePasswordForRoot
   database-name: ${TICKET_REGISTRY_MONGODB}
   authentication-database-name: admin
-  #crypto.signing.key: 0YZzulrCTZdwV0qW9MSgl0f1mty3YffqBSb8eyCVR4w

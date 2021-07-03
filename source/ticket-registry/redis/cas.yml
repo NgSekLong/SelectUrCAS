@@ -1,12 +1,3 @@
 cas.ticket.registry.redis:
   host: ${TICKET_REGISTRY_REDIS}
-  # userId: root
   password: ThisIsThePasswordForRedis
-  # databaseName: ${TICKET_REGISTRY_REDIS}
-  # authenticationDatabaseName: admin
-  #crypto.signing.key: 0YZzulrCTZdwV0qW9MSgl0f1mty3YffqBSb8eyCVR4w
-
-# cas.spring.cloud.dynamodb.preventTableCreationOnStartup: false
-# cas.spring.cloud.dynamodb.credentialSecretKey: xxxxxxx
-# cas.spring.cloud.dynamodb.endpoint: http://localhost:8000
-# cas.spring.cloud.dynamodb.region: US_EAST_1
