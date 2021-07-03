@@ -7,5 +7,3 @@ cas.authn.ldap:
     base-dn: dc=example,dc=org
     dn-format: uid=%s,dc=example,dc=org
     search-filter: uid={user}
-    # Temp false to test
-    use-ssl: false
