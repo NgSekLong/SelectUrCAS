@@ -1,8 +1,8 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 $provider = new \League\OAuth2\Client\Provider\GenericProvider([
-    'clientId'                => 'clientId',    // The client ID assigned to you by the provider
-    'clientSecret'            => 'clientSecret',   // The client password assigned to you by the provider
+    'clientId'                => 'oauthClientId',    // The client ID assigned to you by the provider
+    'clientSecret'            => 'oauthClientSecret',   // The client password assigned to you by the provider
     'redirectUri'             => 'https://cas.example.org:57575/',
     'urlAuthorize'            => 'https://cas.example.org:8443/cas/oauth2.0/authorize',
     'urlAccessToken'          => 'https://cas.example.org:8443/cas/oauth2.0/token',

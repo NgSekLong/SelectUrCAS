@@ -5,8 +5,8 @@ use Jumbojett\OpenIDConnectClient;
 $casDomainname = $_ENV["CAS_DOMAIN_NAME"];
 
 $oidc = new OpenIDConnectClient("https://${casDomainname}:8443/cas/oidc/",
-                                'clientId',
-                                'clientSecret');
+                                'oidcClientId',
+                                'oidcClientSecret');
 $oidc->setVerifyHost(false);
 $oidc->setVerifyPeer(false);                                
 $oidc->setCertPath('/etc/ssl/certs/ssl-cert-snakeoil.pem');
