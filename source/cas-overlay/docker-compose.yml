@@ -5,3 +5,12 @@ services:
     ports:
      - "8443:8443"
      - "8080:8080"
+    volumes: 
+      - type: bind
+        source: ${CAS_OVERLAY_PATH:-.}/cas.yml
+        target: ${CONFIG_PATH:-.}/cas.yml
+        read_only: true
+      - type: bind
+        source: ${CAS_OVERLAY_PATH:-.}/src/main/resources/application.yml
+        target: /cas-overlay/src/main/resources/application.yml
+        read_only: true

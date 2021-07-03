@@ -5,3 +5,4 @@ cas.authn.oauth:
   crypto:
     encryption.key: AfT83_H3kHcOGrM1d7IlMm0puo0lqQDCivdpsShp1Dwi9ghaO4ZF3Hr8vMo6G7tEJAO2b98_Yed16m90kuQahA
     signing.key: UFoquxtMjp6O8zmBJQEKV5PnF1G0XdSl4dfI4K_TKWOCmz_mQz6AETLgMTLfA-FOgpYseGWvxO3g8kynaKHMiw
+  replicate-sessions: true

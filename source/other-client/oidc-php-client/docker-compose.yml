@@ -4,7 +4,7 @@ services:
     volumes:
       - type: bind
         source: ${OTHER_CLIENT_OIDC_PHP_CLIENT_PATH:-.}/service.json
-        target: ${SERVICES_PATH:-.}/${OTHER_CLIENT_OIDC_PHP_CLIENT_NAME}.json
+        target: ${SERVICES_PATH:-.}/${OTHER_CLIENT_OIDC_PHP_CLIENT_NAME}-200.json
         read_only: true
   other_client_oidc_php_client:
     build: ${OTHER_CLIENT_OIDC_PHP_CLIENT_PATH:-.}/.
