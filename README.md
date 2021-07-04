@@ -4,6 +4,8 @@
 
 ## Introduction
 
+**Video Introduction**: https://youtu.be/0c-QbP4igzU
+
 A common question for starter of CAS usually is something like this: "How can I use `XXXXX` authentication, with an `XXXXX` ticket registry cluster, and with `XXXXX` protocol enabled?" 
 
 This shows that CAS while being incredibly powerful and well documented, it is definitely daunting for beginners. This project, **Select Ur CAS** is a project aims to tackle this issue.
