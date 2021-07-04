@@ -1,6 +1,6 @@
 # Select Ur CAS
 
-*This project assume you already know about Apereo CAS https://github.com/apereo/cas*
+*Never heard of Apereo CAS? You can learn more about it here: https://github.com/apereo/cas*
 
 ## Introduction
 
