@@ -10,7 +10,7 @@ A common question for starter of CAS usually is something like this: "How can I 
 
 This shows that CAS while being incredibly powerful and well documented, it is definitely daunting for beginners. This project, **Select Ur CAS** is a project aims to tackle this issue.
 
-**Select Ur CAS** is a project aims to provide a customizable full stack CAS example, so you can have a solid example to work on top of when you start building your own CAS server.
+**Select Ur CAS** is a project aims to provide a customizable full stack CAS example, so you can have a solid example to work on top of when you start building your own CAS server with just a few clicks.
 
 Here's an architecture diagram to show the possibilty of **Select Ur CAS**:
 
